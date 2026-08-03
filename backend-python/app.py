@@ -1,24 +1,61 @@
 from flask import Flask, request, jsonify
-from textblob import TextBlob
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import os
 
 app = Flask(__name__)
+analyzer = SentimentIntensityAnalyzer()
+
+# VADER's built-in lexicon is tuned for general social media text (tweets, comments)
+# and under-weights some words that are extremely common - and extremely telling -
+# in product reviews specifically. This custom lexicon corrects for that gap.
+# Scores follow VADER's own -4 to +4 convention before we normalize.
+DOMAIN_LEXICON = {
+    "defective": -3.0,
+    "faulty": -3.0,
+    "malfunctioning": -3.0,
+    "broken": -2.8,
+    "useless": -2.5,
+    "waste": -2.3,
+    "refund": -1.5,
+    "scam": -3.5,
+    "durable": 2.0,
+    "reliable": 2.0,
+    "flawless": 3.0,
+    "seamless": 2.2,
+}
 
 def classify_sentiment(text):
     """
-    TextBlob gives a 'polarity' score from -1 (very negative) to +1 (very positive).
-    We turn that number into a human label.
-    """
-    polarity = TextBlob(text).sentiment.polarity
+    VADER (Valence Aware Dictionary and sEntiment Reasoner) is tuned specifically
+    for short, informal text - reviews, tweets, comments - which is exactly what
+    customer feedback looks like. Unlike TextBlob, it correctly handles:
+      - negation ("not good" scores negative, not neutral)
+      - intensifiers ("very bad" scores more negative than "bad")
 
-    if polarity > 0.1:
+    We then layer in DOMAIN_LEXICON: VADER's general lexicon still misses some
+    product-review-specific words (e.g. "defective"), so we feed those words into
+    VADER's own lexicon dictionary before scoring - this is the officially
+    supported way to extend VADER, not a hack.
+
+    polarity_scores() returns a dict with neg/neu/pos/compound.
+    'compound' is a single normalized score from -1 to +1 - the one we use.
+    """
+    scores = analyzer.polarity_scores(text)
+    polarity = scores["compound"]
+
+    if polarity > 0.05:
         sentiment = "Positive"
-    elif polarity < -0.1:
+    elif polarity < -0.05:
         sentiment = "Negative"
     else:
         sentiment = "Neutral"
 
     return sentiment, polarity
+
+
+# Register the domain words directly into VADER's lexicon at startup,
+# so they're considered alongside VADER's ~7,500 built-in words on every call.
+analyzer.lexicon.update(DOMAIN_LEXICON)
 
 
 def tag_aspect(text):

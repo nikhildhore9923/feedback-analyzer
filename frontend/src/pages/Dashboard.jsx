@@ -9,11 +9,16 @@ const SENTIMENT_COLORS = {
 }
 
 function timeAgo(timestamp) {
-  const diff = Math.floor((Date.now() - new Date(timestamp)) / 1000)
+  // SQLite's CURRENT_TIMESTAMP returns UTC time but without a timezone marker
+  // (e.g. "2026-08-03 06:48:52"). Without the "Z", JavaScript wrongly assumes
+  // it's already local time, causing wildly wrong "time ago" values. Adding
+  // the "Z" tells JS this is UTC, so it converts to the viewer's local time correctly.
+  const utcTimestamp = timestamp.replace(' ', 'T') + 'Z'
+  const diff = Math.floor((Date.now() - new Date(utcTimestamp)) / 1000)
   if (diff < 60) return `${diff}s ago`
   if (diff < 3600) return `${Math.floor(diff / 60)}m ago`
   if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`
-  return new Date(timestamp).toLocaleDateString()
+  return new Date(utcTimestamp).toLocaleDateString()
 }
 
 function Dashboard() {
