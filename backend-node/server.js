@@ -24,47 +24,49 @@ app.use(express.json());
 // If you want, we can swap this to MySQL/Postgres later, the queries barely change.
 const db = new sqlite3.Database("./feedback.db");
 
-db.run(`
-  CREATE TABLE IF NOT EXISTS reviews (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    review_text TEXT NOT NULL,
-    sentiment TEXT NOT NULL,
-    polarity REAL,
-    aspect TEXT,
-    alert_sent INTEGER DEFAULT 0,
-    batch_id INTEGER,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (batch_id) REFERENCES batches(id)
-  )
-`);
+db.serialize(() => {
+  // Every CSV upload = one batch. Manual entries get grouped into one
+  // "Manual entries" batch per calendar day, so you're not creating a new
+  // batch every single time you type one review.
+  db.run(`
+    CREATE TABLE IF NOT EXISTS batches (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      label TEXT NOT NULL,
+      type TEXT NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
 
-// Every CSV upload = one batch. Manual entries get grouped into one
-// "Manual entries" batch per calendar day, so you're not creating a new
-// batch every single time you type one review.
-db.run(`
-  CREATE TABLE IF NOT EXISTS batches (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    label TEXT NOT NULL,
-    type TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )
-`);
+  db.run(`
+    CREATE TABLE IF NOT EXISTS reviews (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      review_text TEXT NOT NULL,
+      sentiment TEXT NOT NULL,
+      polarity REAL,
+      aspect TEXT,
+      alert_sent INTEGER DEFAULT 0,
+      batch_id INTEGER,
+      timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (batch_id) REFERENCES batches(id)
+    )
+  `);
 
-// Simple key-value settings table. Storing settings in the DB (not just the
-// frontend) means they survive server restarts and would work even if two
-// people used the dashboard from different browsers.
-db.run(`
-  CREATE TABLE IF NOT EXISTS settings (
-    key TEXT PRIMARY KEY,
-    value TEXT
-  )
-`);
+  // Simple key-value settings table. Storing settings in the DB (not just the
+  // frontend) means they survive server restarts and would work even if two
+  // people used the dashboard from different browsers.
+  db.run(`
+    CREATE TABLE IF NOT EXISTS settings (
+      key TEXT PRIMARY KEY,
+      value TEXT
+    )
+  `);
 
-// Seed the default threshold once, if it doesn't already exist.
-db.run(
-  `INSERT OR IGNORE INTO settings (key, value) VALUES ('alert_threshold', ?)`,
-  [String(URGENT_POLARITY_THRESHOLD)]
-);
+  // Seed the default threshold once, if it doesn't already exist.
+  db.run(
+    `INSERT OR IGNORE INTO settings (key, value) VALUES ('alert_threshold', ?)`,
+    [String(URGENT_POLARITY_THRESHOLD)]
+  );
+});
 
 function getAlertThreshold() {
   return new Promise((resolve) => {
