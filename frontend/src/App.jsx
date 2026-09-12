@@ -6,25 +6,15 @@ import Settings from './pages/Settings'
 
 function App() {
   return (
-    <div className="app">
-      <div className="topbar">
-        <div className="brand">
-          <span className="brand-mark">Pulse</span>
-          <span className="brand-sub">feedback signal dashboard</span>
-        </div>
-        <div className="status-pill">
-          <span className="pulse-dot" />
-          Listening
-        </div>
-      </div>
-
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       <Nav />
-
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/reviews" element={<Reviews />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
+      <main className="flex-1 py-8">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+      </main>
     </div>
   )
 }

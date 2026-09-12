@@ -1,214 +1,246 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { api } from '../api'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { api } from '../api';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 
 const SENTIMENT_COLORS = {
-  Positive: 'var(--positive)',
-  Negative: 'var(--negative)',
-  Neutral: 'var(--neutral)',
-}
+  Positive: '#14b8a6', // teal-500
+  Negative: '#ef4444', // red-500
+  Neutral: '#9ca3af',  // gray-400
+};
 
 function timeAgo(timestamp) {
-  // SQLite's CURRENT_TIMESTAMP returns UTC time but without a timezone marker
-  // (e.g. "2026-08-03 06:48:52"). Without the "Z", JavaScript wrongly assumes
-  // it's already local time, causing wildly wrong "time ago" values. Adding
-  // the "Z" tells JS this is UTC, so it converts to the viewer's local time correctly.
-  const utcTimestamp = timestamp.replace(' ', 'T') + 'Z'
-  const diff = Math.floor((Date.now() - new Date(utcTimestamp)) / 1000)
-  if (diff < 60) return `${diff}s ago`
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`
-  return new Date(utcTimestamp).toLocaleDateString()
+  if (!timestamp) return '';
+  const utcDate = new Date(timestamp);
+  if (isNaN(utcDate.getTime())) return 'Invalid Date';
+  
+  const diff = Math.floor((Date.now() - utcDate.getTime()) / 1000);
+  if (diff < 60) return `${diff}s ago`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  return utcDate.toLocaleDateString();
 }
 
 function Dashboard() {
-  const [text, setText] = useState('')
-  const [reviews, setReviews] = useState([])
-  const [stats, setStats] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [file, setFile] = useState(null)
+  const [text, setText] = useState('');
+  const [reviews, setReviews] = useState([]);
+  const [stats, setStats] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
 
   const fetchData = async () => {
-    const [reviewsRes, statsRes] = await Promise.all([api.getReviews(), api.getStats()])
-    setReviews(reviewsRes.data)
-    setStats(statsRes.data)
-  }
+    try {
+      const [reviewsRes, statsRes] = await Promise.all([
+        api.getReviews({ limit: 10 }),
+        api.getStats()
+      ]);
+      setReviews(reviewsRes.data.data || []);
+      setStats(statsRes.data || []);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!text.trim()) return
-    setLoading(true)
+    e.preventDefault();
+    if (!text.trim()) return;
+    setLoading(true);
     try {
-      await api.submitReview(text)
-      setText('')
-      await fetchData()
+      await api.submitReview(text);
+      setText('');
+      await fetchData();
     } catch (err) {
-      alert('Could not reach the analysis service. Is the Python server running on port 5001?')
+      alert('Could not reach the analysis service. Is it running?');
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   const handleBulkUpload = async () => {
-    if (!file) return
-    const formData = new FormData()
-    formData.append('file', file)
-    setLoading(true)
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('file', file);
+    setLoading(true);
     try {
-      await api.uploadCsv(formData)
-      setFile(null)
-      await fetchData()
+      await api.uploadCsv(formData);
+      setFile(null);
+      await fetchData();
     } catch (err) {
-      alert('Bulk upload failed. Check the CSV has a "review" column.')
+      alert('Bulk upload failed. Check the CSV format.');
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
-  const total = reviews.length
-  const countFor = (label) => stats.find((s) => s.sentiment === label)?.count || 0
-  const positive = countFor('Positive')
-  const negative = countFor('Negative')
-  const neutral = countFor('Neutral')
-  const netScore = total > 0 ? Math.round(((positive - negative) / total) * 100) : 0
-  const urgentCount = reviews.filter((r) => r.alert_sent).length
+  const total = stats.reduce((acc, curr) => acc + curr.count, 0);
+  const countFor = (label) => stats.find((s) => s.sentiment === label)?.count || 0;
+  const positive = countFor('Positive');
+  const negative = countFor('Negative');
+  const netScore = total > 0 ? Math.round(((positive - negative) / total) * 100) : 0;
+  const urgentCount = reviews.filter((r) => r.alert_sent).length;
 
-  const aspectCounts = reviews.reduce((acc, r) => {
-    acc[r.aspect] = (acc[r.aspect] || 0) + 1
-    return acc
-  }, {})
-  const maxAspectCount = Math.max(1, ...Object.values(aspectCounts))
-  const recentReviews = reviews.slice(0, 5)
+  const chartData = stats.map(s => ({
+    name: s.sentiment,
+    value: s.count
+  }));
 
   return (
-    <>
-      <div className="stat-row">
-        <div className="stat-card">
-          <div className="stat-label">Reviews analyzed</div>
-          <div className="stat-value">{total}</div>
+    <div className="max-w-6xl mx-auto p-6 space-y-6">
+      <header className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Feedback Intelligence</h1>
+        <p className="text-gray-500 dark:text-gray-400 mt-2">Analyze, categorize, and act on customer feedback.</p>
+      </header>
+
+      {/* Stats Row */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
+          <div className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Analyzed</div>
+          <div className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">{total}</div>
         </div>
-        <div className="stat-card">
-          <div className="stat-label">Net sentiment score</div>
-          <div className={`stat-value ${netScore < 0 ? 'negative' : 'positive'}`}>
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
+          <div className="text-sm font-medium text-gray-500 dark:text-gray-400">Net Sentiment Score</div>
+          <div className={`mt-2 text-3xl font-bold ${netScore > 0 ? 'text-teal-600 dark:text-teal-400' : netScore < 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`}>
             {netScore > 0 ? '+' : ''}{netScore}
           </div>
         </div>
-        <div className="stat-card">
-          <div className="stat-label">Urgent alerts sent</div>
-          <div className={`stat-value ${urgentCount > 0 ? 'negative' : ''}`}>{urgentCount}</div>
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
+          <div className="text-sm font-medium text-gray-500 dark:text-gray-400">Critical Alerts</div>
+          <div className={`mt-2 text-3xl font-bold ${urgentCount > 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`}>
+            {urgentCount}
+          </div>
         </div>
       </div>
 
-      <div className="panel console">
-        <h2 className="panel-title">Submit a review</h2>
-        <form onSubmit={handleSubmit}>
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Paste a customer review here..."
-            rows={3}
-          />
-          <div className="console-actions">
-            <button type="submit" className="btn btn-primary" disabled={loading}>
-              {loading ? 'Analyzing…' : 'Analyze review'}
-            </button>
-            <div className="file-row">
-              <input type="file" accept=".csv" onChange={(e) => setFile(e.target.files[0])} />
-              <button
-                type="button"
-                className="btn btn-ghost"
-                onClick={handleBulkUpload}
-                disabled={!file || loading}
-              >
-                Upload CSV
-              </button>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Column */}
+        <div className="lg:col-span-1 space-y-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Submit Feedback</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <textarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Paste a customer review..."
+                className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 focus:ring-teal-500 border p-3 min-h-[100px]"
+              />
+              <div className="flex flex-col space-y-3">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700 transition font-medium"
+                >
+                  {loading ? 'Analyzing...' : 'Analyze'}
+                </button>
+                <div className="flex items-center space-x-2 pt-2 border-t dark:border-gray-700">
+                  <input
+                    type="file"
+                    accept=".csv"
+                    onChange={(e) => setFile(e.target.files[0])}
+                    className="text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-50 file:text-teal-700 dark:file:bg-gray-700 dark:file:text-teal-400 hover:file:bg-teal-100 flex-1"
+                  />
+                  <button
+                    type="button"
+                    disabled={!file || loading}
+                    onClick={handleBulkUpload}
+                    className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 text-sm font-medium"
+                  >
+                    Upload CSV
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors h-[300px] flex flex-col">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Overall Distribution</h2>
+            {total === 0 ? (
+              <p className="text-gray-500 dark:text-gray-400 text-sm">No data available.</p>
+            ) : (
+              <div className="flex-1 min-h-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={chartData}
+                      innerRadius={60}
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {chartData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={SENTIMENT_COLORS[entry.name]} />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: 'rgba(31, 41, 55, 0.9)', border: 'none', borderRadius: '8px', color: '#fff' }}
+                    />
+                    <Legend verticalAlign="bottom" height={36}/>
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Right Column: Recent Activity */}
+        <div className="lg:col-span-2">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 h-full transition-colors">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Feedback</h2>
+              <Link to="/reviews" className="text-teal-600 dark:text-teal-400 text-sm font-medium hover:underline">
+                View all →
+              </Link>
+            </div>
+            
+            <div className="space-y-4">
+              {reviews.length === 0 ? (
+                <p className="text-gray-500 dark:text-gray-400">No feedback yet.</p>
+              ) : (
+                reviews.map(r => (
+                  <div key={r.id} className="p-4 border border-gray-100 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                    <div className="flex justify-between items-start gap-4">
+                      <div className="flex-1">
+                        <p className="text-gray-800 dark:text-gray-200 text-sm">{r.review_text}</p>
+                        <div className="flex flex-wrap items-center gap-2 mt-3">
+                          <span className={`px-2 py-1 text-xs rounded-md font-medium ${
+                            r.sentiment === 'Positive' ? 'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400' :
+                            r.sentiment === 'Negative' ? 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
+                            'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+                          }`}>
+                            {r.sentiment} ({(r.confidence * 100).toFixed(0)}%)
+                          </span>
+                          <span className="px-2 py-1 text-xs rounded-md font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                            {r.aspect}
+                          </span>
+                          <span className={`px-2 py-1 text-xs rounded-md font-medium ${
+                            r.status === 'New' ? 'bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400' :
+                            r.status === 'Resolved' ? 'bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                            'bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
+                          }`}>
+                            {r.status}
+                          </span>
+                          {!!r.alert_sent && (
+                            <span className="px-2 py-1 text-xs rounded-md font-medium bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300">
+                              Alert Sent
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <span className="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">
+                        {timeAgo(r.timestamp)}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
-        </form>
-      </div>
-
-      <div className="panel">
-        <h2 className="panel-title">Sentiment signal</h2>
-        {total === 0 ? (
-          <p className="empty-state">No reviews yet — submit one above to see the signal.</p>
-        ) : (
-          <>
-            <div className="signal-bar">
-              <div
-                className="signal-segment"
-                style={{ width: `${(positive / total) * 100}%`, background: SENTIMENT_COLORS.Positive }}
-              />
-              <div
-                className="signal-segment"
-                style={{ width: `${(neutral / total) * 100}%`, background: SENTIMENT_COLORS.Neutral }}
-              />
-              <div
-                className="signal-segment"
-                style={{ width: `${(negative / total) * 100}%`, background: SENTIMENT_COLORS.Negative }}
-              />
-            </div>
-            <div className="signal-legend">
-              <span className="legend-item">
-                <span className="legend-swatch" style={{ background: SENTIMENT_COLORS.Positive }} />
-                Positive {positive} ({total ? Math.round((positive / total) * 100) : 0}%)
-              </span>
-              <span className="legend-item">
-                <span className="legend-swatch" style={{ background: SENTIMENT_COLORS.Neutral }} />
-                Neutral {neutral} ({total ? Math.round((neutral / total) * 100) : 0}%)
-              </span>
-              <span className="legend-item">
-                <span className="legend-swatch" style={{ background: SENTIMENT_COLORS.Negative }} />
-                Negative {negative} ({total ? Math.round((negative / total) * 100) : 0}%)
-              </span>
-            </div>
-          </>
-        )}
-      </div>
-
-      {Object.keys(aspectCounts).length > 0 && (
-        <div className="panel">
-          <h2 className="panel-title">Breakdown by category</h2>
-          {Object.entries(aspectCounts)
-            .sort((a, b) => b[1] - a[1])
-            .map(([aspect, count]) => (
-              <div className="aspect-row" key={aspect}>
-                <span>{aspect}</span>
-                <div className="aspect-track">
-                  <div className="aspect-fill" style={{ width: `${(count / maxAspectCount) * 100}%` }} />
-                </div>
-                <span className="aspect-count">{count}</span>
-              </div>
-            ))}
         </div>
-      )}
 
-      <div className="panel">
-        <div className="panel-header-row">
-          <h2 className="panel-title">Recent activity</h2>
-          {reviews.length > 5 && <Link to="/reviews" className="link-quiet">View all {reviews.length} →</Link>}
-        </div>
-        {recentReviews.length === 0 ? (
-          <p className="empty-state">Nothing here yet.</p>
-        ) : (
-          recentReviews.map((r) => (
-            <div key={r.id} className={`log-entry sentiment-${r.sentiment}`}>
-              <div>
-                <div className="log-text">{r.review_text}</div>
-                <div className="log-meta">
-                  <span className={`tag sentiment-${r.sentiment}`}>{r.sentiment}</span>
-                  <span>{r.aspect}</span>
-                  {!!r.alert_sent && <span className="alert-badge">ALERT SENT</span>}
-                </div>
-              </div>
-              <span className="log-time">{timeAgo(r.timestamp)}</span>
-            </div>
-          ))
-        )}
       </div>
-    </>
-  )
+    </div>
+  );
 }
 
-export default Dashboard
+export default Dashboard;

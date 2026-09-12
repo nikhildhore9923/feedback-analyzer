@@ -1,147 +1,264 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { api, exportReviewsToCsv } from '../api'
 
 function timeAgo(timestamp) {
-  // SQLite's CURRENT_TIMESTAMP returns UTC time but without a timezone marker
-  // (e.g. "2026-08-03 06:48:52"). Without the "Z", JavaScript wrongly assumes
-  // it's already local time, causing wildly wrong "time ago" values. Adding
-  // the "Z" tells JS this is UTC, so it converts to the viewer's local time correctly.
-  const utcTimestamp = timestamp.replace(' ', 'T') + 'Z'
-  const diff = Math.floor((Date.now() - new Date(utcTimestamp)) / 1000)
-  if (diff < 60) return `${diff}s ago`
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`
-  return new Date(utcTimestamp).toLocaleDateString()
+  if (!timestamp) return '';
+  const utcDate = new Date(timestamp);
+  if (isNaN(utcDate.getTime())) return 'Invalid Date';
+  return utcDate.toLocaleString();
 }
 
 function Reviews() {
   const [reviews, setReviews] = useState([])
-  const [batches, setBatches] = useState([])
-  const [search, setSearch] = useState('')
-  const [sentimentFilter, setSentimentFilter] = useState('')
-  const [aspectFilter, setAspectFilter] = useState('')
-  const [batchFilter, setBatchFilter] = useState('')
+  const [meta, setMeta] = useState({ total: 0, page: 1, limit: 10 })
   const [loading, setLoading] = useState(false)
 
-  const fetchReviews = useCallback(async () => {
+  // Filters
+  const [search, setSearch] = useState('')
+  const [sentiment, setSentiment] = useState('')
+  const [aspect, setAspect] = useState('')
+  const [status, setStatus] = useState('')
+  const [batchType, setBatchType] = useState('')
+
+  const fetchReviews = async (page = 1) => {
     setLoading(true)
-    const filters = {}
-    if (search.trim()) filters.search = search.trim()
-    if (sentimentFilter) filters.sentiment = sentimentFilter
-    if (aspectFilter) filters.aspect = aspectFilter
-    if (batchFilter) filters.batch_id = batchFilter
+    try {
+      const filters = { page, limit: 10 }
+      if (search) filters.search = search
+      if (sentiment) filters.sentiment = sentiment
+      if (aspect) filters.aspect = aspect
+      if (status) filters.status = status
+      if (batchType) filters.batch_type = batchType
 
-    const res = await api.getReviews(filters)
-    setReviews(res.data)
+      const res = await api.getReviews(filters)
+      setReviews(res.data.data)
+      setMeta(res.data.meta)
+    } catch (err) {
+      console.error(err)
+    }
     setLoading(false)
-  }, [search, sentimentFilter, aspectFilter, batchFilter])
-
-  useEffect(() => {
-    api.getBatches().then((res) => setBatches(res.data))
-  }, [])
-
-  // Debounce search so we don't hit the API on every keystroke
-  useEffect(() => {
-    const timeout = setTimeout(fetchReviews, 300)
-    return () => clearTimeout(timeout)
-  }, [fetchReviews])
-
-  const handleDelete = async (id) => {
-    if (!confirm('Delete this review permanently?')) return
-    await api.deleteReview(id)
-    setReviews((prev) => prev.filter((r) => r.id !== id))
   }
 
-  const aspects = [...new Set(reviews.map((r) => r.aspect))]
-  const activeBatch = batches.find((b) => String(b.id) === String(batchFilter))
+  useEffect(() => {
+    fetchReviews()
+  }, [sentiment, aspect, status, batchType])
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    fetchReviews(1)
+  }
+
+  const handleStatusChange = async (id, newStatus) => {
+    try {
+      await api.updateStatus(id, newStatus)
+      setReviews(reviews.map(r => r.id === id ? { ...r, status: newStatus } : r))
+    } catch (err) {
+      console.error(err)
+      alert("Failed to update status")
+    }
+  }
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this feedback?")) return;
+    try {
+      await api.deleteReview(id)
+      fetchReviews(meta.page)
+    } catch(err) {
+      console.error(err)
+      alert("Failed to delete review")
+    }
+  }
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= Math.ceil(meta.total / meta.limit)) {
+      fetchReviews(newPage)
+    }
+  }
+
+  const handleExport = () => {
+    exportReviewsToCsv(reviews)
+  }
+
+  const totalPages = Math.ceil(meta.total / meta.limit)
 
   return (
-    <>
-      {batches.length > 0 && (
-        <div className="panel">
-          <h2 className="panel-title">Upload history</h2>
-          <div className="batch-pills">
-            <button
-              className={`batch-pill ${!batchFilter ? 'active' : ''}`}
-              onClick={() => setBatchFilter('')}
-            >
-              All history
-            </button>
-            {batches.map((b) => (
-              <button
-                key={b.id}
-                className={`batch-pill ${String(batchFilter) === String(b.id) ? 'active' : ''}`}
-                onClick={() => setBatchFilter(String(b.id))}
-                title={new Date(b.created_at.replace(' ', 'T') + 'Z').toLocaleString()}
-              >
-                {b.type === 'csv' ? '📄' : '✏️'} {b.label} · {b.review_count}
-              </button>
-            ))}
-          </div>
+    <div className="max-w-6xl mx-auto p-6 space-y-6">
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Feedback List</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Manage and respond to customer reviews.</p>
         </div>
-      )}
+        <button
+          onClick={handleExport}
+          className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+        >
+          Export CSV (Current Page)
+        </button>
+      </div>
 
-      <div className="panel">
-        <h2 className="panel-title">
-          {activeBatch ? `Filtering: ${activeBatch.label}` : 'All reviews'}
-        </h2>
-        <div className="filter-row">
-          <input
-            type="text"
-            className="filter-input"
-            placeholder="Search review text…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <select value={sentimentFilter} onChange={(e) => setSentimentFilter(e.target.value)}>
-            <option value="">All sentiments</option>
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors">
+        <form onSubmit={handleSearchSubmit} className="flex flex-wrap gap-4 mb-6">
+          <div className="flex-1 min-w-[200px]">
+            <input
+              type="text"
+              placeholder="Search feedback..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 focus:ring-teal-500 border p-2 text-sm"
+            />
+          </div>
+          <select
+            value={batchType}
+            onChange={(e) => setBatchType(e.target.value)}
+            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 border p-2 text-sm"
+          >
+            <option value="">All Upload Types</option>
+            <option value="manual">Manual Entry</option>
+            <option value="csv">Bulk CSV Upload</option>
+          </select>
+          <select
+            value={sentiment}
+            onChange={(e) => setSentiment(e.target.value)}
+            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 border p-2 text-sm"
+          >
+            <option value="">All Sentiments</option>
             <option value="Positive">Positive</option>
             <option value="Neutral">Neutral</option>
             <option value="Negative">Negative</option>
           </select>
-          <select value={aspectFilter} onChange={(e) => setAspectFilter(e.target.value)}>
-            <option value="">All categories</option>
-            {aspects.map((a) => (
-              <option key={a} value={a}>{a}</option>
-            ))}
-          </select>
-          <button
-            className="btn btn-ghost"
-            onClick={() => exportReviewsToCsv(reviews)}
-            disabled={reviews.length === 0}
+          <select
+            value={aspect}
+            onChange={(e) => setAspect(e.target.value)}
+            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 border p-2 text-sm"
           >
-            Export CSV
+            <option value="">All Categories</option>
+            <option value="Product Quality">Product Quality</option>
+            <option value="Customer Service">Customer Service</option>
+            <option value="Delivery">Delivery</option>
+            <option value="Pricing">Pricing</option>
+            <option value="App/Website">App/Website</option>
+            <option value="General">General</option>
+          </select>
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 border p-2 text-sm"
+          >
+            <option value="">All Statuses</option>
+            <option value="New">New</option>
+            <option value="Reviewing">Reviewing</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Ignored">Ignored</option>
+          </select>
+          <button type="submit" className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
+            Search
           </button>
+        </form>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 text-sm">
+                <th className="p-4 font-semibold text-gray-600 dark:text-gray-300 rounded-tl-lg">Source</th>
+                <th className="p-4 font-semibold text-gray-600 dark:text-gray-300">Review Text</th>
+                <th className="p-4 font-semibold text-gray-600 dark:text-gray-300">Intelligence</th>
+                <th className="p-4 font-semibold text-gray-600 dark:text-gray-300">Status</th>
+                <th className="p-4 font-semibold text-gray-600 dark:text-gray-300 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan="5" className="p-8 text-center text-gray-500 dark:text-gray-400">Loading...</td>
+                </tr>
+              ) : reviews.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="p-8 text-center text-gray-500 dark:text-gray-400">No feedback found.</td>
+                </tr>
+              ) : (
+                reviews.map(r => (
+                  <tr key={r.id} className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50/50 dark:hover:bg-gray-700/30">
+                    <td className="p-4 text-sm text-gray-500 dark:text-gray-400">
+                      <div className="flex flex-col gap-1">
+                        <span className="font-medium text-gray-700 dark:text-gray-300">#{r.id}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 w-max" title={r.batch_label}>
+                          {r.batch_type === 'csv' ? '📄 CSV' : '✍️ Manual'}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="p-4 text-sm text-gray-800 dark:text-gray-200 max-w-md">
+                      <p className="line-clamp-3" title={r.review_text}>{r.review_text}</p>
+                      <div className="text-xs text-gray-400 dark:text-gray-500 mt-2">{timeAgo(r.timestamp)}</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="flex flex-col gap-1">
+                        <span className={`inline-block px-2 py-1 text-xs rounded-md font-medium w-max ${
+                          r.sentiment === 'Positive' ? 'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400' :
+                          r.sentiment === 'Negative' ? 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
+                          'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+                        }`}>
+                          {r.sentiment} ({(r.confidence * 100).toFixed(0)}%)
+                        </span>
+                        <span className="inline-block px-2 py-1 text-xs rounded-md font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 w-max">
+                          {r.aspect}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="p-4">
+                      <select 
+                        value={r.status}
+                        onChange={(e) => handleStatusChange(r.id, e.target.value)}
+                        className={`text-xs font-medium rounded-md p-1 border cursor-pointer ${
+                          r.status === 'New' ? 'border-purple-200 bg-purple-50 text-purple-700 dark:border-purple-800 dark:bg-purple-900/30 dark:text-purple-400' :
+                          r.status === 'Resolved' ? 'border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-900/30 dark:text-green-400' :
+                          'border-yellow-200 bg-yellow-50 text-yellow-700 dark:border-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
+                        }`}
+                      >
+                        <option value="New">New</option>
+                        <option value="Reviewing">Reviewing</option>
+                        <option value="Resolved">Resolved</option>
+                        <option value="Ignored">Ignored</option>
+                      </select>
+                    </td>
+                    <td className="p-4 text-right">
+                      <button 
+                        onClick={() => handleDelete(r.id)}
+                        className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm font-medium transition"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+        
+        {/* Pagination */}
+        <div className="mt-6 flex items-center justify-between border-t border-gray-100 dark:border-gray-700 pt-4">
+          <div className="text-sm text-gray-500 dark:text-gray-400">
+            Showing <span className="font-medium text-gray-900 dark:text-white">{reviews.length > 0 ? (meta.page - 1) * meta.limit + 1 : 0}</span> to <span className="font-medium text-gray-900 dark:text-white">{Math.min(meta.page * meta.limit, meta.total)}</span> of <span className="font-medium text-gray-900 dark:text-white">{meta.total}</span> results
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => handlePageChange(meta.page - 1)}
+              disabled={meta.page <= 1}
+              className="px-3 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-700 dark:text-gray-300 disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-700"
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => handlePageChange(meta.page + 1)}
+              disabled={meta.page >= totalPages}
+              className="px-3 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-700 dark:text-gray-300 disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-700"
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
-
-      <div className="panel">
-        {loading ? (
-          <p className="empty-state">Loading…</p>
-        ) : reviews.length === 0 ? (
-          <p className="empty-state">No reviews match these filters.</p>
-        ) : (
-          reviews.map((r) => (
-            <div key={r.id} className={`log-entry sentiment-${r.sentiment}`}>
-              <div>
-                <div className="log-text">{r.review_text}</div>
-                <div className="log-meta">
-                  <span className={`tag sentiment-${r.sentiment}`}>{r.sentiment}</span>
-                  <span>{r.aspect}</span>
-                  {!!r.alert_sent && <span className="alert-badge">ALERT SENT</span>}
-                </div>
-              </div>
-              <div className="log-actions">
-                <span className="log-time">{timeAgo(r.timestamp)}</span>
-                <button className="btn-icon" onClick={() => handleDelete(r.id)} title="Delete review">
-                  ✕
-                </button>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-    </>
+    </div>
   )
 }
 

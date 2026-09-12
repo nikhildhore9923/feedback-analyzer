@@ -2,63 +2,124 @@ import { useState, useEffect } from 'react'
 import { api } from '../api'
 
 function Settings() {
-  const [threshold, setThreshold] = useState(-0.5)
+  const [settings, setSettings] = useState({
+    alertThreshold: -0.5,
+    emailUser: '',
+    emailPass: '',
+    alertTo: ''
+  })
   const [saved, setSaved] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     api.getSettings().then((res) => {
-      setThreshold(res.data.alertThreshold)
-      setLoading(false)
+      setSettings(res.data)
     })
   }, [])
 
-  const handleSave = async () => {
-    await api.updateSettings(threshold)
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
+  const handleSave = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    try {
+      await api.updateSettings(settings)
+      setSaved(true)
+      setTimeout(() => setSaved(false), 3000)
+    } catch (err) {
+      alert("Failed to save settings")
+    }
+    setLoading(false)
+  }
+
+  const handleChange = (e) => {
+    setSettings({ ...settings, [e.target.name]: e.target.value })
   }
 
   return (
-    <div className="panel">
-      <h2 className="panel-title">Alert settings</h2>
-      <p className="settings-description">
-        Reviews with a sentiment polarity below this threshold automatically trigger an
-        email alert to the manager. Polarity ranges from -1 (extremely negative) to
-        0 (neutral).
-      </p>
+    <div className="max-w-3xl mx-auto p-6 space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Settings</h1>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Configure your feedback intelligence platform.</p>
+      </div>
 
-      {loading ? (
-        <p className="empty-state">Loading…</p>
-      ) : (
-        <>
-          <div className="settings-row">
-            <label htmlFor="threshold">Alert threshold</label>
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <form onSubmit={handleSave} className="space-y-8">
+          
+          {/* Threshold config */}
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Smart Alerts Configuration</h2>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Negative Polarity Alert Threshold (0 to -1)
+            </label>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+              When a negative review's confidence/severity implies a polarity score below this threshold, an urgent email alert will be sent.
+            </p>
             <input
-              id="threshold"
-              type="range"
-              min="-1"
+              type="number"
+              step="0.01"
               max="0"
-              step="0.05"
-              value={threshold}
-              onChange={(e) => setThreshold(parseFloat(e.target.value))}
+              min="-1"
+              name="alertThreshold"
+              value={settings.alertThreshold}
+              onChange={handleChange}
+              className="w-full md:w-1/2 rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 focus:ring-teal-500 border p-2"
             />
-            <span className="threshold-value">{threshold.toFixed(2)}</span>
           </div>
 
-          <p className="settings-hint">
-            {threshold >= -0.2
-              ? 'Very sensitive — most negative reviews will trigger alerts.'
-              : threshold <= -0.8
-              ? 'Very strict — only extremely negative reviews will trigger alerts.'
-              : 'Balanced — clearly negative reviews will trigger alerts.'}
-          </p>
+          <hr className="border-gray-100 dark:border-gray-700" />
 
-          <button className="btn btn-primary" onClick={handleSave}>
-            {saved ? 'Saved ✓' : 'Save threshold'}
-          </button>
-        </>
-      )}
+          {/* Email config */}
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Email Notifications (SMTP)</h2>
+            <div className="space-y-4 md:w-2/3">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sender Gmail Address</label>
+                <input
+                  type="email"
+                  name="emailUser"
+                  placeholder="your-email@gmail.com"
+                  value={settings.emailUser}
+                  onChange={handleChange}
+                  className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 focus:ring-teal-500 border p-2"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Gmail App Password</label>
+                <input
+                  type="password"
+                  name="emailPass"
+                  placeholder="16-character-app-password"
+                  value={settings.emailPass}
+                  onChange={handleChange}
+                  className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 focus:ring-teal-500 border p-2"
+                />
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Requires 2-Factor Auth enabled on your Google Account.</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Alert Recipient Address</label>
+                <input
+                  type="email"
+                  name="alertTo"
+                  placeholder="manager@company.com"
+                  value={settings.alertTo}
+                  onChange={handleChange}
+                  className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 focus:ring-teal-500 border p-2"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+            <button
+              type="submit"
+              disabled={loading}
+              className="px-4 py-2 bg-teal-600 text-white rounded-lg text-sm font-medium hover:bg-teal-700 transition disabled:opacity-50"
+            >
+              {loading ? 'Saving...' : 'Save Settings'}
+            </button>
+            {saved && <span className="text-sm font-medium text-green-600 dark:text-green-400">Settings saved successfully!</span>}
+          </div>
+        </form>
+      </div>
     </div>
   )
 }

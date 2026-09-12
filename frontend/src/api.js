@@ -10,14 +10,15 @@ export const api = {
   deleteReview: (id) => axios.delete(`${API_BASE}/reviews/${id}`),
   uploadCsv: (formData) => axios.post(`${API_BASE}/reviews/bulk`, formData),
   getSettings: () => axios.get(`${API_BASE}/settings`),
-  updateSettings: (alertThreshold) => axios.post(`${API_BASE}/settings`, { alertThreshold }),
+  updateSettings: (settings) => axios.post(`${API_BASE}/settings`, settings),
+  updateStatus: (id, status) => axios.patch(`${API_BASE}/reviews/${id}/status`, { status }),
 }
 
 export function exportReviewsToCsv(reviews) {
-  const header = 'id,review_text,sentiment,polarity,aspect,alert_sent,timestamp\n'
+  const header = 'id,review_text,sentiment,confidence,severity,aspect,status,upload_type,batch_label,alert_sent,timestamp\n'
   const rows = reviews
     .map((r) =>
-      [r.id, `"${r.review_text.replace(/"/g, '""')}"`, r.sentiment, r.polarity, r.aspect, r.alert_sent, r.timestamp].join(',')
+      [r.id, `"${r.review_text.replace(/"/g, '""')}"`, r.sentiment, r.confidence, r.severity, r.aspect, r.status, r.batch_type, `"${r.batch_label || ''}"`, r.alert_sent, r.timestamp].join(',')
     )
     .join('\n')
 
