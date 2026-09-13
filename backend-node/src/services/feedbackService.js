@@ -37,49 +37,44 @@ async function processSingleFeedback(text) {
     const mlResult = await analyzeFeedback(text);
     const { sentiment, confidence, severity = 0, aspect } = mlResult;
 
-    // 2. Alert Logic (Using severity now, or polarity equivalent)
-    const threshold = await getAlertThreshold();
-    let alertSent = false;
-    
-    // Re-calculating polarity-like score for threshold comparison to remain compatible with old logic for now
-    // or just use severity. Let's assume severity is positive if negative feedback, and we check if severity > threshold?
-    // The old logic was polarity < threshold (e.g., -0.6 < -0.5). We will pass a normalized score later.
-    // For now, assume mlResult returns a mapped severity or polarity.
     let priorityScore = 0;
     if (sentiment === 'Negative') {
         priorityScore = confidence * (severity || 1) * 10;
-        // Mock threshold comparison based on old logic: negative polarity
-        // We'll treat severity as a 0-1 score where 1 is worst.
-        const mockPolarity = -1 * (confidence || 1); 
-        if (mockPolarity < threshold) {
-            // Fire and forget: don't await so it doesn't block the UI if Gmail hangs
-            sendAlertEmail(text, sentiment, confidence, severity, aspect)
-                .then(sent => {
-                    if (sent) db.query(`UPDATE reviews SET alert_sent = 1 WHERE id = ?`, [batchId]); // Note: batchId is wrong here, it'll need actual review ID. We'll ignore the UI update for now to just make it non-blocking.
-                }).catch(() => {});
-            alertSent = false; // Will reflect in UI later, but for now we just return immediately
-        }
     }
 
     // 3. Batch Retrieval
     const batchId = await getOrCreateManualBatch();
 
-    // 4. Save to DB
+    // 4. Save to DB first so we have the ID
     const [result] = await db.query(
         `INSERT INTO reviews 
         (review_text, sentiment, confidence, severity, aspect, alert_sent, batch_id, priority_score) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-        [text, sentiment, confidence, severity, aspect, alertSent, batchId, priorityScore]
+        [text, sentiment, confidence, severity, aspect, false, batchId, priorityScore]
     );
+    const reviewId = result.insertId;
+
+    // 5. Alert Logic (Async so it doesn't block UI)
+    const threshold = await getAlertThreshold();
+    let alertSent = false;
+    if (sentiment === 'Negative') {
+        const mockPolarity = -1 * (confidence || 1); 
+        if (mockPolarity < threshold) {
+            sendAlertEmail(text, sentiment, confidence, severity, aspect)
+                .then(sent => {
+                    if (sent) db.query(`UPDATE reviews SET alert_sent = 1 WHERE id = ?`, [reviewId]);
+                }).catch(() => {});
+        }
+    }
 
     return {
-        id: result.insertId,
+        id: reviewId,
         text,
         sentiment,
         confidence,
         severity,
         aspect,
-        alertSent,
+        alertSent: false, // UI won't show it immediately, but it will appear on next refresh
         batchId,
         status: 'New',
         priorityScore
