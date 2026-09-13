@@ -81,7 +81,7 @@ df = pd.DataFrame(data)
 # 1. Train Sentiment Model
 print("Training Sentiment Analysis Model (TF-IDF + Logistic Regression)...")
 sentiment_pipeline = Pipeline([
-    ('tfidf', TfidfVectorizer(ngram_range=(1, 2), stop_words='english')),
+    ('tfidf', TfidfVectorizer(ngram_range=(1, 2))),
     ('clf', LogisticRegression(random_state=42, multi_class='multinomial', max_iter=200))
 ])
 sentiment_pipeline.fit(df['text'], df['sentiment'])
@@ -89,7 +89,7 @@ sentiment_pipeline.fit(df['text'], df['sentiment'])
 # 2. Train Aspect/Category Model
 print("Training Topic Detection Model (TF-IDF + Logistic Regression)...")
 aspect_pipeline = Pipeline([
-    ('tfidf', TfidfVectorizer(ngram_range=(1, 2), stop_words='english')),
+    ('tfidf', TfidfVectorizer(ngram_range=(1, 2))),
     ('clf', LogisticRegression(random_state=42, multi_class='multinomial', max_iter=200))
 ])
 aspect_pipeline.fit(df['text'], df['aspect'])
