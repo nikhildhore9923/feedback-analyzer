@@ -6,12 +6,13 @@ require('dotenv').config();
 async function initDB() {
     console.log('[DB] Initializing database...');
     try {
-        // Connect without database selected first to create it
+        // Connect with the configured database
         const connection = await mysql.createConnection({
             host: process.env.DB_HOST || 'localhost',
             port: process.env.DB_PORT || 3306,
             user: process.env.DB_USER || 'root',
             password: process.env.DB_PASSWORD || '',
+            database: process.env.DB_NAME || 'pulse_db',
             ssl: process.env.DB_HOST && process.env.DB_HOST.includes('aivencloud') ? { rejectUnauthorized: false } : undefined,
             multipleStatements: true
         });
