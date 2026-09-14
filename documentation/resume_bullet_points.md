@@ -8,10 +8,11 @@ Here are three different ways to write it on your resume, depending on how much 
 
 **Pulse: AI-Powered Customer Intelligence Platform** | *React, Node.js, Express, Python, MySQL, Render* 
 * Designed and deployed a 3-tier microservice architecture to ingest, analyze, and visualize customer feedback streams in real-time.
-* Engineered a decoupled Python FastAPI machine learning service using Scikit-Learn (TF-IDF & Logistic Regression) to classify sentiment and categorize topics with strict mathematical confidence scores.
-* Built a high-performance Node.js API to orchestrate database writes and trigger asynchronous, non-blocking email alerts for critical negative reviews using Nodemailer.
-* Ensured data integrity and prevented concurrent race conditions by implementing unique constraints and idempotent SQL operations on an Aiven Cloud MySQL database.
-* Automated deployment via GitHub CI/CD pipelines to Vercel (Frontend) and Render (Backend Web Services).
+* Engineered a decoupled Python FastAPI machine learning service using Scikit-Learn to classify sentiment and topics, achieving **99.70% accuracy** on a 3,300+ row dataset and calculating strict mathematical confidence scores.
+* Built a Node.js REST API utilizing stateless multi-tenancy (`X-Tenant-ID` headers) to provide perfectly isolated data workspaces for thousands of concurrent visitors without requiring authentication.
+* Implemented asynchronous, non-blocking email alerts for critical negative reviews using the Resend HTTP API to bypass restricted cloud SMTP ports.
+* Ensured data integrity and prevented concurrent race conditions during bulk CSV uploads by implementing unique constraints and idempotent SQL operations on an Aiven Cloud MySQL database.
+* Engineered a custom GitHub Actions cron workflow to explicitly bypass cloud provider (Render) cold-start sleep mechanisms, ensuring zero-latency deployments.
 
 ### Option 2: The "Machine Learning / Data" Focus
 

@@ -56,9 +56,11 @@ The services communicate via REST HTTP over standard ports (80/443 in production
 **Full Schema (`backend-node/src/db/schema.sql`):**
 1.  **`batches` Table:**
     - `id` INT AUTO_INCREMENT PRIMARY KEY
-    - `label` VARCHAR(255) NOT NULL UNIQUE
+    - `label` VARCHAR(255) NOT NULL
     - `type` VARCHAR(50) NOT NULL
+    - `tenant_id` VARCHAR(255) DEFAULT 'default'
     - `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+    - `UNIQUE (label, tenant_id)`
 2.  **`reviews` Table:**
     - `id` INT AUTO_INCREMENT PRIMARY KEY
     - `review_text` TEXT NOT NULL
@@ -68,12 +70,15 @@ The services communicate via REST HTTP over standard ports (80/443 in production
     - `aspect` VARCHAR(100)
     - `alert_sent` BOOLEAN DEFAULT FALSE
     - `batch_id` INT (FOREIGN KEY referencing `batches(id)` ON DELETE SET NULL)
+    - `tenant_id` VARCHAR(255) DEFAULT 'default'
     - `status` VARCHAR(50) DEFAULT 'New'
     - `priority_score` FLOAT DEFAULT 0
     - `timestamp` DATETIME DEFAULT CURRENT_TIMESTAMP
 3.  **`settings` Table:**
-    - `setting_key` VARCHAR(100) PRIMARY KEY
+    - `setting_key` VARCHAR(100)
+    - `tenant_id` VARCHAR(255) DEFAULT 'default'
     - `setting_value` VARCHAR(255)
+    - `PRIMARY KEY (setting_key, tenant_id)`
 
 **Concurrency / Idempotency:**
 Race conditions are legitimately handled at the database level. The `batches` table enforces a `UNIQUE` constraint on the `label` column. When the Node.js API attempts to create a daily batch, it relies on SQL conflict resolution rather than application-level checks, preventing duplicate batch creation during highly concurrent HTTP requests.
@@ -85,13 +90,18 @@ Race conditions are legitimately handled at the database level. The `batches` ta
 **Node.js Backend (`backend-node/src/routes/index.js`):**
 - `GET /health` : Health check endpoint.
 - `POST /reviews` : Submits a single review for analysis.
-- `GET /reviews` : Fetches reviews (supports pagination and filtering).
+- `GET /reviews` : Fetches reviews (supports pagination and filtering. Passing limit=10000 triggers "Export All").
 - `DELETE /reviews/:id` : Deletes a specific review.
-- `POST /reviews/bulk` : Accepts a `.csv` file upload via Multer for batch processing.
+- `POST /reviews/bulk` : Accepts a `.csv` file upload via Multer for batch processing. Features an intelligent fallback to auto-detect text if standard column names are missing.
 - `GET /stats` : Retrieves aggregated data for the React dashboard.
 - `GET /batches` : Retrieves a list of upload batches.
 - `GET /settings` : Retrieves system configurations (like alert thresholds).
 - `POST /settings` : Updates system configurations.
+- `DELETE /settings/clear` : Drops all tenant-specific data from the database.
+
+**Tenant Architecture / Multi-Tenancy:**
+- Uses stateless multi-tenancy for the live demo. The React frontend auto-generates a UUID in `localStorage` and injects it as an `X-Tenant-ID` header via Axios interceptors.
+- Node.js parses the header via `tenantMiddleware` and passes `req.tenantId` to all service functions, scoping every single `SELECT`, `INSERT`, `UPDATE`, and `DELETE` SQL query.
 
 **Python FastAPI (`backend-python/app.py`):**
 - `GET /health` & `HEAD /health` : Health check (modified to accept HEAD for UptimeRobot compatibility).
@@ -133,12 +143,13 @@ Race conditions are legitimately handled at the database level. The `batches` ta
 **Implementation:**
 - The codebase uses the **Resend HTTP API** directly via `axios` inside `backend-node/src/utils/mailer.js`.
 - It dynamically pulls the `RESEND_API_KEY` from environment variables to prevent secret leaks on GitHub.
+- Uses a fully-coded, responsive HTML email template featuring inline CSS, dynamic value interpolation (for aspect, confidence, text), and the app's logo/branding instead of plain text.
 
 **Trigger Condition:**
-- Alerts are triggered based on a configurable threshold stored in the MySQL `settings` table (default `-0.5`). 
+- Alerts are triggered based on a configurable threshold stored in the MySQL `settings` table (default `-0.5`, scoped by tenant). 
 
 **Synchronicity:**
-- Alerts are dispatched **asynchronously** (Fire-and-Forget). The Node.js controller does not block the HTTP response waiting for the email API to resolve.
+- Alerts are dispatched **asynchronously** (Fire-and-Forget). The Node.js controller does not block the HTTP response waiting for the email API to resolve. However, the React frontend optimistically triggers a floating visual toast notification to alert the user that the async task fired successfully.
 
 ---
 
