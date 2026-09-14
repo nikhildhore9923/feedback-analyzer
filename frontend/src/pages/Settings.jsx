@@ -1,6 +1,24 @@
 import { useState, useEffect } from 'react'
 import { api } from '../api'
 
+function ConfirmModal({ isOpen, onClose, onConfirm }) {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-sm overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="p-6">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Clear Workspace Data</h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Are you sure you want to delete all feedback and batches? This action cannot be undone.</p>
+        </div>
+        <div className="bg-gray-50 dark:bg-gray-700/50 px-6 py-4 flex justify-end gap-3">
+          <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition">Cancel</button>
+          <button onClick={onConfirm} className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition shadow-sm">Delete All Data</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Settings() {
   const [settings, setSettings] = useState({
     alertThreshold: -0.5,
@@ -8,6 +26,7 @@ function Settings() {
   })
   const [saved, setSaved] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [showClearModal, setShowClearModal] = useState(false)
 
   useEffect(() => {
     api.getSettings().then((res) => {
@@ -33,26 +52,29 @@ function Settings() {
   }
 
   const handleClearData = async () => {
-    if (window.confirm("Are you sure you want to delete all feedback and batches in this workspace? This cannot be undone.")) {
-      try {
-        await api.clearDemoData();
-        alert("Workspace reset successfully!");
-        window.location.reload();
-      } catch (err) {
-        alert("Failed to reset workspace");
-      }
+    try {
+      await api.clearDemoData();
+      alert("Workspace reset successfully!");
+      window.location.reload();
+    } catch (err) {
+      alert("Failed to reset workspace");
     }
   }
 
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-6">
+      <ConfirmModal 
+        isOpen={showClearModal} 
+        onClose={() => setShowClearModal(false)} 
+        onConfirm={handleClearData} 
+      />
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Settings</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Configure your feedback intelligence platform.</p>
         </div>
         <button
-          onClick={handleClearData}
+          onClick={() => setShowClearModal(true)}
           className="px-4 py-2 bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-lg text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/40 transition shadow-sm"
         >
           Clear Workspace Data

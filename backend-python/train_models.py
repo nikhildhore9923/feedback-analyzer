@@ -20,8 +20,8 @@ X_train, X_test, y_sent_train, y_sent_test, y_asp_train, y_asp_test = train_test
 # 1. Train Sentiment Model
 print("\n--- Training Sentiment Analysis Model ---")
 sentiment_pipeline = Pipeline([
-    ('tfidf', TfidfVectorizer(ngram_range=(1, 2))),
-    ('clf', LogisticRegression(random_state=42, multi_class='multinomial', max_iter=500))
+    ('tfidf', TfidfVectorizer(ngram_range=(1, 3))),
+    ('clf', LogisticRegression(C=10.0, random_state=42, multi_class='multinomial', max_iter=1000))
 ])
 sentiment_pipeline.fit(X_train, y_sent_train)
 
@@ -35,8 +35,8 @@ print(classification_report(y_sent_test, sent_preds))
 # 2. Train Aspect/Category Model
 print("\n--- Training Topic Detection Model ---")
 aspect_pipeline = Pipeline([
-    ('tfidf', TfidfVectorizer(ngram_range=(1, 2))),
-    ('clf', LogisticRegression(random_state=42, multi_class='multinomial', max_iter=500))
+    ('tfidf', TfidfVectorizer(ngram_range=(1, 3))),
+    ('clf', LogisticRegression(C=10.0, random_state=42, multi_class='multinomial', max_iter=1000))
 ])
 aspect_pipeline.fit(X_train, y_asp_train)
 

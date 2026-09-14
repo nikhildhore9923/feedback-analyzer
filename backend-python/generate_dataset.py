@@ -1,9 +1,20 @@
 import pandas as pd
 import random
 
-positive_adjectives = ["great", "fantastic", "amazing", "excellent", "good", "perfect", "flawless", "superb", "outstanding", "brilliant", "wonderful", "impressive", "stellar", "phenomenal", "awesome", "love", "loved"]
-negative_adjectives = ["terrible", "awful", "bad", "horrible", "worst", "poor", "disappointing", "trash", "garbage", "unacceptable", "dreadful", "useless", "broken", "cheap", "hate", "hated"]
-neutral_adjectives = ["okay", "ok", "fine", "average", "mediocre", "standard", "acceptable", "decent", "passable", "fair"]
+positive_adjectives = [
+    "great", "fantastic", "amazing", "excellent", "good", "perfect", "flawless", "superb", "outstanding", "brilliant", "wonderful", 
+    "impressive", "stellar", "phenomenal", "awesome", "love", "loved", "immaculate", "exquisite", "magnificent", "splendid", 
+    "glorious", "breathtaking", "marvelous", "exceptional", "first-rate", "top-notch", "superlative", "unparalleled", "unbeatable"
+]
+negative_adjectives = [
+    "terrible", "awful", "bad", "horrible", "worst", "poor", "disappointing", "trash", "garbage", "unacceptable", "dreadful", 
+    "useless", "broken", "cheap", "hate", "hated", "atrocious", "abysmal", "appalling", "deplorable", "lousy", "pathetic", 
+    "subpar", "inferior", "inadequate", "defective", "horrendous", "repulsive", "revolting", "vile", "disgusting", "unbearable"
+]
+neutral_adjectives = [
+    "okay", "ok", "fine", "average", "mediocre", "standard", "acceptable", "decent", "passable", "fair", 
+    "undistinguished", "unremarkable", "run-of-the-mill", "middle-of-the-road", "tolerable", "adequate", "so-so", "bland", "lackluster"
+]
 
 aspects = {
     "Product Quality": [

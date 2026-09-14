@@ -1,6 +1,24 @@
 import { useState, useEffect } from 'react'
 import { api, exportReviewsToCsv } from '../api'
 
+function ConfirmModal({ isOpen, onClose, onConfirm }) {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-sm overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="p-6">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Delete Feedback</h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Are you sure you want to delete this feedback? This action cannot be undone.</p>
+        </div>
+        <div className="bg-gray-50 dark:bg-gray-700/50 px-6 py-4 flex justify-end gap-3">
+          <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition">Cancel</button>
+          <button onClick={onConfirm} className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition shadow-sm">Delete</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function timeAgo(timestamp) {
   if (!timestamp) return '';
   const utcDate = new Date(timestamp);
@@ -12,6 +30,7 @@ function Reviews() {
   const [reviews, setReviews] = useState([])
   const [meta, setMeta] = useState({ total: 0, page: 1, limit: 10 })
   const [loading, setLoading] = useState(false)
+  const [deleteId, setDeleteId] = useState(null)
 
   // Filters
   const [search, setSearch] = useState('')
@@ -58,21 +77,28 @@ function Reviews() {
     }
   }
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this feedback?")) return;
+  const handleDeleteClick = (id) => {
+    setDeleteId(id)
+  }
+
+  const confirmDelete = async () => {
+    if (!deleteId) return;
     
     // Optimistic UI Update - instantly remove from screen
+    const idToDelete = deleteId;
     const previousReviews = [...reviews];
-    setReviews(reviews.filter(r => r.id !== id));
+    setReviews(reviews.filter(r => r.id !== idToDelete));
+    setDeleteId(null);
     
     try {
-      await api.deleteReview(id);
+      await api.deleteReview(idToDelete);
       // Wait a moment and quietly sync meta in background
       setTimeout(() => fetchReviews(meta.page), 1000);
     } catch(err) {
-      console.error(err);
+      console.error(err)
+      // Revert if failed
+      setReviews(previousReviews);
       alert("Failed to delete review");
-      setReviews(previousReviews); // Revert on failure
     }
   }
 
@@ -100,6 +126,11 @@ function Reviews() {
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
+      <ConfirmModal 
+        isOpen={!!deleteId} 
+        onClose={() => setDeleteId(null)} 
+        onConfirm={confirmDelete} 
+      />
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Feedback List</h1>
@@ -247,7 +278,7 @@ function Reviews() {
                     </td>
                     <td className="p-4 text-right">
                       <button 
-                        onClick={() => handleDelete(r.id)}
+                        onClick={() => handleDeleteClick(r.id)}
                         className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm font-medium transition"
                       >
                         Delete
