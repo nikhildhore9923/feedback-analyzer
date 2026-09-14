@@ -2,8 +2,22 @@ import axios from 'axios'
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000/api'
 
+// Generate or retrieve tenant ID for isolation
+let tenantId = localStorage.getItem('pulse_tenant_id');
+if (!tenantId) {
+  tenantId = crypto.randomUUID ? crypto.randomUUID() : 'tenant_' + Math.random().toString(36).substring(2, 15);
+  localStorage.setItem('pulse_tenant_id', tenantId);
+}
+
+// Add interceptor
+axios.interceptors.request.use((config) => {
+  config.headers['X-Tenant-ID'] = tenantId;
+  return config;
+});
+
 export const api = {
   getReviews: (filters = {}) => axios.get(`${API_BASE}/reviews`, { params: filters }),
+  exportAllReviews: () => axios.get(`${API_BASE}/reviews`, { params: { limit: 10000 } }),
   getStats: () => axios.get(`${API_BASE}/stats`),
   getBatches: () => axios.get(`${API_BASE}/batches`),
   submitReview: (text) => axios.post(`${API_BASE}/reviews`, { text }),
@@ -12,6 +26,7 @@ export const api = {
   getSettings: () => axios.get(`${API_BASE}/settings`),
   updateSettings: (settings) => axios.post(`${API_BASE}/settings`, settings),
   updateStatus: (id, status) => axios.patch(`${API_BASE}/reviews/${id}/status`, { status }),
+  clearDemoData: () => axios.delete(`${API_BASE}/settings/clear`),
 }
 
 export function exportReviewsToCsv(reviews) {

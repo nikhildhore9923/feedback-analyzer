@@ -21,7 +21,29 @@ async function initDB() {
         const schema = fs.readFileSync(schemaPath, 'utf8');
 
         await connection.query(schema);
-        console.log('[DB] Database and tables created successfully.');
+        
+        // --- MIGRATIONS (Safe to run repeatedly) ---
+        const migrations = [
+            "ALTER TABLE batches ADD COLUMN tenant_id VARCHAR(255) DEFAULT 'default'",
+            "ALTER TABLE batches DROP INDEX label",
+            "ALTER TABLE batches ADD UNIQUE (label, tenant_id)",
+            "ALTER TABLE reviews ADD COLUMN tenant_id VARCHAR(255) DEFAULT 'default'",
+            "ALTER TABLE settings ADD COLUMN tenant_id VARCHAR(255) DEFAULT 'default'",
+            "ALTER TABLE settings DROP PRIMARY KEY, ADD PRIMARY KEY (setting_key, tenant_id)"
+        ];
+
+        for (let sql of migrations) {
+            try {
+                await connection.query(sql);
+            } catch (e) {
+                // Ignore "Duplicate column name" and "Duplicate key name"
+                if (!['ER_DUP_FIELDNAME', 'ER_DUP_KEYNAME', 'ER_CANT_DROP_FIELD_OR_KEY', 'ER_MULTIPLE_PRI_KEY'].includes(e.code)) {
+                    console.log(`[DB] Migration skipped/failed for "${sql}":`, e.message);
+                }
+            }
+        }
+
+        console.log('[DB] Database tables and migrations verified successfully.');
         await connection.end();
     } catch (err) {
         console.error('[DB] Failed to initialize database:', err.message);

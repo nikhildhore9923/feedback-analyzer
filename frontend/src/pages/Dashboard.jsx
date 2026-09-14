@@ -27,6 +27,7 @@ function Dashboard() {
   const [stats, setStats] = useState([]);
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
+  const [alertToast, setAlertToast] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -50,9 +51,14 @@ function Dashboard() {
     if (!text.trim()) return;
     setLoading(true);
     try {
-      await api.submitReview(text);
+      const res = await api.submitReview(text);
       setText('');
       await fetchData();
+      
+      if (res.data.sentiment === 'Negative') {
+        setAlertToast("Critical negative feedback detected. An email alert has been sent to your team.");
+        setTimeout(() => setAlertToast(null), 5000);
+      }
     } catch (err) {
       alert('Could not reach the analysis service. Is it running?');
     }
@@ -87,7 +93,16 @@ function Dashboard() {
   }));
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-6">
+    <div className="max-w-6xl mx-auto p-6 space-y-6 relative">
+      
+      {/* Toast Notification */}
+      {alertToast && (
+        <div className="fixed top-4 right-4 z-50 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-lg animate-bounce duration-300 transition-all flex items-center gap-3">
+          <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+          <span className="font-medium text-sm">{alertToast}</span>
+        </div>
+      )}
+
       <header className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Feedback Intelligence</h1>
         <p className="text-gray-500 dark:text-gray-400 mt-2">Analyze, categorize, and act on customer feedback.</p>

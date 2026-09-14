@@ -25,5 +25,6 @@ router.get('/batches', batchController.getBatches);
 // Settings
 router.get('/settings', settingsController.getSettings);
 router.post('/settings', settingsController.updateSettings);
+router.delete('/settings/clear', settingsController.clearTenantData);
 
 module.exports = router;

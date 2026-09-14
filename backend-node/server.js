@@ -13,8 +13,8 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Routes
-app.use('/api', apiRoutes);
+const tenantMiddleware = require('./src/middleware/tenant');
+app.use('/api', tenantMiddleware, apiRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {

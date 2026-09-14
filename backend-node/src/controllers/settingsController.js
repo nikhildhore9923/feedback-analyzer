@@ -3,7 +3,7 @@ const feedbackService = require('../services/feedbackService');
 
 async function getSettings(req, res, next) {
     try {
-        const [rows] = await db.query(`SELECT setting_key, setting_value FROM settings`);
+        const [rows] = await db.query(`SELECT setting_key, setting_value FROM settings WHERE tenant_id = ?`, [req.tenantId]);
         const settings = {
             alertThreshold: -0.5,
             emailUser: '',
@@ -30,22 +30,23 @@ async function updateSettings(req, res, next) {
         
         const queries = [];
         const params = [];
+        const tid = req.tenantId;
 
         if (alertThreshold !== undefined) {
-            queries.push(`INSERT INTO settings (setting_key, setting_value) VALUES ('alert_threshold', ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)`);
-            params.push([String(alertThreshold)]);
+            queries.push(`INSERT INTO settings (setting_key, tenant_id, setting_value) VALUES ('alert_threshold', ?, ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)`);
+            params.push([tid, String(alertThreshold)]);
         }
         if (emailUser !== undefined) {
-            queries.push(`INSERT INTO settings (setting_key, setting_value) VALUES ('email_user', ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)`);
-            params.push([emailUser]);
+            queries.push(`INSERT INTO settings (setting_key, tenant_id, setting_value) VALUES ('email_user', ?, ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)`);
+            params.push([tid, emailUser]);
         }
         if (emailPass !== undefined && emailPass !== '********') {
-            queries.push(`INSERT INTO settings (setting_key, setting_value) VALUES ('email_pass', ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)`);
-            params.push([emailPass]);
+            queries.push(`INSERT INTO settings (setting_key, tenant_id, setting_value) VALUES ('email_pass', ?, ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)`);
+            params.push([tid, emailPass]);
         }
         if (alertTo !== undefined) {
-            queries.push(`INSERT INTO settings (setting_key, setting_value) VALUES ('alert_to', ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)`);
-            params.push([alertTo]);
+            queries.push(`INSERT INTO settings (setting_key, tenant_id, setting_value) VALUES ('alert_to', ?, ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)`);
+            params.push([tid, alertTo]);
         }
 
         for (let i = 0; i < queries.length; i++) {
@@ -58,4 +59,16 @@ async function updateSettings(req, res, next) {
     }
 }
 
-module.exports = { getSettings, updateSettings };
+async function clearTenantData(req, res, next) {
+    try {
+        const tid = req.tenantId;
+        // Due to foreign keys, delete reviews first, then batches
+        await db.query(`DELETE FROM reviews WHERE tenant_id = ?`, [tid]);
+        await db.query(`DELETE FROM batches WHERE tenant_id = ?`, [tid]);
+        res.json({ message: "Workspace reset successful" });
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = { getSettings, updateSettings, clearTenantData };

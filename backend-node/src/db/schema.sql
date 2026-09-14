@@ -1,10 +1,10 @@
-
-
 CREATE TABLE IF NOT EXISTS batches (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    label VARCHAR(255) NOT NULL UNIQUE,
+    label VARCHAR(255) NOT NULL,
     type VARCHAR(50) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    tenant_id VARCHAR(255) DEFAULT 'default',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (label, tenant_id)
 );
 
 CREATE TABLE IF NOT EXISTS reviews (
@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS reviews (
     aspect VARCHAR(100),
     alert_sent BOOLEAN DEFAULT FALSE,
     batch_id INT,
+    tenant_id VARCHAR(255) DEFAULT 'default',
     status VARCHAR(50) DEFAULT 'New',
     priority_score FLOAT DEFAULT 0,
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -23,8 +24,10 @@ CREATE TABLE IF NOT EXISTS reviews (
 );
 
 CREATE TABLE IF NOT EXISTS settings (
-    setting_key VARCHAR(100) PRIMARY KEY,
-    setting_value VARCHAR(255)
+    setting_key VARCHAR(100),
+    tenant_id VARCHAR(255) DEFAULT 'default',
+    setting_value VARCHAR(255),
+    PRIMARY KEY (setting_key, tenant_id)
 );
 
-INSERT IGNORE INTO settings (setting_key, setting_value) VALUES ('alert_threshold', '-0.5');
+INSERT IGNORE INTO settings (setting_key, tenant_id, setting_value) VALUES ('alert_threshold', 'default', '-0.5');

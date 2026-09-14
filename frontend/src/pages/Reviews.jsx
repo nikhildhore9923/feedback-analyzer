@@ -86,21 +86,39 @@ function Reviews() {
     exportReviewsToCsv(reviews)
   }
 
+  const handleExportAll = async () => {
+    try {
+      const res = await api.exportAllReviews();
+      exportReviewsToCsv(res.data.data);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to export all reviews");
+    }
+  }
+
   const totalPages = Math.ceil(meta.total / meta.limit)
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Feedback List</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Manage and respond to customer reviews.</p>
         </div>
-        <button
-          onClick={handleExport}
-          className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
-        >
-          Export CSV (Current Page)
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={handleExport}
+            className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+          >
+            Export Page
+          </button>
+          <button
+            onClick={handleExportAll}
+            className="px-4 py-2 bg-indigo-600 text-white border border-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-700 transition shadow-sm"
+          >
+            Export All
+          </button>
+        </div>
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-all duration-300 dark:bg-[#111827] dark:border-gray-800">

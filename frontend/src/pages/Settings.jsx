@@ -4,8 +4,6 @@ import { api } from '../api'
 function Settings() {
   const [settings, setSettings] = useState({
     alertThreshold: -0.5,
-    emailUser: '',
-    emailPass: '',
     alertTo: ''
   })
   const [saved, setSaved] = useState(false)
@@ -34,11 +32,31 @@ function Settings() {
     setSettings({ ...settings, [e.target.name]: e.target.value })
   }
 
+  const handleClearData = async () => {
+    if (window.confirm("Are you sure you want to delete all feedback and batches in this workspace? This cannot be undone.")) {
+      try {
+        await api.clearDemoData();
+        alert("Workspace reset successfully!");
+        window.location.reload();
+      } catch (err) {
+        alert("Failed to reset workspace");
+      }
+    }
+  }
+
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Settings</h1>
-        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Configure your feedback intelligence platform.</p>
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Settings</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Configure your feedback intelligence platform.</p>
+        </div>
+        <button
+          onClick={handleClearData}
+          className="px-4 py-2 bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-lg text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/40 transition shadow-sm"
+        >
+          Clear Workspace Data
+        </button>
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
@@ -51,7 +69,7 @@ function Settings() {
               Negative Polarity Alert Threshold (0 to -1)
             </label>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-              When a negative review's confidence/severity implies a polarity score below this threshold, an urgent email alert will be sent.
+              When a negative review's confidence/severity implies a polarity score below this threshold, an urgent email alert will be sent via Resend API.
             </p>
             <input
               type="number"
@@ -69,31 +87,8 @@ function Settings() {
 
           {/* Email config */}
           <div>
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Email Notifications (SMTP)</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Email Notifications</h2>
             <div className="space-y-4 md:w-2/3">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sender Gmail Address</label>
-                <input
-                  type="email"
-                  name="emailUser"
-                  placeholder="your-email@gmail.com"
-                  value={settings.emailUser}
-                  onChange={handleChange}
-                  className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 border p-2"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Gmail App Password</label>
-                <input
-                  type="password"
-                  name="emailPass"
-                  placeholder="16-character-app-password"
-                  value={settings.emailPass}
-                  onChange={handleChange}
-                  className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 border p-2"
-                />
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Requires 2-Factor Auth enabled on your Google Account.</p>
-              </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Alert Recipient Address</label>
                 <input
@@ -104,6 +99,7 @@ function Settings() {
                   onChange={handleChange}
                   className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 border p-2"
                 />
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">Note: To send to an unverified email on the Resend free tier, you must use your signed-up email address.</p>
               </div>
             </div>
           </div>

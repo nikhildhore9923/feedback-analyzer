@@ -7,7 +7,7 @@ async function submitReview(req, res, next) {
         if (!text) {
             return res.status(400).json({ error: "Text is required" });
         }
-        const result = await feedbackService.processSingleFeedback(text);
+        const result = await feedbackService.processSingleFeedback(text, req.tenantId);
         res.json(result);
     } catch (err) {
         next(err);
@@ -16,7 +16,7 @@ async function submitReview(req, res, next) {
 
 async function getReviews(req, res, next) {
     try {
-        const result = await feedbackService.getReviews(req.query);
+        const result = await feedbackService.getReviews(req.query, req.tenantId);
         res.json(result);
     } catch (err) {
         next(err);
@@ -27,7 +27,7 @@ async function updateStatus(req, res, next) {
     try {
         const { id } = req.params;
         const { status } = req.body;
-        await feedbackService.updateReviewStatus(id, status);
+        await feedbackService.updateReviewStatus(id, status, req.tenantId);
         res.json({ message: "Status updated" });
     } catch (err) {
         next(err);
@@ -37,7 +37,7 @@ async function updateStatus(req, res, next) {
 async function deleteReview(req, res, next) {
     try {
         const { id } = req.params;
-        await feedbackService.deleteReview(id);
+        await feedbackService.deleteReview(id, req.tenantId);
         res.json({ message: "Review deleted" });
     } catch (err) {
         next(err);
@@ -58,7 +58,7 @@ async function bulkUpload(req, res, next) {
             .on('end', async () => {
                 try {
                     // Create a CSV batch
-                    const batchId = await feedbackService.createCsvBatch(req.file.originalname);
+                    const batchId = await feedbackService.createCsvBatch(req.file.originalname, req.tenantId);
                     
                     const processed = [];
                     for (const row of results) {
@@ -80,8 +80,8 @@ async function bulkUpload(req, res, next) {
                             
                             const db = require('../db/connection');
                             await db.query(
-                                `INSERT INTO reviews (review_text, sentiment, confidence, severity, aspect, batch_id) VALUES (?, ?, ?, ?, ?, ?)`,
-                                [text, sentiment, confidence, severity, aspect, batchId]
+                                `INSERT INTO reviews (review_text, sentiment, confidence, severity, aspect, batch_id, tenant_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                                [text, sentiment, confidence, severity, aspect, batchId, req.tenantId]
                             );
                             processed.push({ text, sentiment });
                         }
