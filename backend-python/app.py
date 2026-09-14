@@ -72,7 +72,7 @@ def predict(request: FeedbackRequest):
         aspect=aspect_pred
     )
 
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health():
     return {"status": "FastAPI ML service is running", "models_loaded": bool(sentiment_model and aspect_model)}
 
