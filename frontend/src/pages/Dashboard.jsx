@@ -133,18 +133,18 @@ function Dashboard() {
                 >
                   {loading ? 'Analyzing...' : 'Analyze'}
                 </button>
-                <div className="flex items-center space-x-2 pt-2 border-t dark:border-gray-700">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-3 pt-4 border-t dark:border-gray-700">
                   <input
                     type="file"
                     accept=".csv"
                     onChange={(e) => setFile(e.target.files[0])}
-                    className="text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-50 file:text-teal-700 dark:file:bg-gray-700 dark:file:text-teal-400 hover:file:bg-teal-100 flex-1"
+                    className="text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-50 file:text-teal-700 dark:file:bg-gray-700 dark:file:text-teal-400 hover:file:bg-teal-100 flex-1 w-full"
                   />
                   <button
                     type="button"
                     disabled={!file || loading}
                     onClick={handleBulkUpload}
-                    className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 text-sm font-medium"
+                    className="px-4 py-2.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 text-sm font-medium w-full sm:w-auto shadow-sm"
                   >
                     Upload CSV
                   </button>

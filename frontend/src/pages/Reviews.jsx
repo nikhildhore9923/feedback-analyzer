@@ -60,12 +60,19 @@ function Reviews() {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this feedback?")) return;
+    
+    // Optimistic UI Update - instantly remove from screen
+    const previousReviews = [...reviews];
+    setReviews(reviews.filter(r => r.id !== id));
+    
     try {
-      await api.deleteReview(id)
-      fetchReviews(meta.page)
+      await api.deleteReview(id);
+      // Wait a moment and quietly sync meta in background
+      setTimeout(() => fetchReviews(meta.page), 1000);
     } catch(err) {
-      console.error(err)
-      alert("Failed to delete review")
+      console.error(err);
+      alert("Failed to delete review");
+      setReviews(previousReviews); // Revert on failure
     }
   }
 

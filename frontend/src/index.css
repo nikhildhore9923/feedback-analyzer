@@ -3,9 +3,13 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900 transition-colors duration-200;
+    @apply bg-slate-50 text-slate-900 transition-colors duration-200 antialiased;
+    background-image: radial-gradient(circle at 100% 0%, #f0fdfa 0%, transparent 25%), radial-gradient(circle at 0% 100%, #f8fafc 0%, transparent 25%);
+    background-attachment: fixed;
   }
   body.dark {
-    @apply bg-gray-900 text-gray-100;
+    @apply bg-slate-900 text-slate-100;
+    background-image: radial-gradient(circle at 100% 0%, #134e4a 0%, transparent 25%), radial-gradient(circle at 0% 100%, #0f172a 0%, transparent 25%);
+    background-attachment: fixed;
   }
 }

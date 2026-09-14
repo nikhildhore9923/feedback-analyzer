@@ -62,11 +62,18 @@ async function bulkUpload(req, res, next) {
                     
                     const processed = [];
                     for (const row of results) {
-                        const text = row.review || row.Review || row.text || row.Text;
-                        if (text) {
-                            // Process and assign to batch (slightly modifying processSingleFeedback or bypassing it)
-                            // For simplicity, we just use the mlService directly here, or modify processSingleFeedback
-                            // to accept an optional batchId. Let's do it cleanly:
+                        let text = row.review || row.Review || row.text || row.Text || row.feedback || row.Feedback;
+                        
+                        if (!text) {
+                            // Smart Fallback: grab the longest string in the row if headers don't match
+                            const values = Object.values(row).filter(v => typeof v === 'string');
+                            if (values.length > 0) {
+                                text = values.sort((a, b) => b.length - a.length)[0];
+                            }
+                        }
+
+                        if (text && text.trim().length > 0) {
+                            // Process and assign to batch
                             const { analyzeFeedback } = require('../services/mlService');
                             const mlResult = await analyzeFeedback(text);
                             const { sentiment, confidence, severity = 0, aspect } = mlResult;
