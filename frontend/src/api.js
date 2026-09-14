@@ -11,7 +11,11 @@ if (!tenantId) {
 
 // Add interceptor
 axios.interceptors.request.use((config) => {
-  config.headers['X-Tenant-ID'] = tenantId;
+  if (config.headers && typeof config.headers.set === 'function') {
+    config.headers.set('X-Tenant-ID', tenantId);
+  } else {
+    config.headers['X-Tenant-ID'] = tenantId;
+  }
   return config;
 });
 
