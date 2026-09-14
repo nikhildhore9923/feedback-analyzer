@@ -103,7 +103,7 @@ function Reviews() {
         </button>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-all duration-300 dark:bg-[#111827] dark:border-gray-800">
         <form onSubmit={handleSearchSubmit} className="flex flex-wrap gap-4 mb-6">
           <div className="flex-1 min-w-[200px]">
             <input
@@ -111,13 +111,13 @@ function Reviews() {
               placeholder="Search feedback..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 focus:ring-teal-500 border p-2 text-sm"
+              className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 focus:ring-purple-500 border p-2 text-sm"
             />
           </div>
           <select
             value={batchType}
             onChange={(e) => setBatchType(e.target.value)}
-            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 border p-2 text-sm"
+            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 border p-2 text-sm"
           >
             <option value="">All Upload Types</option>
             <option value="manual">Manual Entry</option>
@@ -126,7 +126,7 @@ function Reviews() {
           <select
             value={sentiment}
             onChange={(e) => setSentiment(e.target.value)}
-            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 border p-2 text-sm"
+            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 border p-2 text-sm"
           >
             <option value="">All Sentiments</option>
             <option value="Positive">Positive</option>
@@ -136,7 +136,7 @@ function Reviews() {
           <select
             value={aspect}
             onChange={(e) => setAspect(e.target.value)}
-            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 border p-2 text-sm"
+            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 border p-2 text-sm"
           >
             <option value="">All Categories</option>
             <option value="Product Quality">Product Quality</option>
@@ -149,7 +149,7 @@ function Reviews() {
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 border p-2 text-sm"
+            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 border p-2 text-sm"
           >
             <option value="">All Statuses</option>
             <option value="New">New</option>
@@ -200,7 +200,7 @@ function Reviews() {
                     <td className="p-4">
                       <div className="flex flex-col gap-1">
                         <span className={`inline-block px-2 py-1 text-xs rounded-md font-medium w-max ${
-                          r.sentiment === 'Positive' ? 'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400' :
+                          r.sentiment === 'Positive' ? 'bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400' :
                           r.sentiment === 'Negative' ? 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
                           'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
                         }`}>

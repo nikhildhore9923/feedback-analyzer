@@ -4,7 +4,7 @@ import { api } from '../api';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 
 const SENTIMENT_COLORS = {
-  Positive: '#14b8a6', // teal-500
+  Positive: '#14b8a6', // purple-500
   Negative: '#ef4444', // red-500
   Neutral: '#9ca3af',  // gray-400
 };
@@ -95,17 +95,17 @@ function Dashboard() {
 
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10 dark:hover:shadow-purple-900/20 dark:bg-[#111827] dark:border-gray-800">
           <div className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Analyzed</div>
           <div className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">{total}</div>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10 dark:hover:shadow-purple-900/20 dark:bg-[#111827] dark:border-gray-800">
           <div className="text-sm font-medium text-gray-500 dark:text-gray-400">Net Sentiment Score</div>
-          <div className={`mt-2 text-3xl font-bold ${netScore > 0 ? 'text-teal-600 dark:text-teal-400' : netScore < 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`}>
+          <div className={`mt-2 text-3xl font-bold ${netScore > 0 ? 'text-purple-600 dark:text-purple-400' : netScore < 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`}>
             {netScore > 0 ? '+' : ''}{netScore}
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10 dark:hover:shadow-purple-900/20 dark:bg-[#111827] dark:border-gray-800">
           <div className="text-sm font-medium text-gray-500 dark:text-gray-400">Critical Alerts</div>
           <div className={`mt-2 text-3xl font-bold ${urgentCount > 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`}>
             {urgentCount}
@@ -116,20 +116,20 @@ function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10 dark:hover:shadow-purple-900/20 dark:bg-[#111827] dark:border-gray-800">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Submit Feedback</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Paste a customer review..."
-                className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 focus:ring-teal-500 border p-3 min-h-[100px]"
+                className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 focus:ring-purple-500 border p-3 min-h-[100px]"
               />
               <div className="flex flex-col space-y-3">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700 transition font-medium"
+                  className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-all duration-300 active:scale-95 shadow-md shadow-purple-500/20 font-medium"
                 >
                   {loading ? 'Analyzing...' : 'Analyze'}
                 </button>
@@ -138,13 +138,13 @@ function Dashboard() {
                     type="file"
                     accept=".csv"
                     onChange={(e) => setFile(e.target.files[0])}
-                    className="text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-50 file:text-teal-700 dark:file:bg-gray-700 dark:file:text-teal-400 hover:file:bg-teal-100 flex-1 w-full"
+                    className="text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 dark:file:bg-gray-700 dark:file:text-purple-400 hover:file:bg-purple-100 flex-1 w-full"
                   />
                   <button
                     type="button"
                     disabled={!file || loading}
                     onClick={handleBulkUpload}
-                    className="px-4 py-2.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 text-sm font-medium w-full sm:w-auto shadow-sm"
+                    className="px-4 py-2.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 text-sm font-medium w-full sm:w-auto shadow-sm transition-all duration-300 active:scale-95"
                   >
                     Upload CSV
                   </button>
@@ -153,7 +153,7 @@ function Dashboard() {
             </form>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors h-[300px] flex flex-col">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10 dark:hover:shadow-purple-900/20 dark:bg-[#111827] dark:border-gray-800 h-[300px] flex flex-col">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Overall Distribution</h2>
             {total === 0 ? (
               <p className="text-gray-500 dark:text-gray-400 text-sm">No data available.</p>
@@ -185,10 +185,10 @@ function Dashboard() {
 
         {/* Right Column: Recent Activity */}
         <div className="lg:col-span-2">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 h-full transition-colors">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10 dark:hover:shadow-purple-900/20 dark:bg-[#111827] dark:border-gray-800">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Feedback</h2>
-              <Link to="/reviews" className="text-teal-600 dark:text-teal-400 text-sm font-medium hover:underline">
+              <Link to="/reviews" className="text-purple-600 dark:text-purple-400 text-sm font-medium hover:underline">
                 View all →
               </Link>
             </div>
@@ -204,7 +204,7 @@ function Dashboard() {
                         <p className="text-gray-800 dark:text-gray-200 text-sm">{r.review_text}</p>
                         <div className="flex flex-wrap items-center gap-2 mt-3">
                           <span className={`px-2 py-1 text-xs rounded-md font-medium ${
-                            r.sentiment === 'Positive' ? 'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400' :
+                            r.sentiment === 'Positive' ? 'bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400' :
                             r.sentiment === 'Negative' ? 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
                             'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
                           }`}>

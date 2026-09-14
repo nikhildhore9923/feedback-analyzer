@@ -61,7 +61,7 @@ function Settings() {
               name="alertThreshold"
               value={settings.alertThreshold}
               onChange={handleChange}
-              className="w-full md:w-1/2 rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 focus:ring-teal-500 border p-2"
+              className="w-full md:w-1/2 rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 focus:ring-purple-500 border p-2"
             />
           </div>
 
@@ -79,7 +79,7 @@ function Settings() {
                   placeholder="your-email@gmail.com"
                   value={settings.emailUser}
                   onChange={handleChange}
-                  className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 focus:ring-teal-500 border p-2"
+                  className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 focus:ring-purple-500 border p-2"
                 />
               </div>
               <div>
@@ -90,7 +90,7 @@ function Settings() {
                   placeholder="16-character-app-password"
                   value={settings.emailPass}
                   onChange={handleChange}
-                  className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 focus:ring-teal-500 border p-2"
+                  className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 focus:ring-purple-500 border p-2"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Requires 2-Factor Auth enabled on your Google Account.</p>
               </div>
@@ -102,7 +102,7 @@ function Settings() {
                   placeholder="manager@company.com"
                   value={settings.alertTo}
                   onChange={handleChange}
-                  className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-teal-500 focus:ring-teal-500 border p-2"
+                  className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 focus:ring-purple-500 border p-2"
                 />
               </div>
             </div>
@@ -112,7 +112,7 @@ function Settings() {
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-teal-600 text-white rounded-lg text-sm font-medium hover:bg-teal-700 transition disabled:opacity-50"
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700 transition-all duration-300 active:scale-95 shadow-md shadow-purple-500/20 disabled:opacity-50"
             >
               {loading ? 'Saving...' : 'Save Settings'}
             </button>

@@ -3,13 +3,13 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 transition-colors duration-200 antialiased;
-    background-image: radial-gradient(circle at 100% 0%, #f0fdfa 0%, transparent 25%), radial-gradient(circle at 0% 100%, #f8fafc 0%, transparent 25%);
+    @apply bg-slate-50 text-slate-900 transition-colors duration-300 antialiased;
+    background-image: radial-gradient(circle at 100% 0%, #f3e8ff 0%, transparent 25%), radial-gradient(circle at 0% 100%, #f8fafc 0%, transparent 25%);
     background-attachment: fixed;
   }
   body.dark {
-    @apply bg-slate-900 text-slate-100;
-    background-image: radial-gradient(circle at 100% 0%, #134e4a 0%, transparent 25%), radial-gradient(circle at 0% 100%, #0f172a 0%, transparent 25%);
+    @apply bg-[#0b0f19] text-slate-100 transition-colors duration-300;
+    background-image: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.1) 0%, transparent 40%), radial-gradient(circle at 0% 100%, rgba(15, 23, 42, 1) 0%, transparent 40%);
     background-attachment: fixed;
   }
 }
