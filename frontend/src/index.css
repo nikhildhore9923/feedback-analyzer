@@ -4,12 +4,12 @@
 @layer base {
   body {
     @apply bg-slate-50 text-slate-900 transition-colors duration-300 antialiased;
-    background-image: radial-gradient(circle at 100% 0%, #f3e8ff 0%, transparent 25%), radial-gradient(circle at 0% 100%, #f8fafc 0%, transparent 25%);
+    background-image: linear-gradient(to right, #f8fafc, #f1f5f9);
     background-attachment: fixed;
   }
   body.dark {
-    @apply bg-[#0b0f19] text-slate-100 transition-colors duration-300;
-    background-image: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.1) 0%, transparent 40%), radial-gradient(circle at 0% 100%, rgba(15, 23, 42, 1) 0%, transparent 40%);
+    @apply bg-[#0f172a] text-slate-100 transition-colors duration-300;
+    background-image: linear-gradient(to bottom right, #0f172a, #1e293b);
     background-attachment: fixed;
   }
 }

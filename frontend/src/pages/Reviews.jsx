@@ -111,13 +111,13 @@ function Reviews() {
               placeholder="Search feedback..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 focus:ring-purple-500 border p-2 text-sm"
+              className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 border p-2 text-sm"
             />
           </div>
           <select
             value={batchType}
             onChange={(e) => setBatchType(e.target.value)}
-            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 border p-2 text-sm"
+            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 border p-2 text-sm"
           >
             <option value="">All Upload Types</option>
             <option value="manual">Manual Entry</option>
@@ -126,7 +126,7 @@ function Reviews() {
           <select
             value={sentiment}
             onChange={(e) => setSentiment(e.target.value)}
-            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 border p-2 text-sm"
+            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 border p-2 text-sm"
           >
             <option value="">All Sentiments</option>
             <option value="Positive">Positive</option>
@@ -136,7 +136,7 @@ function Reviews() {
           <select
             value={aspect}
             onChange={(e) => setAspect(e.target.value)}
-            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 border p-2 text-sm"
+            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 border p-2 text-sm"
           >
             <option value="">All Categories</option>
             <option value="Product Quality">Product Quality</option>
@@ -149,7 +149,7 @@ function Reviews() {
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-purple-500 border p-2 text-sm"
+            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 border p-2 text-sm"
           >
             <option value="">All Statuses</option>
             <option value="New">New</option>
@@ -200,7 +200,7 @@ function Reviews() {
                     <td className="p-4">
                       <div className="flex flex-col gap-1">
                         <span className={`inline-block px-2 py-1 text-xs rounded-md font-medium w-max ${
-                          r.sentiment === 'Positive' ? 'bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400' :
+                          r.sentiment === 'Positive' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400' :
                           r.sentiment === 'Negative' ? 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
                           'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
                         }`}>
@@ -216,7 +216,7 @@ function Reviews() {
                         value={r.status}
                         onChange={(e) => handleStatusChange(r.id, e.target.value)}
                         className={`text-xs font-medium rounded-md p-1 border cursor-pointer ${
-                          r.status === 'New' ? 'border-purple-200 bg-purple-50 text-purple-700 dark:border-purple-800 dark:bg-purple-900/30 dark:text-purple-400' :
+                          r.status === 'New' ? 'border-indigo-200 bg-indigo-50 text-indigo-700 dark:border-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400' :
                           r.status === 'Resolved' ? 'border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-900/30 dark:text-green-400' :
                           'border-yellow-200 bg-yellow-50 text-yellow-700 dark:border-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
                         }`}

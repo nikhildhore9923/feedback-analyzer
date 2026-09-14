@@ -35,30 +35,23 @@ async function sendAlertEmail(reviewText, sentiment, confidence, severity, aspec
     }
 
     try {
-        const response = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
+        const axios = require('axios');
+        const response = await axios.post('https://api.resend.com/emails', {
+            from: 'Pulse System <onboarding@resend.dev>',
+            to: recipient,
+            subject: `Pulse Notification: New feedback flagged (${aspect})`,
+            text: `Hello,\n\nA new customer review has been flagged by the Pulse Feedback Intelligence system.\n\nReview details:\n- Text: "${reviewText}"\n- Detected Sentiment: ${sentiment}\n- Model Confidence: ${(confidence * 100).toFixed(1)}%\n- Severity Score: ${severity.toFixed(2)}\n- Category: ${aspect}\n\nYou can view and manage this feedback in your Pulse Dashboard.\n\nBest regards,\nPulse System`
+        }, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${RESEND_API_KEY}`
-            },
-            body: JSON.stringify({
-                from: 'Pulse System <onboarding@resend.dev>',
-                to: recipient,
-                subject: `Pulse Notification: New feedback flagged (${aspect})`,
-                text: `Hello,\n\nA new customer review has been flagged by the Pulse Feedback Intelligence system.\n\nReview details:\n- Text: "${reviewText}"\n- Detected Sentiment: ${sentiment}\n- Model Confidence: ${(confidence * 100).toFixed(1)}%\n- Severity Score: ${severity.toFixed(2)}\n- Category: ${aspect}\n\nYou can view and manage this feedback in your Pulse Dashboard.\n\nBest regards,\nPulse System`
-            })
+            }
         });
 
-        if (response.ok) {
-            console.log('[mailer] Resend API alert sent successfully.');
-            return true;
-        } else {
-            const errorData = await response.json();
-            console.error('[mailer] Resend API failed:', errorData);
-            return false;
-        }
+        console.log('[mailer] Resend API alert sent successfully.');
+        return true;
     } catch (err) {
-        console.error('[mailer] Failed to send alert:', err.message);
+        console.error('[mailer] Failed to send alert:', err.response?.data || err.message);
         return false;
     }
 }

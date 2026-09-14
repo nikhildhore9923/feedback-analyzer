@@ -131,7 +131,7 @@ Race conditions are legitimately handled at the database level. The `batches` ta
 ## 6. EMAIL ALERTS
 
 **Implementation:**
-- The codebase uses the **Resend HTTP API** directly via native Node.js `fetch()` inside `backend-node/src/utils/mailer.js`.
+- The codebase uses the **Resend HTTP API** directly via `axios` inside `backend-node/src/utils/mailer.js`.
 - It dynamically pulls the `RESEND_API_KEY` from environment variables to prevent secret leaks on GitHub.
 
 **Trigger Condition:**

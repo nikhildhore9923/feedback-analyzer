@@ -16,7 +16,7 @@ graph TD
 
     subgraph Backend_Node [Tier 2: Render]
         NodeAPI[Node.js / Express API]
-        Mailer[Nodemailer SMTP Service]
+        Mailer[Resend HTTP API SMTP Service]
     end
 
     subgraph Backend_ML [Tier 3: Render]
@@ -48,7 +48,7 @@ graph TD
 
 ### B. Business Logic API (Node.js / Express)
 *   **Role**: Acts as the central traffic controller and orchestrator.
-*   **Key Tech**: Node.js, Express, `mysql2/promise`, `nodemailer`.
+*   **Key Tech**: Node.js, Express, `mysql2/promise`, `Resend HTTP API`.
 *   **Responsibilities**:
     *   Routing and REST API endpoints (`GET /reviews`, `POST /reviews`).
     *   Database CRUD operations.
