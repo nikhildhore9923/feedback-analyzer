@@ -25,42 +25,38 @@ async function getEmailConfig() {
 async function sendAlertEmail(reviewText, sentiment, confidence, severity, aspect) {
     const config = await getEmailConfig();
 
-    if (!config.user || !config.pass) {
-        console.log('[mailer] Skipped alert (email not configured in Settings or .env):', reviewText);
+    // Use the Resend API Key from environment variables (set this in Render Dashboard)
+    const RESEND_API_KEY = process.env.RESEND_API_KEY;
+    const recipient = config.to || config.user;
+
+    if (!recipient) {
+        console.log('[mailer] Skipped alert (no recipient email configured in Settings).');
         return false;
     }
 
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: config.user,
-            pass: config.pass,
-        },
-    });
-
     try {
-        await transporter.sendMail({
-            from: config.user,
-            to: config.to || config.user,
-            subject: `Pulse Notification: New feedback flagged (${aspect})`,
-            text: `Hello,
-
-A new customer review has been flagged by the Pulse Feedback Intelligence system.
-
-Review details:
-- Text: "${reviewText}"
-- Detected Sentiment: ${sentiment}
-- Model Confidence: ${(confidence * 100).toFixed(1)}%
-- Severity Score: ${severity.toFixed(2)}
-- Category: ${aspect}
-
-You can view and manage this feedback in your Pulse Dashboard.
-
-Best regards,
-Pulse System`,
+        const response = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${RESEND_API_KEY}`
+            },
+            body: JSON.stringify({
+                from: 'Pulse System <onboarding@resend.dev>',
+                to: recipient,
+                subject: `Pulse Notification: New feedback flagged (${aspect})`,
+                text: `Hello,\n\nA new customer review has been flagged by the Pulse Feedback Intelligence system.\n\nReview details:\n- Text: "${reviewText}"\n- Detected Sentiment: ${sentiment}\n- Model Confidence: ${(confidence * 100).toFixed(1)}%\n- Severity Score: ${severity.toFixed(2)}\n- Category: ${aspect}\n\nYou can view and manage this feedback in your Pulse Dashboard.\n\nBest regards,\nPulse System`
+            })
         });
-        console.log('[mailer] Alert email sent.');
-        return true;
+
+        if (response.ok) {
+            console.log('[mailer] Resend API alert sent successfully.');
+            return true;
+        } else {
+            const errorData = await response.json();
+            console.error('[mailer] Resend API failed:', errorData);
+            return false;
+        }
     } catch (err) {
         console.error('[mailer] Failed to send alert:', err.message);
         return false;
