@@ -28,7 +28,11 @@ data = {
         "It is fine, neither good nor bad.",
         "Amazing customer support!",
         "The delivery was late by a week.",
-        "Very expensive for such cheap material."
+        "Very expensive for such cheap material.",
+        "Fantastic product!",
+        "This product is ok.",
+        "It's just ok, nothing special.",
+        "An absolutely fantastic and excellent experience."
     ],
     "sentiment": [
         "Positive",
@@ -50,7 +54,11 @@ data = {
         "Neutral",
         "Positive",
         "Negative",
-        "Negative"
+        "Negative",
+        "Positive",
+        "Neutral",
+        "Neutral",
+        "Positive"
     ],
     "aspect": [
         "Product Quality",
@@ -72,7 +80,11 @@ data = {
         "General",
         "Customer Service",
         "Delivery",
-        "Pricing"
+        "Pricing",
+        "Product Quality",
+        "General",
+        "General",
+        "General"
     ]
 }
 
