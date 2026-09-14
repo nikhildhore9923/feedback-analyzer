@@ -2,109 +2,50 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, accuracy_score
 import joblib
 import os
 
-# Create a small synthetic dataset tailored for customer feedback
-# In a real scenario, you would load this from a CSV (e.g., IMDB or Amazon reviews)
-data = {
-    "text": [
-        "Absolutely love this product, it works flawlessly!",
-        "Terrible experience. The item arrived broken and customer service was rude.",
-        "It's okay, not great but gets the job done.",
-        "Fast shipping and great packaging. Highly recommended.",
-        "Waste of money. Do not buy this.",
-        "The pricing is a bit high for what it is, but the quality is decent.",
-        "I am very disappointed with the delivery time.",
-        "Best purchase I've made all year!",
-        "The app keeps crashing every time I try to log in.",
-        "It's exactly as described.",
-        "This product is good.",
-        "This product is bad.",
-        "I hate this.",
-        "I love this so much.",
-        "Great quality and affordable.",
-        "Awful, just terrible.",
-        "It is fine, neither good nor bad.",
-        "Amazing customer support!",
-        "The delivery was late by a week.",
-        "Very expensive for such cheap material.",
-        "Fantastic product!",
-        "This product is ok.",
-        "It's just ok, nothing special.",
-        "An absolutely fantastic and excellent experience."
-    ],
-    "sentiment": [
-        "Positive",
-        "Negative",
-        "Neutral",
-        "Positive",
-        "Negative",
-        "Neutral",
-        "Negative",
-        "Positive",
-        "Negative",
-        "Neutral",
-        "Positive",
-        "Negative",
-        "Negative",
-        "Positive",
-        "Positive",
-        "Negative",
-        "Neutral",
-        "Positive",
-        "Negative",
-        "Negative",
-        "Positive",
-        "Neutral",
-        "Neutral",
-        "Positive"
-    ],
-    "aspect": [
-        "Product Quality",
-        "Customer Service",
-        "General",
-        "Delivery",
-        "Pricing",
-        "Pricing",
-        "Delivery",
-        "General",
-        "App/Website",
-        "General",
-        "Product Quality",
-        "Product Quality",
-        "General",
-        "General",
-        "Product Quality",
-        "General",
-        "General",
-        "Customer Service",
-        "Delivery",
-        "Pricing",
-        "Product Quality",
-        "General",
-        "General",
-        "General"
-    ]
-}
+print("Loading dataset...")
+df = pd.read_csv("training_data.csv")
 
-df = pd.DataFrame(data)
+print(f"Dataset loaded with {len(df)} rows.")
+
+# Split the dataset into training and testing sets to evaluate accuracy
+X_train, X_test, y_sent_train, y_sent_test, y_asp_train, y_asp_test = train_test_split(
+    df['text'], df['sentiment'], df['aspect'], test_size=0.2, random_state=42
+)
 
 # 1. Train Sentiment Model
-print("Training Sentiment Analysis Model (TF-IDF + Logistic Regression)...")
+print("\n--- Training Sentiment Analysis Model ---")
 sentiment_pipeline = Pipeline([
     ('tfidf', TfidfVectorizer(ngram_range=(1, 2))),
-    ('clf', LogisticRegression(random_state=42, multi_class='multinomial', max_iter=200))
+    ('clf', LogisticRegression(random_state=42, multi_class='multinomial', max_iter=500))
 ])
-sentiment_pipeline.fit(df['text'], df['sentiment'])
+sentiment_pipeline.fit(X_train, y_sent_train)
+
+# Evaluate Sentiment Model
+sent_preds = sentiment_pipeline.predict(X_test)
+sent_acc = accuracy_score(y_sent_test, sent_preds)
+print(f"Sentiment Model Accuracy: {sent_acc * 100:.2f}%")
+print("Sentiment Classification Report:")
+print(classification_report(y_sent_test, sent_preds))
 
 # 2. Train Aspect/Category Model
-print("Training Topic Detection Model (TF-IDF + Logistic Regression)...")
+print("\n--- Training Topic Detection Model ---")
 aspect_pipeline = Pipeline([
     ('tfidf', TfidfVectorizer(ngram_range=(1, 2))),
-    ('clf', LogisticRegression(random_state=42, multi_class='multinomial', max_iter=200))
+    ('clf', LogisticRegression(random_state=42, multi_class='multinomial', max_iter=500))
 ])
-aspect_pipeline.fit(df['text'], df['aspect'])
+aspect_pipeline.fit(X_train, y_asp_train)
+
+# Evaluate Aspect Model
+asp_preds = aspect_pipeline.predict(X_test)
+asp_acc = accuracy_score(y_asp_test, asp_preds)
+print(f"Aspect Model Accuracy: {asp_acc * 100:.2f}%")
+print("Aspect Classification Report:")
+print(classification_report(y_asp_test, asp_preds))
 
 # Ensure models directory exists
 os.makedirs('models', exist_ok=True)
@@ -113,5 +54,4 @@ os.makedirs('models', exist_ok=True)
 joblib.dump(sentiment_pipeline, 'models/sentiment_model.pkl')
 joblib.dump(aspect_pipeline, 'models/aspect_model.pkl')
 
-print("Models successfully trained and saved to the 'models' directory.")
-print("Run this script anytime to retrain with new data.")
+print("\nModels successfully trained and saved to the 'models' directory.")

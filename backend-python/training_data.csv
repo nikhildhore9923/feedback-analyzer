@@ -1,0 +1,3364 @@
+text,sentiment,aspect
+The app is love.,Positive,App/Website
+The app is trash!,Negative,App/Website
+"It took forever to arrive, awesome shipping.",Positive,Delivery
+"Support replied immediately, standard service.",Neutral,Customer Service
+the build material is awesome.,Positive,Product Quality
+I found the item to be decent!,Neutral,Product Quality
+"It is too expensive, disappointing value.",Negative,Pricing
+"Support replied immediately, hated service!",Negative,Customer Service
+"app keeps crashing, broken experience.",Negative,App/Website
+logistics and shipping speed were horrible.,Negative,Delivery
+"It is too expensive, fantastic value.",Positive,Pricing
+"it is too expensive, worst value.",Negative,Pricing
+I found the item to be great.,Positive,Product Quality
+The price is great!,Positive,Pricing
+"It took forever to arrive, hated shipping!",Negative,Delivery
+Logistics and shipping speed were loved!,Positive,Delivery
+Navigation is terrible.,Negative,App/Website
+Delivery was impressive.,Positive,Delivery
+quality is stellar.,Positive,Product Quality
+"Honestly, the product feels passable!",Neutral,Product Quality
+The website is average!,Neutral,App/Website
+the support team is trash.,Negative,Customer Service
+The price is useless!,Negative,Pricing
+Quality is wonderful!,Positive,Product Quality
+"for the cost, this is fine.",Neutral,Pricing
+My experience with the agent was horrible!,Negative,Customer Service
+"Honestly, the product feels hated.",Negative,Product Quality
+"honestly, the product feels phenomenal.",Positive,Product Quality
+The build material is phenomenal.,Positive,Product Quality
+the app is disappointing.,Negative,App/Website
+quality is ok.,Neutral,Product Quality
+i found the item to be flawless.,Positive,Product Quality
+"For the cost, this is excellent.",Positive,Pricing
+logistics and shipping speed were brilliant.,Positive,Delivery
+the user interface is stellar.,Positive,App/Website
+Logistics and shipping speed were love.,Positive,Delivery
+"Honestly, the product feels mediocre.",Neutral,Product Quality
+the price is awesome.,Positive,Pricing
+The website is awful!,Negative,App/Website
+delivery was hate.,Negative,Delivery
+"Support replied immediately, poor service!",Negative,Customer Service
+The build material is phenomenal!,Positive,Product Quality
+the package arrived terrible.,Negative,Delivery
+My experience with the agent was trash.,Negative,Customer Service
+"It is too expensive, garbage value!",Negative,Pricing
+Logistics and shipping speed were love!,Positive,Delivery
+"It took forever to arrive, great shipping.",Positive,Delivery
+"It is too expensive, love value!",Positive,Pricing
+The user interface is standard.,Neutral,App/Website
+navigation is useless.,Negative,App/Website
+my experience with the agent was wonderful.,Positive,Customer Service
+The user interface is ok.,Neutral,App/Website
+The build material is loved!,Positive,Product Quality
+The product is outstanding!,Positive,Product Quality
+"app keeps crashing, poor experience.",Negative,App/Website
+The price is outstanding.,Positive,Pricing
+"It is too expensive, broken value.",Negative,Pricing
+"They ignored my emails, decent support!",Neutral,Customer Service
+Quality is terrible.,Negative,Product Quality
+The website is hate.,Negative,App/Website
+The support team is ok!,Neutral,Customer Service
+the app is wonderful.,Positive,App/Website
+Delivery was decent!,Neutral,Delivery
+delivery was mediocre.,Neutral,Delivery
+"Honestly, the product feels awesome!",Positive,Product Quality
+The package arrived trash!,Negative,Delivery
+The product is wonderful.,Positive,Product Quality
+The build material is wonderful.,Positive,Product Quality
+My experience with the agent was acceptable!,Neutral,Customer Service
+The support team is dreadful!,Negative,Customer Service
+"it is too expensive, passable value.",Neutral,Pricing
+The app is wonderful!,Positive,App/Website
+"App keeps crashing, unacceptable experience.",Negative,App/Website
+quality is trash.,Negative,Product Quality
+Value for money is unacceptable!,Negative,Pricing
+The price is decent!,Neutral,Pricing
+Customer service was dreadful.,Negative,Customer Service
+"this product is exactly what i expected, absolutely impressive.",Positive,Product Quality
+The user interface is broken.,Negative,App/Website
+Navigation is superb!,Positive,App/Website
+Delivery was passable!,Neutral,Delivery
+"This product is exactly what I expected, absolutely passable.",Neutral,Product Quality
+My experience with the agent was perfect.,Positive,Customer Service
+shipping was hated.,Negative,Delivery
+"they ignored my emails, cheap support.",Negative,Customer Service
+the price is good.,Positive,Pricing
+The product is passable!,Neutral,Product Quality
+pricing is absolutely bad.,Negative,Pricing
+customer service was horrible.,Negative,Customer Service
+The package arrived passable.,Neutral,Delivery
+"It took forever to arrive, fine shipping.",Neutral,Delivery
+"This product is exactly what I expected, absolutely cheap.",Negative,Product Quality
+The package arrived unacceptable.,Negative,Delivery
+The website is outstanding.,Positive,App/Website
+"app keeps crashing, cheap experience.",Negative,App/Website
+"Support replied immediately, fair service.",Neutral,Customer Service
+Navigation is love!,Positive,App/Website
+The build material is broken.,Negative,Product Quality
+The product is wonderful!,Positive,Product Quality
+value for money is fantastic.,Positive,Pricing
+The user interface is trash!,Negative,App/Website
+Value for money is decent!,Neutral,Pricing
+"this product is exactly what i expected, absolutely mediocre.",Neutral,Product Quality
+Delivery was fantastic.,Positive,Delivery
+Quality is awesome.,Positive,Product Quality
+"It took forever to arrive, unacceptable shipping.",Negative,Delivery
+the website is acceptable.,Neutral,App/Website
+"it took forever to arrive, perfect shipping.",Positive,Delivery
+"support replied immediately, hate service.",Negative,Customer Service
+quality is acceptable.,Neutral,Product Quality
+Shipping was ok.,Neutral,Delivery
+shipping was dreadful.,Negative,Delivery
+Quality is awful.,Negative,Product Quality
+"This product is exactly what I expected, absolutely unacceptable.",Negative,Product Quality
+"honestly, the product feels trash.",Negative,Product Quality
+My experience with the agent was impressive!,Positive,Customer Service
+"Support replied immediately, fine service!",Neutral,Customer Service
+My experience with the agent was great.,Positive,Customer Service
+i found the item to be great.,Positive,Product Quality
+"it is too expensive, amazing value.",Positive,Pricing
+The package arrived awesome.,Positive,Delivery
+"This product is exactly what I expected, absolutely impressive!",Positive,Product Quality
+"Honestly, the product feels standard!",Neutral,Product Quality
+navigation is great.,Positive,App/Website
+The product is perfect!,Positive,Product Quality
+Pricing is absolutely fine.,Neutral,Pricing
+the user interface is wonderful.,Positive,App/Website
+Delivery was okay!,Neutral,Delivery
+the website is mediocre.,Neutral,App/Website
+my experience with the agent was awful.,Negative,Customer Service
+The app is hate!,Negative,App/Website
+the build material is wonderful.,Positive,Product Quality
+The price is unacceptable!,Negative,Pricing
+The website is okay!,Neutral,App/Website
+"App keeps crashing, love experience.",Positive,App/Website
+"this product is exactly what i expected, absolutely bad.",Negative,Product Quality
+Customer service was decent.,Neutral,Customer Service
+"Honestly, the product feels stellar.",Positive,Product Quality
+The support team is love.,Positive,Customer Service
+I found the item to be brilliant!,Positive,Product Quality
+The build material is perfect!,Positive,Product Quality
+The app is bad!,Negative,App/Website
+I found the item to be awesome.,Positive,Product Quality
+"They ignored my emails, love support!",Positive,Customer Service
+Shipping was decent!,Neutral,Delivery
+"Support replied immediately, love service!",Positive,Customer Service
+"For the cost, this is excellent!",Positive,Pricing
+"They ignored my emails, average support.",Neutral,Customer Service
+The build material is trash.,Negative,Product Quality
+The package arrived average.,Neutral,Delivery
+"Honestly, the product feels outstanding.",Positive,Product Quality
+the package arrived loved.,Positive,Delivery
+"app keeps crashing, awful experience.",Negative,App/Website
+The build material is okay.,Neutral,Product Quality
+the package arrived brilliant.,Positive,Delivery
+the app is good.,Positive,App/Website
+"This product is exactly what I expected, absolutely worst!",Negative,Product Quality
+quality is terrible.,Negative,Product Quality
+The price is loved.,Positive,Pricing
+"it is too expensive, terrible value.",Negative,Pricing
+"For the cost, this is outstanding!",Positive,Pricing
+Customer service was amazing!,Positive,Customer Service
+Logistics and shipping speed were perfect.,Positive,Delivery
+"they ignored my emails, great support.",Positive,Customer Service
+The build material is cheap!,Negative,Product Quality
+shipping was hate.,Negative,Delivery
+pricing is absolutely hate.,Negative,Pricing
+The price is outstanding!,Positive,Pricing
+Value for money is hate!,Negative,Pricing
+Shipping was great.,Positive,Delivery
+"App keeps crashing, broken experience!",Negative,App/Website
+the price is great.,Positive,Pricing
+"app keeps crashing, fair experience.",Neutral,App/Website
+delivery was loved.,Positive,Delivery
+Customer service was excellent.,Positive,Customer Service
+customer service was outstanding.,Positive,Customer Service
+i found the item to be awful.,Negative,Product Quality
+the product is garbage.,Negative,Product Quality
+Delivery was awesome!,Positive,Delivery
+"App keeps crashing, okay experience!",Neutral,App/Website
+"it took forever to arrive, superb shipping.",Positive,Delivery
+The build material is superb.,Positive,Product Quality
+"App keeps crashing, cheap experience!",Negative,App/Website
+delivery was trash.,Negative,Delivery
+navigation is wonderful.,Positive,App/Website
+"for the cost, this is dreadful.",Negative,Pricing
+Shipping was awful.,Negative,Delivery
+"It is too expensive, hate value.",Negative,Pricing
+Quality is great.,Positive,Product Quality
+"It took forever to arrive, terrible shipping.",Negative,Delivery
+customer service was perfect.,Positive,Customer Service
+the app is stellar.,Positive,App/Website
+Shipping was bad!,Negative,Delivery
+"This product is exactly what I expected, absolutely standard.",Neutral,Product Quality
+"Honestly, the product feels great!",Positive,Product Quality
+"Support replied immediately, brilliant service.",Positive,Customer Service
+Delivery was impressive!,Positive,Delivery
+Pricing is absolutely broken!,Negative,Pricing
+the package arrived perfect.,Positive,Delivery
+My experience with the agent was great!,Positive,Customer Service
+"honestly, the product feels awesome.",Positive,Product Quality
+The product is disappointing.,Negative,Product Quality
+The product is awesome!,Positive,Product Quality
+Quality is cheap.,Negative,Product Quality
+Customer service was fantastic.,Positive,Customer Service
+i found the item to be outstanding.,Positive,Product Quality
+"This product is exactly what I expected, absolutely ok.",Neutral,Product Quality
+"It took forever to arrive, dreadful shipping!",Negative,Delivery
+Quality is average!,Neutral,Product Quality
+Logistics and shipping speed were wonderful!,Positive,Delivery
+The support team is stellar.,Positive,Customer Service
+logistics and shipping speed were bad.,Negative,Delivery
+"it is too expensive, acceptable value.",Neutral,Pricing
+customer service was flawless.,Positive,Customer Service
+the build material is good.,Positive,Product Quality
+"It took forever to arrive, impressive shipping.",Positive,Delivery
+"This product is exactly what I expected, absolutely poor!",Negative,Product Quality
+I found the item to be useless.,Negative,Product Quality
+Shipping was worst!,Negative,Delivery
+value for money is phenomenal.,Positive,Pricing
+The user interface is awful!,Negative,App/Website
+The app is outstanding!,Positive,App/Website
+the package arrived average.,Neutral,Delivery
+"It took forever to arrive, flawless shipping!",Positive,Delivery
+The website is trash.,Negative,App/Website
+the build material is dreadful.,Negative,Product Quality
+shipping was bad.,Negative,Delivery
+Delivery was fine!,Neutral,Delivery
+quality is garbage.,Negative,Product Quality
+my experience with the agent was unacceptable.,Negative,Customer Service
+"it took forever to arrive, standard shipping.",Neutral,Delivery
+The package arrived great!,Positive,Delivery
+the app is bad.,Negative,App/Website
+"It is too expensive, fair value!",Neutral,Pricing
+"Support replied immediately, bad service.",Negative,Customer Service
+The app is hated.,Negative,App/Website
+"They ignored my emails, okay support!",Neutral,Customer Service
+"App keeps crashing, flawless experience!",Positive,App/Website
+"It is too expensive, cheap value.",Negative,Pricing
+value for money is decent.,Neutral,Pricing
+"it took forever to arrive, love shipping.",Positive,Delivery
+the package arrived amazing.,Positive,Delivery
+my experience with the agent was broken.,Negative,Customer Service
+The app is fine.,Neutral,App/Website
+"this product is exactly what i expected, absolutely outstanding.",Positive,Product Quality
+My experience with the agent was phenomenal!,Positive,Customer Service
+the user interface is amazing.,Positive,App/Website
+"It took forever to arrive, awesome shipping!",Positive,Delivery
+the user interface is trash.,Negative,App/Website
+The user interface is amazing!,Positive,App/Website
+pricing is absolutely disappointing.,Negative,Pricing
+"Support replied immediately, stellar service.",Positive,Customer Service
+The app is awesome.,Positive,App/Website
+My experience with the agent was hate.,Negative,Customer Service
+The price is broken.,Negative,Pricing
+"It took forever to arrive, decent shipping!",Neutral,Delivery
+"This product is exactly what I expected, absolutely stellar.",Positive,Product Quality
+I found the item to be awful.,Negative,Product Quality
+Logistics and shipping speed were cheap.,Negative,Delivery
+the app is impressive.,Positive,App/Website
+my experience with the agent was impressive.,Positive,Customer Service
+Shipping was unacceptable.,Negative,Delivery
+Shipping was hated!,Negative,Delivery
+the user interface is impressive.,Positive,App/Website
+Quality is loved!,Positive,Product Quality
+"they ignored my emails, impressive support.",Positive,Customer Service
+The user interface is hate!,Negative,App/Website
+The price is okay.,Neutral,Pricing
+The build material is dreadful!,Negative,Product Quality
+"honestly, the product feels great.",Positive,Product Quality
+Pricing is absolutely wonderful!,Positive,Pricing
+"Honestly, the product feels disappointing!",Negative,Product Quality
+I found the item to be passable.,Neutral,Product Quality
+"honestly, the product feels impressive.",Positive,Product Quality
+The package arrived dreadful.,Negative,Delivery
+"It took forever to arrive, passable shipping.",Neutral,Delivery
+logistics and shipping speed were fantastic.,Positive,Delivery
+the build material is outstanding.,Positive,Product Quality
+The support team is cheap!,Negative,Customer Service
+delivery was broken.,Negative,Delivery
+The product is standard!,Neutral,Product Quality
+My experience with the agent was amazing.,Positive,Customer Service
+Value for money is stellar.,Positive,Pricing
+The build material is hate!,Negative,Product Quality
+"they ignored my emails, brilliant support.",Positive,Customer Service
+the build material is okay.,Neutral,Product Quality
+The product is good!,Positive,Product Quality
+Delivery was stellar!,Positive,Delivery
+The build material is flawless!,Positive,Product Quality
+My experience with the agent was outstanding.,Positive,Customer Service
+"Support replied immediately, useless service.",Negative,Customer Service
+Delivery was fine.,Neutral,Delivery
+Value for money is poor!,Negative,Pricing
+The support team is wonderful.,Positive,Customer Service
+logistics and shipping speed were dreadful.,Negative,Delivery
+"For the cost, this is trash!",Negative,Pricing
+I found the item to be disappointing.,Negative,Product Quality
+The package arrived bad.,Negative,Delivery
+Customer service was perfect.,Positive,Customer Service
+"it is too expensive, mediocre value.",Neutral,Pricing
+I found the item to be good.,Positive,Product Quality
+"Honestly, the product feels excellent!",Positive,Product Quality
+the support team is great.,Positive,Customer Service
+"app keeps crashing, terrible experience.",Negative,App/Website
+"support replied immediately, bad service.",Negative,Customer Service
+Delivery was hate.,Negative,Delivery
+"support replied immediately, flawless service.",Positive,Customer Service
+"They ignored my emails, garbage support!",Negative,Customer Service
+"This product is exactly what I expected, absolutely loved!",Positive,Product Quality
+the user interface is broken.,Negative,App/Website
+Value for money is ok.,Neutral,Pricing
+"It is too expensive, good value.",Positive,Pricing
+The user interface is cheap!,Negative,App/Website
+quality is superb.,Positive,Product Quality
+My experience with the agent was disappointing!,Negative,Customer Service
+"Honestly, the product feels amazing!",Positive,Product Quality
+quality is bad.,Negative,Product Quality
+my experience with the agent was loved.,Positive,Customer Service
+The app is standard.,Neutral,App/Website
+the build material is fair.,Neutral,Product Quality
+"It is too expensive, outstanding value.",Positive,Pricing
+shipping was standard.,Neutral,Delivery
+delivery was stellar.,Positive,Delivery
+"It is too expensive, hated value!",Negative,Pricing
+i found the item to be stellar.,Positive,Product Quality
+Pricing is absolutely excellent.,Positive,Pricing
+delivery was dreadful.,Negative,Delivery
+Shipping was garbage.,Negative,Delivery
+Logistics and shipping speed were phenomenal!,Positive,Delivery
+The package arrived perfect.,Positive,Delivery
+The user interface is great!,Positive,App/Website
+"Honestly, the product feels horrible.",Negative,Product Quality
+the user interface is good.,Positive,App/Website
+the app is decent.,Neutral,App/Website
+Quality is flawless.,Positive,Product Quality
+Value for money is garbage!,Negative,Pricing
+The support team is excellent!,Positive,Customer Service
+The support team is terrible.,Negative,Customer Service
+The package arrived broken!,Negative,Delivery
+"It is too expensive, ok value.",Neutral,Pricing
+the package arrived trash.,Negative,Delivery
+"For the cost, this is amazing!",Positive,Pricing
+"for the cost, this is flawless.",Positive,Pricing
+"it took forever to arrive, average shipping.",Neutral,Delivery
+"Support replied immediately, awesome service.",Positive,Customer Service
+quality is amazing.,Positive,Product Quality
+The user interface is mediocre.,Neutral,App/Website
+navigation is trash.,Negative,App/Website
+"this product is exactly what i expected, absolutely excellent.",Positive,Product Quality
+"App keeps crashing, awful experience!",Negative,App/Website
+the support team is awful.,Negative,Customer Service
+"this product is exactly what i expected, absolutely unacceptable.",Negative,Product Quality
+"They ignored my emails, awesome support!",Positive,Customer Service
+"It is too expensive, superb value.",Positive,Pricing
+"app keeps crashing, decent experience.",Neutral,App/Website
+I found the item to be broken!,Negative,Product Quality
+The product is standard.,Neutral,Product Quality
+the user interface is fine.,Neutral,App/Website
+shipping was trash.,Negative,Delivery
+Delivery was amazing.,Positive,Delivery
+Customer service was unacceptable.,Negative,Customer Service
+The price is ok!,Neutral,Pricing
+navigation is phenomenal.,Positive,App/Website
+Navigation is trash!,Negative,App/Website
+The product is love.,Positive,Product Quality
+The product is worst.,Negative,Product Quality
+"This product is exactly what I expected, absolutely decent.",Neutral,Product Quality
+"This product is exactly what I expected, absolutely good!",Positive,Product Quality
+customer service was broken.,Negative,Customer Service
+The user interface is love!,Positive,App/Website
+"Honestly, the product feels garbage!",Negative,Product Quality
+Quality is fine!,Neutral,Product Quality
+"This product is exactly what I expected, absolutely useless.",Negative,Product Quality
+the app is ok.,Neutral,App/Website
+Customer service was outstanding!,Positive,Customer Service
+"This product is exactly what I expected, absolutely love!",Positive,Product Quality
+Customer service was loved.,Positive,Customer Service
+The app is great!,Positive,App/Website
+The price is unacceptable.,Negative,Pricing
+The product is acceptable.,Neutral,Product Quality
+The package arrived perfect!,Positive,Delivery
+Quality is worst!,Negative,Product Quality
+My experience with the agent was awesome.,Positive,Customer Service
+delivery was passable.,Neutral,Delivery
+"Support replied immediately, mediocre service.",Neutral,Customer Service
+"app keeps crashing, phenomenal experience.",Positive,App/Website
+Navigation is trash.,Negative,App/Website
+The package arrived hated.,Negative,Delivery
+navigation is terrible.,Negative,App/Website
+The website is impressive!,Positive,App/Website
+"They ignored my emails, bad support.",Negative,Customer Service
+"support replied immediately, fantastic service.",Positive,Customer Service
+Pricing is absolutely standard!,Neutral,Pricing
+Value for money is fine.,Neutral,Pricing
+The product is great.,Positive,Product Quality
+Shipping was love.,Positive,Delivery
+Quality is decent.,Neutral,Product Quality
+The website is okay.,Neutral,App/Website
+"it took forever to arrive, stellar shipping.",Positive,Delivery
+"It is too expensive, trash value!",Negative,Pricing
+"For the cost, this is useless!",Negative,Pricing
+"App keeps crashing, perfect experience!",Positive,App/Website
+The package arrived useless.,Negative,Delivery
+"It took forever to arrive, brilliant shipping!",Positive,Delivery
+"this product is exactly what i expected, absolutely amazing.",Positive,Product Quality
+quality is awful.,Negative,Product Quality
+customer service was phenomenal.,Positive,Customer Service
+"Honestly, the product feels perfect.",Positive,Product Quality
+"They ignored my emails, horrible support.",Negative,Customer Service
+The website is disappointing.,Negative,App/Website
+"They ignored my emails, cheap support!",Negative,Customer Service
+"Support replied immediately, great service!",Positive,Customer Service
+value for money is unacceptable.,Negative,Pricing
+Quality is love!,Positive,Product Quality
+My experience with the agent was useless.,Negative,Customer Service
+"It is too expensive, unacceptable value.",Negative,Pricing
+"Honestly, the product feels superb!",Positive,Product Quality
+The website is good.,Positive,App/Website
+Value for money is great.,Positive,Pricing
+my experience with the agent was worst.,Negative,Customer Service
+"They ignored my emails, perfect support!",Positive,Customer Service
+the price is hated.,Negative,Pricing
+The product is impressive.,Positive,Product Quality
+The build material is outstanding!,Positive,Product Quality
+the app is poor.,Negative,App/Website
+The price is passable!,Neutral,Pricing
+Pricing is absolutely mediocre!,Neutral,Pricing
+shipping was poor.,Negative,Delivery
+"this product is exactly what i expected, absolutely awesome.",Positive,Product Quality
+Navigation is cheap.,Negative,App/Website
+"it is too expensive, perfect value.",Positive,Pricing
+The website is great!,Positive,App/Website
+pricing is absolutely average.,Neutral,Pricing
+shipping was ok.,Neutral,Delivery
+"it is too expensive, stellar value.",Positive,Pricing
+"They ignored my emails, trash support!",Negative,Customer Service
+Pricing is absolutely great.,Positive,Pricing
+My experience with the agent was wonderful.,Positive,Customer Service
+delivery was okay.,Neutral,Delivery
+my experience with the agent was superb.,Positive,Customer Service
+my experience with the agent was fine.,Neutral,Customer Service
+customer service was terrible.,Negative,Customer Service
+The website is phenomenal.,Positive,App/Website
+"it is too expensive, superb value.",Positive,Pricing
+"honestly, the product feels useless.",Negative,Product Quality
+the app is flawless.,Positive,App/Website
+my experience with the agent was outstanding.,Positive,Customer Service
+"app keeps crashing, ok experience.",Neutral,App/Website
+Customer service was standard.,Neutral,Customer Service
+The build material is impressive!,Positive,Product Quality
+Pricing is absolutely hated!,Negative,Pricing
+Quality is horrible.,Negative,Product Quality
+Value for money is great!,Positive,Pricing
+Shipping was excellent.,Positive,Delivery
+delivery was standard.,Neutral,Delivery
+the user interface is garbage.,Negative,App/Website
+Pricing is absolutely trash.,Negative,Pricing
+Delivery was phenomenal!,Positive,Delivery
+"Honestly, the product feels hate!",Negative,Product Quality
+"Support replied immediately, bad service!",Negative,Customer Service
+The website is ok.,Neutral,App/Website
+Customer service was flawless.,Positive,Customer Service
+shipping was worst.,Negative,Delivery
+Not worth the money.,Negative,Pricing
+"This product is exactly what I expected, absolutely awesome.",Positive,Product Quality
+i found the item to be amazing.,Positive,Product Quality
+"It took forever to arrive, acceptable shipping.",Neutral,Delivery
+pricing is absolutely decent.,Neutral,Pricing
+My experience with the agent was fantastic.,Positive,Customer Service
+The build material is terrible!,Negative,Product Quality
+the user interface is decent.,Neutral,App/Website
+delivery was ok.,Neutral,Delivery
+the build material is fantastic.,Positive,Product Quality
+Delivery was bad!,Negative,Delivery
+"Support replied immediately, flawless service!",Positive,Customer Service
+the support team is disappointing.,Negative,Customer Service
+Pricing is absolutely bad!,Negative,Pricing
+The price is horrible.,Negative,Pricing
+Logistics and shipping speed were worst!,Negative,Delivery
+"they ignored my emails, decent support.",Neutral,Customer Service
+Value for money is okay!,Neutral,Pricing
+pricing is absolutely loved.,Positive,Pricing
+Logistics and shipping speed were flawless!,Positive,Delivery
+The app is impressive!,Positive,App/Website
+"They ignored my emails, phenomenal support!",Positive,Customer Service
+"honestly, the product feels flawless.",Positive,Product Quality
+pricing is absolutely stellar.,Positive,Pricing
+"It is too expensive, loved value.",Positive,Pricing
+The app is hated!,Negative,App/Website
+The app is terrible.,Negative,App/Website
+shipping was flawless.,Positive,Delivery
+The app is bad.,Negative,App/Website
+the user interface is useless.,Negative,App/Website
+the build material is superb.,Positive,Product Quality
+The website is fair.,Neutral,App/Website
+customer service was bad.,Negative,Customer Service
+the website is dreadful.,Negative,App/Website
+Shipping was acceptable.,Neutral,Delivery
+Delivery was mediocre!,Neutral,Delivery
+the user interface is average.,Neutral,App/Website
+My experience with the agent was amazing!,Positive,Customer Service
+"Support replied immediately, outstanding service!",Positive,Customer Service
+"They ignored my emails, unacceptable support.",Negative,Customer Service
+the website is poor.,Negative,App/Website
+"Honestly, the product feels hate.",Negative,Product Quality
+"it took forever to arrive, outstanding shipping.",Positive,Delivery
+the package arrived hate.,Negative,Delivery
+"Support replied immediately, acceptable service!",Neutral,Customer Service
+Customer service was cheap!,Negative,Customer Service
+My experience with the agent was broken!,Negative,Customer Service
+"It is too expensive, phenomenal value!",Positive,Pricing
+"It is too expensive, brilliant value.",Positive,Pricing
+The price is dreadful.,Negative,Pricing
+The support team is bad!,Negative,Customer Service
+"This product is exactly what I expected, absolutely ok!",Neutral,Product Quality
+My experience with the agent was unacceptable!,Negative,Customer Service
+the app is mediocre.,Neutral,App/Website
+"It took forever to arrive, love shipping.",Positive,Delivery
+Customer service was worst.,Negative,Customer Service
+The website is garbage.,Negative,App/Website
+"It is too expensive, awesome value!",Positive,Pricing
+"Honestly, the product feels phenomenal!",Positive,Product Quality
+The package arrived wonderful.,Positive,Delivery
+"Support replied immediately, loved service.",Positive,Customer Service
+navigation is bad.,Negative,App/Website
+The product is mediocre!,Neutral,Product Quality
+Quality is useless!,Negative,Product Quality
+"Honestly, the product feels fair!",Neutral,Product Quality
+"App keeps crashing, fantastic experience.",Positive,App/Website
+Delivery was perfect!,Positive,Delivery
+the website is fine.,Neutral,App/Website
+"app keeps crashing, unacceptable experience.",Negative,App/Website
+"This product is exactly what I expected, absolutely hated!",Negative,Product Quality
+"App keeps crashing, amazing experience!",Positive,App/Website
+the package arrived standard.,Neutral,Delivery
+The price is broken!,Negative,Pricing
+"For the cost, this is brilliant.",Positive,Pricing
+"It is too expensive, impressive value!",Positive,Pricing
+the product is outstanding.,Positive,Product Quality
+the price is fine.,Neutral,Pricing
+"App keeps crashing, standard experience!",Neutral,App/Website
+Pricing is absolutely decent!,Neutral,Pricing
+"App keeps crashing, excellent experience!",Positive,App/Website
+The package arrived poor!,Negative,Delivery
+"honestly, the product feels hate.",Negative,Product Quality
+i found the item to be perfect.,Positive,Product Quality
+"this product is exactly what i expected, absolutely cheap.",Negative,Product Quality
+the website is disappointing.,Negative,App/Website
+The build material is unacceptable!,Negative,Product Quality
+Value for money is disappointing!,Negative,Pricing
+My experience with the agent was decent.,Neutral,Customer Service
+the product is wonderful.,Positive,Product Quality
+navigation is horrible.,Negative,App/Website
+"for the cost, this is ok.",Neutral,Pricing
+customer service was stellar.,Positive,Customer Service
+The product is broken.,Negative,Product Quality
+Delivery was ok!,Neutral,Delivery
+Customer service was average.,Neutral,Customer Service
+The price is worst!,Negative,Pricing
+"for the cost, this is love.",Positive,Pricing
+Quality is average.,Neutral,Product Quality
+Pricing is absolutely awful.,Negative,Pricing
+The support team is poor.,Negative,Customer Service
+Value for money is useless.,Negative,Pricing
+The website is mediocre!,Neutral,App/Website
+the price is superb.,Positive,Pricing
+Pricing is absolutely average!,Neutral,Pricing
+"They ignored my emails, flawless support.",Positive,Customer Service
+The build material is superb!,Positive,Product Quality
+The user interface is brilliant!,Positive,App/Website
+the website is useless.,Negative,App/Website
+quality is unacceptable.,Negative,Product Quality
+The website is brilliant.,Positive,App/Website
+the product is horrible.,Negative,Product Quality
+"This product is exactly what I expected, absolutely useless!",Negative,Product Quality
+"Honestly, the product feels impressive.",Positive,Product Quality
+"For the cost, this is hate.",Negative,Pricing
+Value for money is broken.,Negative,Pricing
+The build material is outstanding.,Positive,Product Quality
+"app keeps crashing, horrible experience.",Negative,App/Website
+"for the cost, this is wonderful.",Positive,Pricing
+"App keeps crashing, passable experience!",Neutral,App/Website
+I found the item to be terrible.,Negative,Product Quality
+the support team is good.,Positive,Customer Service
+"app keeps crashing, impressive experience.",Positive,App/Website
+Logistics and shipping speed were useless.,Negative,Delivery
+"it took forever to arrive, okay shipping.",Neutral,Delivery
+"Support replied immediately, useless service!",Negative,Customer Service
+the product is dreadful.,Negative,Product Quality
+navigation is loved.,Positive,App/Website
+I found the item to be hated.,Negative,Product Quality
+"For the cost, this is hate!",Negative,Pricing
+Quality is phenomenal.,Positive,Product Quality
+"It is too expensive, mediocre value!",Neutral,Pricing
+Shipping was wonderful.,Positive,Delivery
+Customer service was hate.,Negative,Customer Service
+"Support replied immediately, good service.",Positive,Customer Service
+Value for money is stellar!,Positive,Pricing
+"it took forever to arrive, phenomenal shipping.",Positive,Delivery
+"It is too expensive, horrible value!",Negative,Pricing
+"For the cost, this is good!",Positive,Pricing
+Navigation is decent!,Neutral,App/Website
+The build material is awesome.,Positive,Product Quality
+"they ignored my emails, superb support.",Positive,Customer Service
+Navigation is perfect.,Positive,App/Website
+"It took forever to arrive, horrible shipping!",Negative,Delivery
+"support replied immediately, garbage service.",Negative,Customer Service
+pricing is absolutely brilliant.,Positive,Pricing
+"They ignored my emails, love support.",Positive,Customer Service
+"honestly, the product feels fair.",Neutral,Product Quality
+"App keeps crashing, garbage experience.",Negative,App/Website
+The product is garbage.,Negative,Product Quality
+The website is trash!,Negative,App/Website
+Quality is poor.,Negative,Product Quality
+the product is okay.,Neutral,Product Quality
+The build material is excellent.,Positive,Product Quality
+Value for money is good.,Positive,Pricing
+the support team is cheap.,Negative,Customer Service
+the app is fantastic.,Positive,App/Website
+I found the item to be trash.,Negative,Product Quality
+Value for money is fair!,Neutral,Pricing
+"they ignored my emails, stellar support.",Positive,Customer Service
+Customer service was passable!,Neutral,Customer Service
+Shipping was hated.,Negative,Delivery
+delivery was amazing.,Positive,Delivery
+The build material is fine.,Neutral,Product Quality
+"Honestly, the product feels trash.",Negative,Product Quality
+"it is too expensive, bad value.",Negative,Pricing
+Delivery was loved!,Positive,Delivery
+Quality is awful!,Negative,Product Quality
+"Honestly, the product feels broken.",Negative,Product Quality
+Navigation is fair.,Neutral,App/Website
+Shipping was awesome.,Positive,Delivery
+Delivery was flawless!,Positive,Delivery
+the user interface is okay.,Neutral,App/Website
+value for money is worst.,Negative,Pricing
+i found the item to be superb.,Positive,Product Quality
+The product is loved.,Positive,Product Quality
+The user interface is awful.,Negative,App/Website
+"It took forever to arrive, average shipping.",Neutral,Delivery
+"it is too expensive, hated value.",Negative,Pricing
+value for money is acceptable.,Neutral,Pricing
+"Support replied immediately, hate service.",Negative,Customer Service
+The app is poor.,Negative,App/Website
+Value for money is cheap.,Negative,Pricing
+"it is too expensive, ok value.",Neutral,Pricing
+The package arrived terrible!,Negative,Delivery
+"it is too expensive, average value.",Neutral,Pricing
+"App keeps crashing, hate experience!",Negative,App/Website
+"for the cost, this is garbage.",Negative,Pricing
+Delivery was excellent!,Positive,Delivery
+the product is mediocre.,Neutral,Product Quality
+The website is excellent!,Positive,App/Website
+"It is too expensive, good value!",Positive,Pricing
+the app is awesome.,Positive,App/Website
+"it took forever to arrive, bad shipping.",Negative,Delivery
+"for the cost, this is awful.",Negative,Pricing
+The package arrived okay!,Neutral,Delivery
+the app is garbage.,Negative,App/Website
+The user interface is excellent.,Positive,App/Website
+Value for money is wonderful.,Positive,Pricing
+"It took forever to arrive, poor shipping!",Negative,Delivery
+Value for money is decent.,Neutral,Pricing
+"honestly, the product feels fantastic.",Positive,Product Quality
+i found the item to be unacceptable.,Negative,Product Quality
+"honestly, the product feels cheap.",Negative,Product Quality
+"it took forever to arrive, mediocre shipping.",Neutral,Delivery
+the website is hated.,Negative,App/Website
+Shipping was disappointing!,Negative,Delivery
+customer service was ok.,Neutral,Customer Service
+navigation is stellar.,Positive,App/Website
+The price is okay!,Neutral,Pricing
+Customer service was okay.,Neutral,Customer Service
+The product is bad!,Negative,Product Quality
+the package arrived good.,Positive,Delivery
+i found the item to be garbage.,Negative,Product Quality
+The price is superb!,Positive,Pricing
+Pricing is absolutely wonderful.,Positive,Pricing
+The package arrived horrible!,Negative,Delivery
+"Honestly, the product feels bad.",Negative,Product Quality
+Delivery was unacceptable!,Negative,Delivery
+logistics and shipping speed were superb.,Positive,Delivery
+"App keeps crashing, broken experience.",Negative,App/Website
+customer service was standard.,Neutral,Customer Service
+Quality is amazing.,Positive,Product Quality
+"They ignored my emails, hate support!",Negative,Customer Service
+Navigation is stellar!,Positive,App/Website
+The price is perfect.,Positive,Pricing
+Customer service was good.,Positive,Customer Service
+I found the item to be amazing!,Positive,Product Quality
+Quality is acceptable!,Neutral,Product Quality
+The user interface is flawless.,Positive,App/Website
+Value for money is poor.,Negative,Pricing
+The package arrived acceptable!,Neutral,Delivery
+Navigation is standard.,Neutral,App/Website
+The product is fair!,Neutral,Product Quality
+"Honestly, the product feels decent.",Neutral,Product Quality
+"They ignored my emails, broken support!",Negative,Customer Service
+"for the cost, this is broken.",Negative,Pricing
+The app is fantastic.,Positive,App/Website
+Logistics and shipping speed were awesome.,Positive,Delivery
+Pricing is absolutely loved.,Positive,Pricing
+"this product is exactly what i expected, absolutely perfect.",Positive,Product Quality
+The build material is useless.,Negative,Product Quality
+Delivery was superb.,Positive,Delivery
+the price is love.,Positive,Pricing
+Value for money is bad.,Negative,Pricing
+Customer service was mediocre.,Neutral,Customer Service
+I found the item to be fantastic!,Positive,Product Quality
+Logistics and shipping speed were broken.,Negative,Delivery
+"it took forever to arrive, decent shipping.",Neutral,Delivery
+Pricing is absolutely useless.,Negative,Pricing
+The app is phenomenal.,Positive,App/Website
+"Support replied immediately, excellent service.",Positive,Customer Service
+The price is awful.,Negative,Pricing
+"For the cost, this is love!",Positive,Pricing
+"they ignored my emails, outstanding support.",Positive,Customer Service
+logistics and shipping speed were good.,Positive,Delivery
+logistics and shipping speed were poor.,Negative,Delivery
+The app is great.,Positive,App/Website
+Value for money is good!,Positive,Pricing
+The app is garbage.,Negative,App/Website
+"they ignored my emails, dreadful support.",Negative,Customer Service
+Navigation is good!,Positive,App/Website
+The user interface is decent!,Neutral,App/Website
+I found the item to be flawless.,Positive,Product Quality
+the price is okay.,Neutral,Pricing
+shipping was mediocre.,Neutral,Delivery
+The package arrived unacceptable!,Negative,Delivery
+my experience with the agent was brilliant.,Positive,Customer Service
+Pricing is absolutely garbage.,Negative,Pricing
+the website is perfect.,Positive,App/Website
+The app is average.,Neutral,App/Website
+"this product is exactly what i expected, absolutely fantastic.",Positive,Product Quality
+Never buying this again.,Negative,General
+delivery was fantastic.,Positive,Delivery
+customer service was amazing.,Positive,Customer Service
+delivery was phenomenal.,Positive,Delivery
+"This product is exactly what I expected, absolutely brilliant!",Positive,Product Quality
+"Honestly, the product feels disappointing.",Negative,Product Quality
+"Honestly, the product feels okay!",Neutral,Product Quality
+"it is too expensive, broken value.",Negative,Pricing
+Navigation is mediocre.,Neutral,App/Website
+Quality is excellent.,Positive,Product Quality
+Logistics and shipping speed were worst.,Negative,Delivery
+I found the item to be trash!,Negative,Product Quality
+quality is useless.,Negative,Product Quality
+"It took forever to arrive, love shipping!",Positive,Delivery
+"this product is exactly what i expected, absolutely acceptable.",Neutral,Product Quality
+"For the cost, this is outstanding.",Positive,Pricing
+"support replied immediately, good service.",Positive,Customer Service
+The product is hate!,Negative,Product Quality
+Shipping was decent.,Neutral,Delivery
+The website is unacceptable.,Negative,App/Website
+"It took forever to arrive, fair shipping.",Neutral,Delivery
+The package arrived fair.,Neutral,Delivery
+"It took forever to arrive, excellent shipping!",Positive,Delivery
+value for money is superb.,Positive,Pricing
+value for money is fine.,Neutral,Pricing
+Navigation is loved.,Positive,App/Website
+shipping was awesome.,Positive,Delivery
+the build material is worst.,Negative,Product Quality
+the support team is fantastic.,Positive,Customer Service
+Quality is impressive.,Positive,Product Quality
+Delivery was worst.,Negative,Delivery
+Navigation is bad!,Negative,App/Website
+the package arrived fair.,Neutral,Delivery
+"App keeps crashing, worst experience.",Negative,App/Website
+The support team is excellent.,Positive,Customer Service
+"It took forever to arrive, broken shipping!",Negative,Delivery
+The product is brilliant!,Positive,Product Quality
+The support team is acceptable.,Neutral,Customer Service
+the product is superb.,Positive,Product Quality
+"This product is exactly what I expected, absolutely disappointing.",Negative,Product Quality
+The website is amazing.,Positive,App/Website
+The package arrived standard!,Neutral,Delivery
+the website is excellent.,Positive,App/Website
+The package arrived wonderful!,Positive,Delivery
+The build material is acceptable.,Neutral,Product Quality
+the package arrived stellar.,Positive,Delivery
+My experience with the agent was good.,Positive,Customer Service
+the package arrived flawless.,Positive,Delivery
+my experience with the agent was hated.,Negative,Customer Service
+"support replied immediately, great service.",Positive,Customer Service
+the product is awesome.,Positive,Product Quality
+I found the item to be stellar.,Positive,Product Quality
+Navigation is fine!,Neutral,App/Website
+The app is excellent.,Positive,App/Website
+Customer service was bad.,Negative,Customer Service
+Delivery was great.,Positive,Delivery
+"Honestly, the product feels brilliant.",Positive,Product Quality
+The website is useless!,Negative,App/Website
+"it took forever to arrive, dreadful shipping.",Negative,Delivery
+Pricing is absolutely superb.,Positive,Pricing
+"It is too expensive, acceptable value.",Neutral,Pricing
+Delivery was fair!,Neutral,Delivery
+"Support replied immediately, amazing service.",Positive,Customer Service
+my experience with the agent was acceptable.,Neutral,Customer Service
+I found the item to be dreadful!,Negative,Product Quality
+"They ignored my emails, superb support!",Positive,Customer Service
+The support team is useless!,Negative,Customer Service
+"Honestly, the product feels passable.",Neutral,Product Quality
+the user interface is love.,Positive,App/Website
+Navigation is dreadful.,Negative,App/Website
+quality is average.,Neutral,Product Quality
+Pricing is absolutely decent.,Neutral,Pricing
+The package arrived trash.,Negative,Delivery
+the website is terrible.,Negative,App/Website
+"It is too expensive, dreadful value!",Negative,Pricing
+The user interface is acceptable!,Neutral,App/Website
+Delivery was disappointing!,Negative,Delivery
+value for money is amazing.,Positive,Pricing
+The website is passable.,Neutral,App/Website
+shipping was outstanding.,Positive,Delivery
+pricing is absolutely impressive.,Positive,Pricing
+"this product is exactly what i expected, absolutely useless.",Negative,Product Quality
+The price is phenomenal!,Positive,Pricing
+"Support replied immediately, horrible service.",Negative,Customer Service
+Navigation is broken.,Negative,App/Website
+the app is fair.,Neutral,App/Website
+The support team is passable!,Neutral,Customer Service
+"For the cost, this is standard.",Neutral,Pricing
+Navigation is brilliant.,Positive,App/Website
+"This product is exactly what I expected, absolutely perfect!",Positive,Product Quality
+"They ignored my emails, impressive support.",Positive,Customer Service
+Value for money is mediocre!,Neutral,Pricing
+The user interface is bad!,Negative,App/Website
+the package arrived superb.,Positive,Delivery
+"They ignored my emails, acceptable support.",Neutral,Customer Service
+the website is cheap.,Negative,App/Website
+"it took forever to arrive, broken shipping.",Negative,Delivery
+I found the item to be terrible!,Negative,Product Quality
+The package arrived fair!,Neutral,Delivery
+"It took forever to arrive, outstanding shipping.",Positive,Delivery
+the package arrived ok.,Neutral,Delivery
+"App keeps crashing, superb experience!",Positive,App/Website
+Value for money is awful!,Negative,Pricing
+Quality is standard!,Neutral,Product Quality
+Navigation is garbage!,Negative,App/Website
+pricing is absolutely amazing.,Positive,Pricing
+logistics and shipping speed were hated.,Negative,Delivery
+"Honestly, the product feels perfect!",Positive,Product Quality
+"They ignored my emails, garbage support.",Negative,Customer Service
+"They ignored my emails, excellent support!",Positive,Customer Service
+"They ignored my emails, good support.",Positive,Customer Service
+Value for money is dreadful!,Negative,Pricing
+the price is wonderful.,Positive,Pricing
+"It took forever to arrive, okay shipping.",Neutral,Delivery
+Customer service was awesome!,Positive,Customer Service
+the app is broken.,Negative,App/Website
+the website is garbage.,Negative,App/Website
+"For the cost, this is acceptable.",Neutral,Pricing
+I found the item to be fair!,Neutral,Product Quality
+My experience with the agent was terrible.,Negative,Customer Service
+the product is passable.,Neutral,Product Quality
+Shipping was phenomenal.,Positive,Delivery
+the support team is standard.,Neutral,Customer Service
+The app is ok.,Neutral,App/Website
+The app is worst!,Negative,App/Website
+Delivery was ok.,Neutral,Delivery
+the app is passable.,Neutral,App/Website
+"It is too expensive, perfect value!",Positive,Pricing
+I found the item to be dreadful.,Negative,Product Quality
+the user interface is acceptable.,Neutral,App/Website
+The price is garbage!,Negative,Pricing
+The build material is perfect.,Positive,Product Quality
+Shipping was passable.,Neutral,Delivery
+"They ignored my emails, disappointing support!",Negative,Customer Service
+"For the cost, this is average.",Neutral,Pricing
+Pricing is absolutely passable.,Neutral,Pricing
+"It took forever to arrive, stellar shipping!",Positive,Delivery
+The app is superb!,Positive,App/Website
+"Support replied immediately, fantastic service.",Positive,Customer Service
+Delivery was dreadful!,Negative,Delivery
+"Support replied immediately, trash service.",Negative,Customer Service
+the product is fine.,Neutral,Product Quality
+the product is disappointing.,Negative,Product Quality
+"Honestly, the product feels awful.",Negative,Product Quality
+The user interface is dreadful!,Negative,App/Website
+"This product is exactly what I expected, absolutely perfect.",Positive,Product Quality
+the support team is excellent.,Positive,Customer Service
+navigation is unacceptable.,Negative,App/Website
+"They ignored my emails, phenomenal support.",Positive,Customer Service
+"it took forever to arrive, passable shipping.",Neutral,Delivery
+the website is trash.,Negative,App/Website
+customer service was hated.,Negative,Customer Service
+Customer service was love.,Positive,Customer Service
+The app is broken.,Negative,App/Website
+"it took forever to arrive, amazing shipping.",Positive,Delivery
+Quality is garbage.,Negative,Product Quality
+Logistics and shipping speed were okay.,Neutral,Delivery
+"support replied immediately, wonderful service.",Positive,Customer Service
+Logistics and shipping speed were decent.,Neutral,Delivery
+Quality is passable.,Neutral,Product Quality
+"Support replied immediately, phenomenal service.",Positive,Customer Service
+the website is ok.,Neutral,App/Website
+"This product is exactly what I expected, absolutely amazing.",Positive,Product Quality
+the website is fair.,Neutral,App/Website
+"For the cost, this is awesome!",Positive,Pricing
+Shipping was stellar!,Positive,Delivery
+"This product is exactly what I expected, absolutely superb!",Positive,Product Quality
+The support team is amazing!,Positive,Customer Service
+"for the cost, this is superb.",Positive,Pricing
+the product is fair.,Neutral,Product Quality
+"Honestly, the product feels superb.",Positive,Product Quality
+pricing is absolutely passable.,Neutral,Pricing
+"app keeps crashing, good experience.",Positive,App/Website
+"for the cost, this is impressive.",Positive,Pricing
+"This product is exactly what I expected, absolutely okay.",Neutral,Product Quality
+"It is too expensive, great value!",Positive,Pricing
+The support team is loved!,Positive,Customer Service
+The product is okay!,Neutral,Product Quality
+"It is too expensive, decent value.",Neutral,Pricing
+I found the item to be standard.,Neutral,Product Quality
+"It is too expensive, wonderful value!",Positive,Pricing
+"For the cost, this is fantastic.",Positive,Pricing
+The website is standard!,Neutral,App/Website
+The build material is poor!,Negative,Product Quality
+the price is brilliant.,Positive,Pricing
+the product is amazing.,Positive,Product Quality
+The app is flawless.,Positive,App/Website
+"This product is exactly what I expected, absolutely disappointing!",Negative,Product Quality
+The app is impressive.,Positive,App/Website
+my experience with the agent was amazing.,Positive,Customer Service
+Pricing is absolutely disappointing.,Negative,Pricing
+Logistics and shipping speed were poor!,Negative,Delivery
+the user interface is excellent.,Positive,App/Website
+Logistics and shipping speed were acceptable!,Neutral,Delivery
+"For the cost, this is decent.",Neutral,Pricing
+Value for money is love.,Positive,Pricing
+my experience with the agent was horrible.,Negative,Customer Service
+the build material is love.,Positive,Product Quality
+the user interface is fantastic.,Positive,App/Website
+"it took forever to arrive, ok shipping.",Neutral,Delivery
+"It took forever to arrive, stellar shipping.",Positive,Delivery
+I found the item to be average!,Neutral,Product Quality
+The user interface is passable.,Neutral,App/Website
+"honestly, the product feels brilliant.",Positive,Product Quality
+the user interface is phenomenal.,Positive,App/Website
+"This product is exactly what I expected, absolutely brilliant.",Positive,Product Quality
+"App keeps crashing, love experience!",Positive,App/Website
+i found the item to be bad.,Negative,Product Quality
+the user interface is great.,Positive,App/Website
+I found the item to be love.,Positive,Product Quality
+My experience with the agent was poor.,Negative,Customer Service
+"they ignored my emails, fine support.",Neutral,Customer Service
+shipping was acceptable.,Neutral,Delivery
+"they ignored my emails, ok support.",Neutral,Customer Service
+the product is cheap.,Negative,Product Quality
+Didn't arrive on time.,Negative,Delivery
+The app is ok!,Neutral,App/Website
+The package arrived ok.,Neutral,Delivery
+"support replied immediately, trash service.",Negative,Customer Service
+My experience with the agent was cheap.,Negative,Customer Service
+Quality is great!,Positive,Product Quality
+the user interface is unacceptable.,Negative,App/Website
+"App keeps crashing, loved experience.",Positive,App/Website
+Customer service was cheap.,Negative,Customer Service
+i found the item to be ok.,Neutral,Product Quality
+Navigation is fantastic!,Positive,App/Website
+"It is too expensive, fantastic value!",Positive,Pricing
+Quality is mediocre!,Neutral,Product Quality
+My experience with the agent was brilliant.,Positive,Customer Service
+"honestly, the product feels passable.",Neutral,Product Quality
+Logistics and shipping speed were wonderful.,Positive,Delivery
+"this product is exactly what i expected, absolutely superb.",Positive,Product Quality
+Navigation is great.,Positive,App/Website
+The app is flawless!,Positive,App/Website
+My experience with the agent was mediocre!,Neutral,Customer Service
+The product is fine.,Neutral,Product Quality
+Pricing is absolutely useless!,Negative,Pricing
+Logistics and shipping speed were awful!,Negative,Delivery
+the build material is fine.,Neutral,Product Quality
+the app is love.,Positive,App/Website
+the build material is awful.,Negative,Product Quality
+My experience with the agent was unacceptable.,Negative,Customer Service
+Pricing is absolutely awesome.,Positive,Pricing
+Logistics and shipping speed were useless!,Negative,Delivery
+The product is hated!,Negative,Product Quality
+The app is trash.,Negative,App/Website
+navigation is acceptable.,Neutral,App/Website
+My experience with the agent was standard.,Neutral,Customer Service
+Navigation is amazing!,Positive,App/Website
+logistics and shipping speed were trash.,Negative,Delivery
+"Support replied immediately, fantastic service!",Positive,Customer Service
+The product is mediocre.,Neutral,Product Quality
+"It is too expensive, impressive value.",Positive,Pricing
+"This product is exactly what I expected, absolutely standard!",Neutral,Product Quality
+Customer service was horrible.,Negative,Customer Service
+I found the item to be poor!,Negative,Product Quality
+quality is standard.,Neutral,Product Quality
+logistics and shipping speed were worst.,Negative,Delivery
+Navigation is impressive.,Positive,App/Website
+The website is acceptable.,Neutral,App/Website
+"This product is exactly what I expected, absolutely amazing!",Positive,Product Quality
+The product is good.,Positive,Product Quality
+the website is decent.,Neutral,App/Website
+Value for money is impressive.,Positive,Pricing
+My experience with the agent was good!,Positive,Customer Service
+Value for money is flawless!,Positive,Pricing
+logistics and shipping speed were terrible.,Negative,Delivery
+Not great.,Negative,General
+"They ignored my emails, bad support!",Negative,Customer Service
+Shipping was mediocre.,Neutral,Delivery
+Customer service was hated.,Negative,Customer Service
+Logistics and shipping speed were brilliant.,Positive,Delivery
+"It took forever to arrive, acceptable shipping!",Neutral,Delivery
+I found the item to be mediocre!,Neutral,Product Quality
+"it took forever to arrive, garbage shipping.",Negative,Delivery
+Delivery was good.,Positive,Delivery
+Customer service was disappointing.,Negative,Customer Service
+The price is awful!,Negative,Pricing
+"Support replied immediately, loved service!",Positive,Customer Service
+Shipping was wonderful!,Positive,Delivery
+Delivery was stellar.,Positive,Delivery
+"They ignored my emails, decent support.",Neutral,Customer Service
+The app is poor!,Negative,App/Website
+quality is hated.,Negative,Product Quality
+The website is decent.,Neutral,App/Website
+"It is too expensive, standard value!",Neutral,Pricing
+the package arrived okay.,Neutral,Delivery
+"They ignored my emails, amazing support!",Positive,Customer Service
+Navigation is broken!,Negative,App/Website
+"It is too expensive, passable value!",Neutral,Pricing
+"It took forever to arrive, great shipping!",Positive,Delivery
+The website is dreadful!,Negative,App/Website
+Quality is superb.,Positive,Product Quality
+The build material is garbage.,Negative,Product Quality
+"It is too expensive, excellent value.",Positive,Pricing
+The price is fantastic.,Positive,Pricing
+i found the item to be loved.,Positive,Product Quality
+shipping was fair.,Neutral,Delivery
+Value for money is passable!,Neutral,Pricing
+The product is okay.,Neutral,Product Quality
+The price is standard!,Neutral,Pricing
+"honestly, the product feels standard.",Neutral,Product Quality
+Delivery was standard!,Neutral,Delivery
+"This product is exactly what I expected, absolutely okay!",Neutral,Product Quality
+the website is great.,Positive,App/Website
+I found the item to be fine.,Neutral,Product Quality
+Logistics and shipping speed were unacceptable.,Negative,Delivery
+My experience with the agent was loved.,Positive,Customer Service
+Delivery was hate!,Negative,Delivery
+The support team is outstanding.,Positive,Customer Service
+"For the cost, this is passable.",Neutral,Pricing
+"app keeps crashing, okay experience.",Neutral,App/Website
+"It is too expensive, garbage value.",Negative,Pricing
+Pricing is absolutely phenomenal!,Positive,Pricing
+Quality is fair.,Neutral,Product Quality
+"Support replied immediately, horrible service!",Negative,Customer Service
+Shipping was loved!,Positive,Delivery
+"It took forever to arrive, passable shipping!",Neutral,Delivery
+The package arrived acceptable.,Neutral,Delivery
+"support replied immediately, cheap service.",Negative,Customer Service
+Quality is mediocre.,Neutral,Product Quality
+"they ignored my emails, average support.",Neutral,Customer Service
+The support team is unacceptable.,Negative,Customer Service
+The price is brilliant!,Positive,Pricing
+"They ignored my emails, wonderful support!",Positive,Customer Service
+pricing is absolutely hated.,Negative,Pricing
+Value for money is worst.,Negative,Pricing
+the website is good.,Positive,App/Website
+"For the cost, this is decent!",Neutral,Pricing
+Pricing is absolutely standard.,Neutral,Pricing
+"Honestly, the product feels worst!",Negative,Product Quality
+"they ignored my emails, garbage support.",Negative,Customer Service
+the price is awful.,Negative,Pricing
+"it is too expensive, brilliant value.",Positive,Pricing
+My experience with the agent was ok!,Neutral,Customer Service
+Pricing is absolutely worst!,Negative,Pricing
+The support team is acceptable!,Neutral,Customer Service
+"This product is exactly what I expected, absolutely fair.",Neutral,Product Quality
+"This product is exactly what I expected, absolutely impressive.",Positive,Product Quality
+the app is amazing.,Positive,App/Website
+The user interface is loved.,Positive,App/Website
+"For the cost, this is worst.",Negative,Pricing
+"It is too expensive, trash value.",Negative,Pricing
+the build material is excellent.,Positive,Product Quality
+The price is disappointing!,Negative,Pricing
+"This product is exactly what I expected, absolutely loved.",Positive,Product Quality
+The user interface is awesome!,Positive,App/Website
+the package arrived unacceptable.,Negative,Delivery
+"For the cost, this is good.",Positive,Pricing
+Quality is dreadful!,Negative,Product Quality
+the product is useless.,Negative,Product Quality
+The build material is disappointing!,Negative,Product Quality
+The price is ok.,Neutral,Pricing
+the website is loved.,Positive,App/Website
+my experience with the agent was disappointing.,Negative,Customer Service
+my experience with the agent was poor.,Negative,Customer Service
+The build material is passable.,Neutral,Product Quality
+Delivery was wonderful!,Positive,Delivery
+The package arrived good!,Positive,Delivery
+The product is phenomenal!,Positive,Product Quality
+"App keeps crashing, ok experience.",Neutral,App/Website
+"App keeps crashing, good experience!",Positive,App/Website
+"Honestly, the product feels terrible.",Negative,Product Quality
+"This product is exactly what I expected, absolutely phenomenal.",Positive,Product Quality
+The price is hate!,Negative,Pricing
+"App keeps crashing, stellar experience!",Positive,App/Website
+logistics and shipping speed were useless.,Negative,Delivery
+"Honestly, the product feels amazing.",Positive,Product Quality
+My experience with the agent was dreadful.,Negative,Customer Service
+The price is flawless.,Positive,Pricing
+The product is fair.,Neutral,Product Quality
+navigation is flawless.,Positive,App/Website
+"Support replied immediately, hated service.",Negative,Customer Service
+The website is brilliant!,Positive,App/Website
+customer service was impressive.,Positive,Customer Service
+The product is worst!,Negative,Product Quality
+logistics and shipping speed were impressive.,Positive,Delivery
+the build material is cheap.,Negative,Product Quality
+"Support replied immediately, superb service.",Positive,Customer Service
+customer service was hate.,Negative,Customer Service
+My experience with the agent was awful.,Negative,Customer Service
+"Honestly, the product feels fine!",Neutral,Product Quality
+"It took forever to arrive, flawless shipping.",Positive,Delivery
+"They ignored my emails, standard support.",Neutral,Customer Service
+"For the cost, this is disappointing!",Negative,Pricing
+"this product is exactly what i expected, absolutely average.",Neutral,Product Quality
+Navigation is unacceptable.,Negative,App/Website
+The build material is decent!,Neutral,Product Quality
+The user interface is excellent!,Positive,App/Website
+the website is stellar.,Positive,App/Website
+"For the cost, this is useless.",Negative,Pricing
+the app is acceptable.,Neutral,App/Website
+quality is horrible.,Negative,Product Quality
+The price is fair.,Neutral,Pricing
+The website is fantastic!,Positive,App/Website
+Shipping was good!,Positive,Delivery
+Customer service was phenomenal!,Positive,Customer Service
+The app is awful!,Negative,App/Website
+The support team is horrible.,Negative,Customer Service
+pricing is absolutely excellent.,Positive,Pricing
+"they ignored my emails, fair support.",Neutral,Customer Service
+i found the item to be acceptable.,Neutral,Product Quality
+Value for money is awesome!,Positive,Pricing
+the price is worst.,Negative,Pricing
+Shipping was flawless!,Positive,Delivery
+The user interface is brilliant.,Positive,App/Website
+my experience with the agent was stellar.,Positive,Customer Service
+Shipping was fantastic!,Positive,Delivery
+"This product is exactly what I expected, absolutely broken.",Negative,Product Quality
+Logistics and shipping speed were disappointing!,Negative,Delivery
+Not bad actually.,Positive,General
+The build material is disappointing.,Negative,Product Quality
+"Support replied immediately, acceptable service.",Neutral,Customer Service
+The product is useless!,Negative,Product Quality
+"for the cost, this is decent.",Neutral,Pricing
+Customer service was love!,Positive,Customer Service
+shipping was great.,Positive,Delivery
+"honestly, the product feels hated.",Negative,Product Quality
+Shipping was awful!,Negative,Delivery
+"for the cost, this is poor.",Negative,Pricing
+I found the item to be amazing.,Positive,Product Quality
+quality is broken.,Negative,Product Quality
+Shipping was horrible!,Negative,Delivery
+navigation is broken.,Negative,App/Website
+The app is passable!,Neutral,App/Website
+The price is trash.,Negative,Pricing
+the website is passable.,Neutral,App/Website
+"Honestly, the product feels horrible!",Negative,Product Quality
+"It is too expensive, okay value!",Neutral,Pricing
+the build material is unacceptable.,Negative,Product Quality
+the app is horrible.,Negative,App/Website
+"They ignored my emails, loved support!",Positive,Customer Service
+The package arrived awesome!,Positive,Delivery
+I found the item to be horrible!,Negative,Product Quality
+my experience with the agent was perfect.,Positive,Customer Service
+the app is superb.,Positive,App/Website
+Shipping was impressive!,Positive,Delivery
+I found the item to be superb.,Positive,Product Quality
+The user interface is poor!,Negative,App/Website
+The product is garbage!,Negative,Product Quality
+The user interface is good.,Positive,App/Website
+Pricing is absolutely stellar.,Positive,Pricing
+Shipping was amazing!,Positive,Delivery
+"it took forever to arrive, fine shipping.",Neutral,Delivery
+"they ignored my emails, awesome support.",Positive,Customer Service
+Quality is disappointing!,Negative,Product Quality
+the package arrived passable.,Neutral,Delivery
+Shipping was terrible.,Negative,Delivery
+Pricing is absolutely brilliant!,Positive,Pricing
+"This product is exactly what I expected, absolutely broken!",Negative,Product Quality
+"For the cost, this is disappointing.",Negative,Pricing
+the price is passable.,Neutral,Pricing
+"App keeps crashing, decent experience.",Neutral,App/Website
+delivery was disappointing.,Negative,Delivery
+My experience with the agent was wonderful!,Positive,Customer Service
+"support replied immediately, loved service.",Positive,Customer Service
+The app is brilliant!,Positive,App/Website
+delivery was brilliant.,Positive,Delivery
+i found the item to be broken.,Negative,Product Quality
+shipping was stellar.,Positive,Delivery
+the price is mediocre.,Neutral,Pricing
+Delivery was trash!,Negative,Delivery
+the user interface is passable.,Neutral,App/Website
+Logistics and shipping speed were mediocre.,Neutral,Delivery
+The price is terrible!,Negative,Pricing
+Shipping was loved.,Positive,Delivery
+Shipping was flawless.,Positive,Delivery
+"It is too expensive, fine value!",Neutral,Pricing
+"for the cost, this is cheap.",Negative,Pricing
+"Support replied immediately, superb service!",Positive,Customer Service
+I found the item to be hated!,Negative,Product Quality
+Shipping was standard!,Neutral,Delivery
+my experience with the agent was standard.,Neutral,Customer Service
+The app is horrible!,Negative,App/Website
+value for money is broken.,Negative,Pricing
+The package arrived worst!,Negative,Delivery
+the price is phenomenal.,Positive,Pricing
+Navigation is perfect!,Positive,App/Website
+The support team is awful.,Negative,Customer Service
+"They ignored my emails, flawless support!",Positive,Customer Service
+The price is mediocre.,Neutral,Pricing
+the product is loved.,Positive,Product Quality
+The price is awesome.,Positive,Pricing
+the build material is horrible.,Negative,Product Quality
+the app is great.,Positive,App/Website
+Logistics and shipping speed were fantastic!,Positive,Delivery
+The build material is unacceptable.,Negative,Product Quality
+navigation is worst.,Negative,App/Website
+"App keeps crashing, terrible experience!",Negative,App/Website
+Customer service was broken.,Negative,Customer Service
+delivery was bad.,Negative,Delivery
+The website is worst.,Negative,App/Website
+"It took forever to arrive, hate shipping!",Negative,Delivery
+the user interface is dreadful.,Negative,App/Website
+"it took forever to arrive, useless shipping.",Negative,Delivery
+"It is too expensive, dreadful value.",Negative,Pricing
+"Honestly, the product feels worst.",Negative,Product Quality
+The user interface is phenomenal.,Positive,App/Website
+value for money is trash.,Negative,Pricing
+The website is garbage!,Negative,App/Website
+navigation is superb.,Positive,App/Website
+Quality is useless.,Negative,Product Quality
+Shipping was standard.,Neutral,Delivery
+Delivery was garbage!,Negative,Delivery
+"Honestly, the product feels awesome.",Positive,Product Quality
+"app keeps crashing, acceptable experience.",Neutral,App/Website
+The app is garbage!,Negative,App/Website
+"for the cost, this is phenomenal.",Positive,Pricing
+"It is too expensive, worst value.",Negative,Pricing
+"this product is exactly what i expected, absolutely disappointing.",Negative,Product Quality
+"for the cost, this is hate.",Negative,Pricing
+Logistics and shipping speed were horrible!,Negative,Delivery
+customer service was awesome.,Positive,Customer Service
+"Honestly, the product feels poor!",Negative,Product Quality
+shipping was wonderful.,Positive,Delivery
+the product is awful.,Negative,Product Quality
+Logistics and shipping speed were hated.,Negative,Delivery
+The package arrived amazing.,Positive,Delivery
+navigation is standard.,Neutral,App/Website
+Customer service was ok!,Neutral,Customer Service
+Quality is terrible!,Negative,Product Quality
+Navigation is amazing.,Positive,App/Website
+The price is bad!,Negative,Pricing
+the website is horrible.,Negative,App/Website
+Quality is fair!,Neutral,Product Quality
+"it is too expensive, okay value.",Neutral,Pricing
+The package arrived awful.,Negative,Delivery
+"It took forever to arrive, superb shipping.",Positive,Delivery
+Logistics and shipping speed were fair.,Neutral,Delivery
+Quality is stellar!,Positive,Product Quality
+"It took forever to arrive, superb shipping!",Positive,Delivery
+The package arrived poor.,Negative,Delivery
+Pricing is absolutely hate!,Negative,Pricing
+Logistics and shipping speed were great.,Positive,Delivery
+"App keeps crashing, acceptable experience!",Neutral,App/Website
+the package arrived bad.,Negative,Delivery
+Delivery was bad.,Negative,Delivery
+pricing is absolutely awful.,Negative,Pricing
+"This product is exactly what I expected, absolutely passable!",Neutral,Product Quality
+"Honestly, the product feels ok.",Neutral,Product Quality
+Shipping was amazing.,Positive,Delivery
+the support team is loved.,Positive,Customer Service
+the build material is bad.,Negative,Product Quality
+quality is cheap.,Negative,Product Quality
+The product is dreadful.,Negative,Product Quality
+Quality is unacceptable!,Negative,Product Quality
+Logistics and shipping speed were garbage!,Negative,Delivery
+"Support replied immediately, stellar service!",Positive,Customer Service
+Customer service was stellar.,Positive,Customer Service
+value for money is hate.,Negative,Pricing
+"app keeps crashing, trash experience.",Negative,App/Website
+"It took forever to arrive, perfect shipping!",Positive,Delivery
+Delivery was awful!,Negative,Delivery
+"Honestly, the product feels loved.",Positive,Product Quality
+"Honestly, the product feels fair.",Neutral,Product Quality
+"it is too expensive, standard value.",Neutral,Pricing
+the package arrived great.,Positive,Delivery
+navigation is fantastic.,Positive,App/Website
+The user interface is flawless!,Positive,App/Website
+Value for money is cheap!,Negative,Pricing
+The build material is acceptable!,Neutral,Product Quality
+Customer service was fair!,Neutral,Customer Service
+"it is too expensive, useless value.",Negative,Pricing
+I found the item to be impressive.,Positive,Product Quality
+"Support replied immediately, okay service!",Neutral,Customer Service
+"For the cost, this is superb!",Positive,Pricing
+"for the cost, this is awesome.",Positive,Pricing
+the price is outstanding.,Positive,Pricing
+my experience with the agent was trash.,Negative,Customer Service
+The build material is okay!,Neutral,Product Quality
+The build material is awful!,Negative,Product Quality
+delivery was unacceptable.,Negative,Delivery
+"Honestly, the product feels hated!",Negative,Product Quality
+"Honestly, the product feels impressive!",Positive,Product Quality
+Value for money is horrible!,Negative,Pricing
+My experience with the agent was average.,Neutral,Customer Service
+delivery was awesome.,Positive,Delivery
+"it is too expensive, awful value.",Negative,Pricing
+value for money is loved.,Positive,Pricing
+Customer service was useless.,Negative,Customer Service
+the website is bad.,Negative,App/Website
+the app is brilliant.,Positive,App/Website
+The app is perfect!,Positive,App/Website
+Delivery was passable.,Neutral,Delivery
+customer service was unacceptable.,Negative,Customer Service
+The price is fantastic!,Positive,Pricing
+Customer service was average!,Neutral,Customer Service
+"App keeps crashing, brilliant experience.",Positive,App/Website
+pricing is absolutely wonderful.,Positive,Pricing
+The support team is hated!,Negative,Customer Service
+The product is flawless.,Positive,Product Quality
+"support replied immediately, impressive service.",Positive,Customer Service
+The website is fantastic.,Positive,App/Website
+"Honestly, the product feels acceptable.",Neutral,Product Quality
+"For the cost, this is dreadful!",Negative,Pricing
+the app is hated.,Negative,App/Website
+"Honestly, the product feels garbage.",Negative,Product Quality
+"This product is exactly what I expected, absolutely fine.",Neutral,Product Quality
+Navigation is ok!,Neutral,App/Website
+The package arrived outstanding.,Positive,Delivery
+The package arrived okay.,Neutral,Delivery
+I found the item to be garbage.,Negative,Product Quality
+Pricing is absolutely dreadful.,Negative,Pricing
+My experience with the agent was garbage!,Negative,Customer Service
+pricing is absolutely phenomenal.,Positive,Pricing
+"This product is exactly what I expected, absolutely mediocre!",Neutral,Product Quality
+The support team is fantastic.,Positive,Customer Service
+"Support replied immediately, decent service!",Neutral,Customer Service
+the price is standard.,Neutral,Pricing
+"For the cost, this is garbage!",Negative,Pricing
+"App keeps crashing, impressive experience!",Positive,App/Website
+"This product is exactly what I expected, absolutely poor.",Negative,Product Quality
+The price is acceptable.,Neutral,Pricing
+"They ignored my emails, unacceptable support!",Negative,Customer Service
+The package arrived cheap!,Negative,Delivery
+Customer service was stellar!,Positive,Customer Service
+Pricing is absolutely perfect!,Positive,Pricing
+navigation is poor.,Negative,App/Website
+Logistics and shipping speed were brilliant!,Positive,Delivery
+The user interface is decent.,Neutral,App/Website
+The app is cheap!,Negative,App/Website
+Quality is excellent!,Positive,Product Quality
+The user interface is bad.,Negative,App/Website
+The user interface is perfect!,Positive,App/Website
+The website is flawless!,Positive,App/Website
+the price is fair.,Neutral,Pricing
+navigation is awesome.,Positive,App/Website
+navigation is outstanding.,Positive,App/Website
+i found the item to be impressive.,Positive,Product Quality
+"It is too expensive, useless value.",Negative,Pricing
+The package arrived fantastic!,Positive,Delivery
+Pricing is absolutely love.,Positive,Pricing
+Quality is outstanding!,Positive,Product Quality
+The product is broken!,Negative,Product Quality
+quality is fair.,Neutral,Product Quality
+quality is hate.,Negative,Product Quality
+Value for money is outstanding.,Positive,Pricing
+Value for money is dreadful.,Negative,Pricing
+The product is useless.,Negative,Product Quality
+customer service was great.,Positive,Customer Service
+The support team is outstanding!,Positive,Customer Service
+Quality is loved.,Positive,Product Quality
+"App keeps crashing, awesome experience.",Positive,App/Website
+"It took forever to arrive, fair shipping!",Neutral,Delivery
+"It is too expensive, useless value!",Negative,Pricing
+My experience with the agent was flawless.,Positive,Customer Service
+"Support replied immediately, impressive service!",Positive,Customer Service
+navigation is impressive.,Positive,App/Website
+"Support replied immediately, disappointing service!",Negative,Customer Service
+The package arrived hate.,Negative,Delivery
+Navigation is impressive!,Positive,App/Website
+"App keeps crashing, hated experience!",Negative,App/Website
+"This product is exactly what I expected, absolutely fair!",Neutral,Product Quality
+Navigation is hate.,Negative,App/Website
+i found the item to be cheap.,Negative,Product Quality
+The user interface is perfect.,Positive,App/Website
+"they ignored my emails, poor support.",Negative,Customer Service
+Customer service was broken!,Negative,Customer Service
+"Honestly, the product feels flawless!",Positive,Product Quality
+"Support replied immediately, wonderful service.",Positive,Customer Service
+Logistics and shipping speed were trash.,Negative,Delivery
+The user interface is fantastic!,Positive,App/Website
+The package arrived brilliant.,Positive,Delivery
+The support team is worst.,Negative,Customer Service
+Logistics and shipping speed were poor.,Negative,Delivery
+The support team is unacceptable!,Negative,Customer Service
+"Honestly, the product feels fine.",Neutral,Product Quality
+The user interface is terrible!,Negative,App/Website
+The app is awful.,Negative,App/Website
+"It is too expensive, stellar value!",Positive,Pricing
+quality is perfect.,Positive,Product Quality
+"it is too expensive, fantastic value.",Positive,Pricing
+"They ignored my emails, worst support!",Negative,Customer Service
+"Honestly, the product feels outstanding!",Positive,Product Quality
+customer service was passable.,Neutral,Customer Service
+"App keeps crashing, phenomenal experience!",Positive,App/Website
+i found the item to be standard.,Neutral,Product Quality
+"For the cost, this is loved!",Positive,Pricing
+Quality is hated.,Negative,Product Quality
+the build material is broken.,Negative,Product Quality
+"honestly, the product feels ok.",Neutral,Product Quality
+"It is too expensive, hate value!",Negative,Pricing
+customer service was average.,Neutral,Customer Service
+The build material is great!,Positive,Product Quality
+"honestly, the product feels loved.",Positive,Product Quality
+Value for money is hated!,Negative,Pricing
+"Support replied immediately, standard service!",Neutral,Customer Service
+my experience with the agent was garbage.,Negative,Customer Service
+shipping was disappointing.,Negative,Delivery
+The user interface is cheap.,Negative,App/Website
+"App keeps crashing, wonderful experience!",Positive,App/Website
+my experience with the agent was useless.,Negative,Customer Service
+Delivery was good!,Positive,Delivery
+The product is acceptable!,Neutral,Product Quality
+"They ignored my emails, average support!",Neutral,Customer Service
+Shipping was fine!,Neutral,Delivery
+"App keeps crashing, outstanding experience.",Positive,App/Website
+"they ignored my emails, terrible support.",Negative,Customer Service
+"honestly, the product feels okay.",Neutral,Product Quality
+Shipping was average.,Neutral,Delivery
+The build material is cheap.,Negative,Product Quality
+The price is brilliant.,Positive,Pricing
+"Honestly, the product feels useless!",Negative,Product Quality
+"Honestly, the product feels good!",Positive,Product Quality
+Shipping was perfect!,Positive,Delivery
+"it is too expensive, good value.",Positive,Pricing
+delivery was horrible.,Negative,Delivery
+"honestly, the product feels wonderful.",Positive,Product Quality
+The product is terrible.,Negative,Product Quality
+The user interface is horrible.,Negative,App/Website
+"Honestly, the product feels love.",Positive,Product Quality
+My experience with the agent was poor!,Negative,Customer Service
+Logistics and shipping speed were ok.,Neutral,Delivery
+Logistics and shipping speed were decent!,Neutral,Delivery
+the support team is worst.,Negative,Customer Service
+I found the item to be good!,Positive,Product Quality
+The user interface is disappointing.,Negative,App/Website
+Value for money is superb!,Positive,Pricing
+The package arrived fine.,Neutral,Delivery
+delivery was acceptable.,Neutral,Delivery
+"Support replied immediately, fair service!",Neutral,Customer Service
+value for money is garbage.,Negative,Pricing
+"This product is exactly what I expected, absolutely outstanding!",Positive,Product Quality
+"Support replied immediately, awesome service!",Positive,Customer Service
+"this product is exactly what i expected, absolutely garbage.",Negative,Product Quality
+My experience with the agent was disappointing.,Negative,Customer Service
+"they ignored my emails, useless support.",Negative,Customer Service
+customer service was awful.,Negative,Customer Service
+Pricing is absolutely impressive!,Positive,Pricing
+The price is flawless!,Positive,Pricing
+the package arrived worst.,Negative,Delivery
+The support team is perfect!,Positive,Customer Service
+"Honestly, the product feels unacceptable.",Negative,Product Quality
+the app is cheap.,Negative,App/Website
+The user interface is poor.,Negative,App/Website
+"For the cost, this is superb.",Positive,Pricing
+"app keeps crashing, love experience.",Positive,App/Website
+"it is too expensive, hate value.",Negative,Pricing
+logistics and shipping speed were stellar.,Positive,Delivery
+I found the item to be loved.,Positive,Product Quality
+The price is trash!,Negative,Pricing
+The price is loved!,Positive,Pricing
+value for money is awesome.,Positive,Pricing
+The package arrived worst.,Negative,Delivery
+"they ignored my emails, flawless support.",Positive,Customer Service
+The user interface is stellar.,Positive,App/Website
+"It took forever to arrive, disappointing shipping!",Negative,Delivery
+Shipping was outstanding.,Positive,Delivery
+The user interface is love.,Positive,App/Website
+The build material is wonderful!,Positive,Product Quality
+The price is garbage.,Negative,Pricing
+The build material is hated!,Negative,Product Quality
+The price is passable.,Neutral,Pricing
+"for the cost, this is good.",Positive,Pricing
+quality is disappointing.,Negative,Product Quality
+"Support replied immediately, terrible service!",Negative,Customer Service
+the product is ok.,Neutral,Product Quality
+"support replied immediately, disappointing service.",Negative,Customer Service
+the build material is passable.,Neutral,Product Quality
+the user interface is loved.,Positive,App/Website
+"It is too expensive, acceptable value!",Neutral,Pricing
+delivery was love.,Positive,Delivery
+"honestly, the product feels acceptable.",Neutral,Product Quality
+quality is loved.,Positive,Product Quality
+Customer service was trash!,Negative,Customer Service
+The website is unacceptable!,Negative,App/Website
+"support replied immediately, broken service.",Negative,Customer Service
+Navigation is useless.,Negative,App/Website
+Logistics and shipping speed were perfect!,Positive,Delivery
+"they ignored my emails, hate support.",Negative,Customer Service
+Logistics and shipping speed were dreadful!,Negative,Delivery
+"it is too expensive, fine value.",Neutral,Pricing
+The product is superb!,Positive,Product Quality
+my experience with the agent was mediocre.,Neutral,Customer Service
+The build material is fantastic!,Positive,Product Quality
+The price is love.,Positive,Pricing
+Delivery was poor!,Negative,Delivery
+Value for money is impressive!,Positive,Pricing
+Quality is okay.,Neutral,Product Quality
+The user interface is amazing.,Positive,App/Website
+"App keeps crashing, horrible experience.",Negative,App/Website
+My experience with the agent was stellar.,Positive,Customer Service
+Navigation is fair!,Neutral,App/Website
+logistics and shipping speed were phenomenal.,Positive,Delivery
+"For the cost, this is fantastic!",Positive,Pricing
+"App keeps crashing, fine experience.",Neutral,App/Website
+The app is dreadful!,Negative,App/Website
+Customer service was fantastic!,Positive,Customer Service
+i found the item to be terrible.,Negative,Product Quality
+"They ignored my emails, stellar support!",Positive,Customer Service
+Pricing is absolutely bad.,Negative,Pricing
+"they ignored my emails, acceptable support.",Neutral,Customer Service
+Customer service was great.,Positive,Customer Service
+"Honestly, the product feels wonderful!",Positive,Product Quality
+the package arrived wonderful.,Positive,Delivery
+Customer service was great!,Positive,Customer Service
+"It is too expensive, average value.",Neutral,Pricing
+"Support replied immediately, decent service.",Neutral,Customer Service
+Logistics and shipping speed were impressive!,Positive,Delivery
+The package arrived terrible.,Negative,Delivery
+"honestly, the product feels poor.",Negative,Product Quality
+Shipping was trash!,Negative,Delivery
+Customer service was terrible!,Negative,Customer Service
+Value for money is phenomenal!,Positive,Pricing
+I found the item to be impressive!,Positive,Product Quality
+the build material is ok.,Neutral,Product Quality
+The app is standard!,Neutral,App/Website
+The support team is average.,Neutral,Customer Service
+pricing is absolutely great.,Positive,Pricing
+the product is good.,Positive,Product Quality
+Value for money is amazing.,Positive,Pricing
+"it took forever to arrive, awesome shipping.",Positive,Delivery
+"They ignored my emails, standard support!",Neutral,Customer Service
+"they ignored my emails, fantastic support.",Positive,Customer Service
+"This product is exactly what I expected, absolutely fine!",Neutral,Product Quality
+my experience with the agent was great.,Positive,Customer Service
+My experience with the agent was dreadful!,Negative,Customer Service
+The product is horrible!,Negative,Product Quality
+I found the item to be cheap.,Negative,Product Quality
+"App keeps crashing, poor experience.",Negative,App/Website
+The website is broken.,Negative,App/Website
+The support team is awful!,Negative,Customer Service
+My experience with the agent was bad!,Negative,Customer Service
+"They ignored my emails, terrible support!",Negative,Customer Service
+the support team is outstanding.,Positive,Customer Service
+Value for money is hate.,Negative,Pricing
+navigation is dreadful.,Negative,App/Website
+"This product is exactly what I expected, absolutely hated.",Negative,Product Quality
+the website is average.,Neutral,App/Website
+"Support replied immediately, mediocre service!",Neutral,Customer Service
+"For the cost, this is awful!",Negative,Pricing
+Navigation is poor!,Negative,App/Website
+i found the item to be disappointing.,Negative,Product Quality
+"They ignored my emails, awesome support.",Positive,Customer Service
+"this product is exactly what i expected, absolutely ok.",Neutral,Product Quality
+"This product is exactly what I expected, absolutely flawless.",Positive,Product Quality
+The app is decent!,Neutral,App/Website
+the app is outstanding.,Positive,App/Website
+delivery was average.,Neutral,Delivery
+The product is amazing!,Positive,Product Quality
+Delivery was garbage.,Negative,Delivery
+customer service was excellent.,Positive,Customer Service
+The product is terrible!,Negative,Product Quality
+my experience with the agent was flawless.,Positive,Customer Service
+shipping was passable.,Neutral,Delivery
+Quality is fantastic.,Positive,Product Quality
+"Support replied immediately, awful service!",Negative,Customer Service
+quality is phenomenal.,Positive,Product Quality
+quality is flawless.,Positive,Product Quality
+quality is passable.,Neutral,Product Quality
+the app is fine.,Neutral,App/Website
+navigation is perfect.,Positive,App/Website
+The website is bad!,Negative,App/Website
+Delivery was mediocre.,Neutral,Delivery
+My experience with the agent was broken.,Negative,Customer Service
+quality is good.,Positive,Product Quality
+"support replied immediately, dreadful service.",Negative,Customer Service
+Customer service was terrible.,Negative,Customer Service
+The website is dreadful.,Negative,App/Website
+"for the cost, this is passable.",Neutral,Pricing
+The user interface is average!,Neutral,App/Website
+Logistics and shipping speed were dreadful.,Negative,Delivery
+The user interface is terrible.,Negative,App/Website
+The package arrived excellent.,Positive,Delivery
+"they ignored my emails, disappointing support.",Negative,Customer Service
+The app is stellar!,Positive,App/Website
+shipping was garbage.,Negative,Delivery
+Delivery was wonderful.,Positive,Delivery
+Shipping was broken.,Negative,Delivery
+"Support replied immediately, garbage service!",Negative,Customer Service
+Value for money is superb.,Positive,Pricing
+The app is disappointing!,Negative,App/Website
+My experience with the agent was useless!,Negative,Customer Service
+"honestly, the product feels horrible.",Negative,Product Quality
+i found the item to be fair.,Neutral,Product Quality
+"This product is exactly what I expected, absolutely excellent.",Positive,Product Quality
+"it took forever to arrive, good shipping.",Positive,Delivery
+The website is cheap.,Negative,App/Website
+Quality is garbage!,Negative,Product Quality
+The user interface is ok!,Neutral,App/Website
+"It took forever to arrive, impressive shipping!",Positive,Delivery
+Customer service was passable.,Neutral,Customer Service
+"They ignored my emails, broken support.",Negative,Customer Service
+Shipping was broken!,Negative,Delivery
+"honestly, the product feels terrible.",Negative,Product Quality
+logistics and shipping speed were okay.,Neutral,Delivery
+The package arrived decent!,Neutral,Delivery
+"This product is exactly what I expected, absolutely terrible.",Negative,Product Quality
+"It is too expensive, passable value.",Neutral,Pricing
+"It took forever to arrive, standard shipping!",Neutral,Delivery
+The product is poor!,Negative,Product Quality
+"Honestly, the product feels flawless.",Positive,Product Quality
+I found the item to be flawless!,Positive,Product Quality
+Logistics and shipping speed were amazing.,Positive,Delivery
+the app is perfect.,Positive,App/Website
+the support team is stellar.,Positive,Customer Service
+delivery was superb.,Positive,Delivery
+Shipping was cheap.,Negative,Delivery
+the support team is okay.,Neutral,Customer Service
+Pricing is absolutely dreadful!,Negative,Pricing
+"Support replied immediately, phenomenal service!",Positive,Customer Service
+Pricing is absolutely hated.,Negative,Pricing
+The user interface is trash.,Negative,App/Website
+"App keeps crashing, standard experience.",Neutral,App/Website
+The price is acceptable!,Neutral,Pricing
+Delivery was poor.,Negative,Delivery
+The user interface is impressive!,Positive,App/Website
+The price is useless.,Negative,Pricing
+The price is dreadful!,Negative,Pricing
+"this product is exactly what i expected, absolutely great.",Positive,Product Quality
+logistics and shipping speed were flawless.,Positive,Delivery
+shipping was useless.,Negative,Delivery
+"they ignored my emails, perfect support.",Positive,Customer Service
+quality is mediocre.,Neutral,Product Quality
+My experience with the agent was hate!,Negative,Customer Service
+value for money is wonderful.,Positive,Pricing
+The support team is flawless!,Positive,Customer Service
+"This product is exactly what I expected, absolutely cheap!",Negative,Product Quality
+the price is garbage.,Negative,Pricing
+logistics and shipping speed were mediocre.,Neutral,Delivery
+"They ignored my emails, useless support.",Negative,Customer Service
+The support team is brilliant!,Positive,Customer Service
+The build material is love.,Positive,Product Quality
+navigation is passable.,Neutral,App/Website
+"It is too expensive, wonderful value.",Positive,Pricing
+Delivery was brilliant!,Positive,Delivery
+"They ignored my emails, excellent support.",Positive,Customer Service
+pricing is absolutely useless.,Negative,Pricing
+Customer service was worst!,Negative,Customer Service
+"It is too expensive, bad value.",Negative,Pricing
+My experience with the agent was superb.,Positive,Customer Service
+The app is good.,Positive,App/Website
+My experience with the agent was standard!,Neutral,Customer Service
+"for the cost, this is mediocre.",Neutral,Pricing
+"This product is exactly what I expected, absolutely fantastic.",Positive,Product Quality
+"Support replied immediately, wonderful service!",Positive,Customer Service
+The support team is hate!,Negative,Customer Service
+"Support replied immediately, dreadful service.",Negative,Customer Service
+navigation is okay.,Neutral,App/Website
+"It took forever to arrive, brilliant shipping.",Positive,Delivery
+The support team is fine!,Neutral,Customer Service
+navigation is good.,Positive,App/Website
+Navigation is good.,Positive,App/Website
+Logistics and shipping speed were garbage.,Negative,Delivery
+the product is standard.,Neutral,Product Quality
+my experience with the agent was bad.,Negative,Customer Service
+Quality is standard.,Neutral,Product Quality
+"This product is exactly what I expected, absolutely worst.",Negative,Product Quality
+I found the item to be broken.,Negative,Product Quality
+The build material is bad.,Negative,Product Quality
+The build material is mediocre.,Neutral,Product Quality
+I found the item to be wonderful!,Positive,Product Quality
+Quality is decent!,Neutral,Product Quality
+Customer service was mediocre!,Neutral,Customer Service
+The product is flawless!,Positive,Product Quality
+Value for money is trash.,Negative,Pricing
+customer service was worst.,Negative,Customer Service
+quality is fine.,Neutral,Product Quality
+The package arrived useless!,Negative,Delivery
+i found the item to be dreadful.,Negative,Product Quality
+Pricing is absolutely terrible!,Negative,Pricing
+"This product is exactly what I expected, absolutely hate!",Negative,Product Quality
+"App keeps crashing, fair experience.",Neutral,App/Website
+Logistics and shipping speed were passable!,Neutral,Delivery
+logistics and shipping speed were passable.,Neutral,Delivery
+pricing is absolutely fantastic.,Positive,Pricing
+"For the cost, this is standard!",Neutral,Pricing
+value for money is perfect.,Positive,Pricing
+The app is brilliant.,Positive,App/Website
+The build material is fantastic.,Positive,Product Quality
+"App keeps crashing, ok experience!",Neutral,App/Website
+value for money is flawless.,Positive,Pricing
+Far from perfect.,Negative,General
+logistics and shipping speed were garbage.,Negative,Delivery
+The build material is hate.,Negative,Product Quality
+customer service was decent.,Neutral,Customer Service
+Shipping was terrible!,Negative,Delivery
+My experience with the agent was fair.,Neutral,Customer Service
+Value for money is useless!,Negative,Pricing
+Delivery was disappointing.,Negative,Delivery
+quality is dreadful.,Negative,Product Quality
+The build material is useless!,Negative,Product Quality
+"It took forever to arrive, disappointing shipping.",Negative,Delivery
+The package arrived fine!,Neutral,Delivery
+My experience with the agent was loved!,Positive,Customer Service
+"this product is exactly what i expected, absolutely decent.",Neutral,Product Quality
+I found the item to be brilliant.,Positive,Product Quality
+Navigation is ok.,Neutral,App/Website
+The website is fine!,Neutral,App/Website
+"It is too expensive, stellar value.",Positive,Pricing
+Value for money is phenomenal.,Positive,Pricing
+navigation is fair.,Neutral,App/Website
+The user interface is worst.,Negative,App/Website
+Logistics and shipping speed were fair!,Neutral,Delivery
+The support team is superb!,Positive,Customer Service
+"For the cost, this is brilliant!",Positive,Pricing
+the price is poor.,Negative,Pricing
+Pricing is absolutely disappointing!,Negative,Pricing
+The build material is mediocre!,Neutral,Product Quality
+logistics and shipping speed were great.,Positive,Delivery
+Pricing is absolutely horrible.,Negative,Pricing
+The package arrived superb!,Positive,Delivery
+"They ignored my emails, ok support.",Neutral,Customer Service
+"App keeps crashing, flawless experience.",Positive,App/Website
+"Honestly, the product feels loved!",Positive,Product Quality
+"This product is exactly what I expected, absolutely fantastic!",Positive,Product Quality
+Delivery was useless!,Negative,Delivery
+The website is mediocre.,Neutral,App/Website
+"App keeps crashing, average experience!",Neutral,App/Website
+the package arrived horrible.,Negative,Delivery
+Value for money is flawless.,Positive,Pricing
+"it took forever to arrive, worst shipping.",Negative,Delivery
+Value for money is loved!,Positive,Pricing
+The user interface is hated!,Negative,App/Website
+"For the cost, this is broken.",Negative,Pricing
+The build material is stellar!,Positive,Product Quality
+the price is broken.,Negative,Pricing
+"It is too expensive, terrible value!",Negative,Pricing
+The user interface is phenomenal!,Positive,App/Website
+"Support replied immediately, outstanding service.",Positive,Customer Service
+Value for money is loved.,Positive,Pricing
+Delivery was average!,Neutral,Delivery
+"honestly, the product feels superb.",Positive,Product Quality
+pricing is absolutely flawless.,Positive,Pricing
+the user interface is mediocre.,Neutral,App/Website
+The user interface is superb.,Positive,App/Website
+The user interface is unacceptable!,Negative,App/Website
+delivery was excellent.,Positive,Delivery
+quality is worst.,Negative,Product Quality
+Pricing is absolutely outstanding.,Positive,Pricing
+"support replied immediately, unacceptable service.",Negative,Customer Service
+value for money is bad.,Negative,Pricing
+Delivery was outstanding.,Positive,Delivery
+The user interface is okay!,Neutral,App/Website
+logistics and shipping speed were awful.,Negative,Delivery
+The product is not good at all.,Negative,Product Quality
+The product is trash!,Negative,Product Quality
+Pricing is absolutely stellar!,Positive,Pricing
+The package arrived excellent!,Positive,Delivery
+"App keeps crashing, garbage experience!",Negative,App/Website
+The price is phenomenal.,Positive,Pricing
+My experience with the agent was phenomenal.,Positive,Customer Service
+"They ignored my emails, awful support.",Negative,Customer Service
+the price is loved.,Positive,Pricing
+Navigation is bad.,Negative,App/Website
+"App keeps crashing, worst experience!",Negative,App/Website
+Logistics and shipping speed were fine.,Neutral,Delivery
+The build material is average.,Neutral,Product Quality
+The price is disappointing.,Negative,Pricing
+"They ignored my emails, awful support!",Negative,Customer Service
+Logistics and shipping speed were okay!,Neutral,Delivery
+The support team is ok.,Neutral,Customer Service
+The user interface is superb!,Positive,App/Website
+"Honestly, the product feels phenomenal.",Positive,Product Quality
+"This product is exactly what I expected, absolutely unacceptable!",Negative,Product Quality
+Delivery was brilliant.,Positive,Delivery
+my experience with the agent was dreadful.,Negative,Customer Service
+"App keeps crashing, amazing experience.",Positive,App/Website
+"they ignored my emails, bad support.",Negative,Customer Service
+value for money is useless.,Negative,Pricing
+The product is decent.,Neutral,Product Quality
+the package arrived poor.,Negative,Delivery
+Navigation is acceptable.,Neutral,App/Website
+"They ignored my emails, worst support.",Negative,Customer Service
+"App keeps crashing, bad experience!",Negative,App/Website
+i found the item to be hate.,Negative,Product Quality
+My experience with the agent was perfect!,Positive,Customer Service
+"They ignored my emails, outstanding support.",Positive,Customer Service
+"it is too expensive, impressive value.",Positive,Pricing
+"app keeps crashing, disappointing experience.",Negative,App/Website
+The support team is decent.,Neutral,Customer Service
+the price is disappointing.,Negative,Pricing
+"Support replied immediately, worst service.",Negative,Customer Service
+Quality is wonderful.,Positive,Product Quality
+The product is amazing.,Positive,Product Quality
+the package arrived decent.,Neutral,Delivery
+my experience with the agent was good.,Positive,Customer Service
+the support team is unacceptable.,Negative,Customer Service
+the package arrived acceptable.,Neutral,Delivery
+"It is too expensive, awful value.",Negative,Pricing
+Logistics and shipping speed were bad.,Negative,Delivery
+My experience with the agent was bad.,Negative,Customer Service
+The product is hate.,Negative,Product Quality
+"they ignored my emails, love support.",Positive,Customer Service
+"It is too expensive, horrible value.",Negative,Pricing
+"For the cost, this is passable!",Neutral,Pricing
+"It took forever to arrive, mediocre shipping!",Neutral,Delivery
+logistics and shipping speed were average.,Neutral,Delivery
+"It is too expensive, unacceptable value!",Negative,Pricing
+Delivery was excellent.,Positive,Delivery
+customer service was love.,Positive,Customer Service
+i found the item to be phenomenal.,Positive,Product Quality
+"support replied immediately, mediocre service.",Neutral,Customer Service
+My experience with the agent was passable!,Neutral,Customer Service
+The website is loved.,Positive,App/Website
+delivery was cheap.,Negative,Delivery
+"app keeps crashing, excellent experience.",Positive,App/Website
+the price is horrible.,Negative,Pricing
+"app keeps crashing, useless experience.",Negative,App/Website
+delivery was worst.,Negative,Delivery
+value for money is average.,Neutral,Pricing
+"honestly, the product feels garbage.",Negative,Product Quality
+Pricing is absolutely worst.,Negative,Pricing
+the package arrived impressive.,Positive,Delivery
+The support team is decent!,Neutral,Customer Service
+Customer service was awesome.,Positive,Customer Service
+the package arrived broken.,Negative,Delivery
+I found the item to be fair.,Neutral,Product Quality
+"this product is exactly what i expected, absolutely fair.",Neutral,Product Quality
+Navigation is horrible.,Negative,App/Website
+The website is perfect.,Positive,App/Website
+Navigation is useless!,Negative,App/Website
+The product is fine!,Neutral,Product Quality
+"It is too expensive, ok value!",Neutral,Pricing
+pricing is absolutely acceptable.,Neutral,Pricing
+my experience with the agent was terrible.,Negative,Customer Service
+the product is worst.,Negative,Product Quality
+the support team is ok.,Neutral,Customer Service
+My experience with the agent was love.,Positive,Customer Service
+value for money is love.,Positive,Pricing
+pricing is absolutely unacceptable.,Negative,Pricing
+Navigation is outstanding!,Positive,App/Website
+The user interface is loved!,Positive,App/Website
+"For the cost, this is bad.",Negative,Pricing
+the product is stellar.,Positive,Product Quality
+Pricing is absolutely fantastic!,Positive,Pricing
+value for money is passable.,Neutral,Pricing
+Pricing is absolutely good!,Positive,Pricing
+the user interface is outstanding.,Positive,App/Website
+pricing is absolutely trash.,Negative,Pricing
+I found the item to be hate!,Negative,Product Quality
+"App keeps crashing, excellent experience.",Positive,App/Website
+"This product is exactly what I expected, absolutely hate.",Negative,Product Quality
+The product is phenomenal.,Positive,Product Quality
+the build material is poor.,Negative,Product Quality
+I found the item to be standard!,Neutral,Product Quality
+the build material is perfect.,Positive,Product Quality
+The product is unacceptable!,Negative,Product Quality
+Logistics and shipping speed were superb!,Positive,Delivery
+navigation is hated.,Negative,App/Website
+"It took forever to arrive, ok shipping.",Neutral,Delivery
+the support team is horrible.,Negative,Customer Service
+"this product is exactly what i expected, absolutely hated.",Negative,Product Quality
+"for the cost, this is unacceptable.",Negative,Pricing
+shipping was superb.,Positive,Delivery
+the package arrived fine.,Neutral,Delivery
+"For the cost, this is broken!",Negative,Pricing
+Customer service was garbage!,Negative,Customer Service
+"App keeps crashing, perfect experience.",Positive,App/Website
+I found the item to be acceptable.,Neutral,Product Quality
+I found the item to be bad.,Negative,Product Quality
+Delivery was flawless.,Positive,Delivery
+customer service was superb.,Positive,Customer Service
+"It took forever to arrive, trash shipping.",Negative,Delivery
+value for money is outstanding.,Positive,Pricing
+The website is superb.,Positive,App/Website
+"It took forever to arrive, perfect shipping.",Positive,Delivery
+The website is terrible.,Negative,App/Website
+The build material is amazing.,Positive,Product Quality
+the app is awful.,Negative,App/Website
+navigation is hate.,Negative,App/Website
+I found the item to be ok!,Neutral,Product Quality
+i found the item to be excellent.,Positive,Product Quality
+The price is impressive.,Positive,Pricing
+The website is worst!,Negative,App/Website
+The website is average.,Neutral,App/Website
+Logistics and shipping speed were hate!,Negative,Delivery
+"Honestly, the product feels dreadful.",Negative,Product Quality
+"Support replied immediately, disappointing service.",Negative,Customer Service
+"It is too expensive, superb value!",Positive,Pricing
+The support team is average!,Neutral,Customer Service
+"This product is exactly what I expected, absolutely garbage!",Negative,Product Quality
+Pricing is absolutely terrible.,Negative,Pricing
+"it took forever to arrive, awful shipping.",Negative,Delivery
+"It is too expensive, loved value!",Positive,Pricing
+I found the item to be great!,Positive,Product Quality
+The website is fine.,Neutral,App/Website
+the user interface is fair.,Neutral,App/Website
+"Support replied immediately, cheap service.",Negative,Customer Service
+The website is hate!,Negative,App/Website
+"Honestly, the product feels fantastic.",Positive,Product Quality
+"support replied immediately, love service.",Positive,Customer Service
+Logistics and shipping speed were stellar!,Positive,Delivery
+pricing is absolutely dreadful.,Negative,Pricing
+"this product is exactly what i expected, absolutely good.",Positive,Product Quality
+The price is amazing!,Positive,Pricing
+Shipping was useless!,Negative,Delivery
+It is not working.,Negative,Product Quality
+"App keeps crashing, unacceptable experience!",Negative,App/Website
+I found the item to be poor.,Negative,Product Quality
+the support team is acceptable.,Neutral,Customer Service
+The user interface is awesome.,Positive,App/Website
+Customer service was fine!,Neutral,Customer Service
+Customer service was fair.,Neutral,Customer Service
+"Honestly, the product feels dreadful!",Negative,Product Quality
+"It took forever to arrive, decent shipping.",Neutral,Delivery
+"it is too expensive, poor value.",Negative,Pricing
+"Honestly, the product feels cheap!",Negative,Product Quality
+"honestly, the product feels unacceptable.",Negative,Product Quality
+"It took forever to arrive, amazing shipping.",Positive,Delivery
+pricing is absolutely okay.,Neutral,Pricing
+Value for money is average!,Neutral,Pricing
+Navigation is fantastic.,Positive,App/Website
+Logistics and shipping speed were standard!,Neutral,Delivery
+Delivery was worst!,Negative,Delivery
+The app is good!,Positive,App/Website
+The price is standard.,Neutral,Pricing
+the package arrived awful.,Negative,Delivery
+"App keeps crashing, loved experience!",Positive,App/Website
+value for money is ok.,Neutral,Pricing
+Shipping was okay.,Neutral,Delivery
+"It took forever to arrive, phenomenal shipping!",Positive,Delivery
+"It took forever to arrive, trash shipping!",Negative,Delivery
+I found the item to be unacceptable!,Negative,Product Quality
+"It took forever to arrive, hated shipping.",Negative,Delivery
+"it took forever to arrive, hated shipping.",Negative,Delivery
+The website is disappointing!,Negative,App/Website
+The price is poor!,Negative,Pricing
+The website is phenomenal!,Positive,App/Website
+"For the cost, this is love.",Positive,Pricing
+The website is acceptable!,Neutral,App/Website
+shipping was horrible.,Negative,Delivery
+The price is great.,Positive,Pricing
+The support team is phenomenal!,Positive,Customer Service
+Delivery was superb!,Positive,Delivery
+"For the cost, this is wonderful.",Positive,Pricing
+The package arrived phenomenal!,Positive,Delivery
+My experience with the agent was superb!,Positive,Customer Service
+The support team is garbage!,Negative,Customer Service
+"honestly, the product feels stellar.",Positive,Product Quality
+quality is awesome.,Positive,Product Quality
+Customer service was perfect!,Positive,Customer Service
+"App keeps crashing, fine experience!",Neutral,App/Website
+The app is broken!,Negative,App/Website
+the website is awesome.,Positive,App/Website
+Quality is dreadful.,Negative,Product Quality
+The product is great!,Positive,Product Quality
+My experience with the agent was terrible!,Negative,Customer Service
+Delivery was perfect.,Positive,Delivery
+the product is average.,Neutral,Product Quality
+Customer service was impressive.,Positive,Customer Service
+I found the item to be bad!,Negative,Product Quality
+Logistics and shipping speed were disappointing.,Negative,Delivery
+"for the cost, this is amazing.",Positive,Pricing
+"honestly, the product feels excellent.",Positive,Product Quality
+the support team is flawless.,Positive,Customer Service
+I found the item to be passable!,Neutral,Product Quality
+"support replied immediately, worst service.",Negative,Customer Service
+Quality is cheap!,Negative,Product Quality
+"honestly, the product feels perfect.",Positive,Product Quality
+The package arrived impressive.,Positive,Delivery
+"App keeps crashing, average experience.",Neutral,App/Website
+"this product is exactly what i expected, absolutely phenomenal.",Positive,Product Quality
+Pricing is absolutely mediocre.,Neutral,Pricing
+"Support replied immediately, perfect service!",Positive,Customer Service
+The price is average.,Neutral,Pricing
+"It is too expensive, poor value!",Negative,Pricing
+"It took forever to arrive, loved shipping.",Positive,Delivery
+"It took forever to arrive, cheap shipping!",Negative,Delivery
+Shipping was worst.,Negative,Delivery
+the price is ok.,Neutral,Pricing
+"support replied immediately, okay service.",Neutral,Customer Service
+"For the cost, this is average!",Neutral,Pricing
+the user interface is standard.,Neutral,App/Website
+The website is awesome.,Positive,App/Website
+"support replied immediately, hated service.",Negative,Customer Service
+Navigation is horrible!,Negative,App/Website
+"this product is exactly what i expected, absolutely love.",Positive,Product Quality
+My experience with the agent was fantastic!,Positive,Customer Service
+"They ignored my emails, impressive support!",Positive,Customer Service
+Navigation is flawless!,Positive,App/Website
+Logistics and shipping speed were outstanding.,Positive,Delivery
+customer service was fantastic.,Positive,Customer Service
+"app keeps crashing, garbage experience.",Negative,App/Website
+Value for money is outstanding!,Positive,Pricing
+The website is excellent.,Positive,App/Website
+Quality is unacceptable.,Negative,Product Quality
+The website is passable!,Neutral,App/Website
+The product is perfect.,Positive,Product Quality
+Pricing is absolutely horrible!,Negative,Pricing
+logistics and shipping speed were amazing.,Positive,Delivery
+i found the item to be hated.,Negative,Product Quality
+Shipping was acceptable!,Neutral,Delivery
+Pricing is absolutely good.,Positive,Pricing
+The app is useless.,Negative,App/Website
+"This product is exactly what I expected, absolutely trash.",Negative,Product Quality
+my experience with the agent was decent.,Neutral,Customer Service
+Shipping was horrible.,Negative,Delivery
+"This product is exactly what I expected, absolutely dreadful!",Negative,Product Quality
+"This product is exactly what I expected, absolutely acceptable.",Neutral,Product Quality
+The support team is amazing.,Positive,Customer Service
+pricing is absolutely good.,Positive,Pricing
+The build material is brilliant!,Positive,Product Quality
+pricing is absolutely perfect.,Positive,Pricing
+Pricing is absolutely broken.,Negative,Pricing
+Navigation is superb.,Positive,App/Website
+Value for money is terrible!,Negative,Pricing
+"it took forever to arrive, cheap shipping.",Negative,Delivery
+The app is loved!,Positive,App/Website
+Value for money is okay.,Neutral,Pricing
+the build material is impressive.,Positive,Product Quality
+shipping was amazing.,Positive,Delivery
+Logistics and shipping speed were hated!,Negative,Delivery
+Navigation is great!,Positive,App/Website
+Navigation is excellent.,Positive,App/Website
+The build material is fine!,Neutral,Product Quality
+Navigation is hated.,Negative,App/Website
+Shipping was great!,Positive,Delivery
+the build material is hate.,Negative,Product Quality
+Quality is hate!,Negative,Product Quality
+The support team is awesome!,Positive,Customer Service
+pricing is absolutely outstanding.,Positive,Pricing
+"for the cost, this is perfect.",Positive,Pricing
+The support team is good!,Positive,Customer Service
+"For the cost, this is cheap.",Negative,Pricing
+pricing is absolutely horrible.,Negative,Pricing
+Logistics and shipping speed were good.,Positive,Delivery
+the price is excellent.,Positive,Pricing
+"This product is exactly what I expected, absolutely awful.",Negative,Product Quality
+quality is impressive.,Positive,Product Quality
+shipping was perfect.,Positive,Delivery
+customer service was brilliant.,Positive,Customer Service
+The support team is impressive.,Positive,Customer Service
+the product is acceptable.,Neutral,Product Quality
+"They ignored my emails, horrible support!",Negative,Customer Service
+"It took forever to arrive, okay shipping!",Neutral,Delivery
+The package arrived love!,Positive,Delivery
+"it is too expensive, flawless value.",Positive,Pricing
+"for the cost, this is disappointing.",Negative,Pricing
+Value for money is mediocre.,Neutral,Pricing
+"this product is exactly what i expected, absolutely hate.",Negative,Product Quality
+Value for money is average.,Neutral,Pricing
+The user interface is average.,Neutral,App/Website
+The app is phenomenal!,Positive,App/Website
+Navigation is loved!,Positive,App/Website
+pricing is absolutely worst.,Negative,Pricing
+The build material is broken!,Negative,Product Quality
+my experience with the agent was cheap.,Negative,Customer Service
+logistics and shipping speed were acceptable.,Neutral,Delivery
+Customer service was wonderful!,Positive,Customer Service
+"This product is exactly what I expected, absolutely excellent!",Positive,Product Quality
+The product is poor.,Negative,Product Quality
+my experience with the agent was ok.,Neutral,Customer Service
+Pricing is absolutely ok.,Neutral,Pricing
+the website is okay.,Neutral,App/Website
+the price is terrible.,Negative,Pricing
+Pricing is absolutely cheap!,Negative,Pricing
+I found the item to be loved!,Positive,Product Quality
+The website is broken!,Negative,App/Website
+The build material is flawless.,Positive,Product Quality
+Quality is fantastic!,Positive,Product Quality
+the app is hate.,Negative,App/Website
+"App keeps crashing, decent experience!",Neutral,App/Website
+Navigation is hated!,Negative,App/Website
+pricing is absolutely poor.,Negative,Pricing
+The package arrived passable!,Neutral,Delivery
+"It is too expensive, awful value!",Negative,Pricing
+The user interface is broken!,Negative,App/Website
+"it is too expensive, decent value.",Neutral,Pricing
+"It is too expensive, average value!",Neutral,Pricing
+The user interface is acceptable.,Neutral,App/Website
+"It is too expensive, flawless value!",Positive,Pricing
+"This product is exactly what I expected, absolutely bad.",Negative,Product Quality
+"support replied immediately, fair service.",Neutral,Customer Service
+"support replied immediately, superb service.",Positive,Customer Service
+The website is poor!,Negative,App/Website
+the user interface is poor.,Negative,App/Website
+"support replied immediately, awful service.",Negative,Customer Service
+"honestly, the product feels decent.",Neutral,Product Quality
+"Support replied immediately, fine service.",Neutral,Customer Service
+Logistics and shipping speed were standard.,Neutral,Delivery
+The support team is loved.,Positive,Customer Service
+logistics and shipping speed were awesome.,Positive,Delivery
+logistics and shipping speed were ok.,Neutral,Delivery
+i found the item to be love.,Positive,Product Quality
+the product is bad.,Negative,Product Quality
+the build material is mediocre.,Neutral,Product Quality
+Value for money is passable.,Neutral,Pricing
+My experience with the agent was mediocre.,Neutral,Customer Service
+"It took forever to arrive, worst shipping.",Negative,Delivery
+The app is useless!,Negative,App/Website
+quality is love.,Positive,Product Quality
+the product is brilliant.,Positive,Product Quality
+"They ignored my emails, okay support.",Neutral,Customer Service
+the website is broken.,Negative,App/Website
+The package arrived brilliant!,Positive,Delivery
+I found the item to be worst.,Negative,Product Quality
+"They ignored my emails, cheap support.",Negative,Customer Service
+"it is too expensive, trash value.",Negative,Pricing
+"Honestly, the product feels useless.",Negative,Product Quality
+The package arrived stellar!,Positive,Delivery
+the support team is hated.,Negative,Customer Service
+my experience with the agent was love.,Positive,Customer Service
+Logistics and shipping speed were hate.,Negative,Delivery
+the app is trash.,Negative,App/Website
+Delivery was loved.,Positive,Delivery
+The build material is good!,Positive,Product Quality
+logistics and shipping speed were perfect.,Positive,Delivery
+The website is hated!,Negative,App/Website
+Logistics and shipping speed were acceptable.,Neutral,Delivery
+"for the cost, this is hated.",Negative,Pricing
+Customer service was bad!,Negative,Customer Service
+Delivery was outstanding!,Positive,Delivery
+I found the item to be unacceptable.,Negative,Product Quality
+The support team is broken!,Negative,Customer Service
+Navigation is unacceptable!,Negative,App/Website
+quality is decent.,Neutral,Product Quality
+I found the item to be awful!,Negative,Product Quality
+"it took forever to arrive, hate shipping.",Negative,Delivery
+"for the cost, this is acceptable.",Neutral,Pricing
+Value for money is garbage.,Negative,Pricing
+The package arrived ok!,Neutral,Delivery
+My experience with the agent was impressive.,Positive,Customer Service
+"It took forever to arrive, awful shipping!",Negative,Delivery
+"App keeps crashing, outstanding experience!",Positive,App/Website
+"It took forever to arrive, average shipping!",Neutral,Delivery
+"App keeps crashing, brilliant experience!",Positive,App/Website
+"This product is exactly what I expected, absolutely wonderful!",Positive,Product Quality
+"they ignored my emails, excellent support.",Positive,Customer Service
+Logistics and shipping speed were superb.,Positive,Delivery
+The app is fair.,Neutral,App/Website
+The price is worst.,Negative,Pricing
+delivery was wonderful.,Positive,Delivery
+"app keeps crashing, brilliant experience.",Positive,App/Website
+i found the item to be worst.,Negative,Product Quality
+The app is worst.,Negative,App/Website
+The user interface is unacceptable.,Negative,App/Website
+"for the cost, this is standard.",Neutral,Pricing
+value for money is stellar.,Positive,Pricing
+"App keeps crashing, acceptable experience.",Neutral,App/Website
+"app keeps crashing, fantastic experience.",Positive,App/Website
+The app is mediocre.,Neutral,App/Website
+The app is decent.,Neutral,App/Website
+Pricing is absolutely acceptable!,Neutral,Pricing
+customer service was fine.,Neutral,Customer Service
+The build material is ok!,Neutral,Product Quality
+the package arrived awesome.,Positive,Delivery
+Shipping was fair!,Neutral,Delivery
+logistics and shipping speed were wonderful.,Positive,Delivery
+shipping was broken.,Negative,Delivery
+"for the cost, this is trash.",Negative,Pricing
+"They ignored my emails, fantastic support.",Positive,Customer Service
+I found the item to be wonderful.,Positive,Product Quality
+"App keeps crashing, impressive experience.",Positive,App/Website
+the support team is average.,Neutral,Customer Service
+Value for money is love!,Positive,Pricing
+value for money is mediocre.,Neutral,Pricing
+"It took forever to arrive, excellent shipping.",Positive,Delivery
+Customer service was superb!,Positive,Customer Service
+"It took forever to arrive, bad shipping!",Negative,Delivery
+Logistics and shipping speed were awful.,Negative,Delivery
+"for the cost, this is outstanding.",Positive,Pricing
+The price is amazing.,Positive,Pricing
+Value for money is awesome.,Positive,Pricing
+the build material is brilliant.,Positive,Product Quality
+The build material is excellent!,Positive,Product Quality
+"This product is exactly what I expected, absolutely awful!",Negative,Product Quality
+my experience with the agent was awesome.,Positive,Customer Service
+"App keeps crashing, stellar experience.",Positive,App/Website
+the app is phenomenal.,Positive,App/Website
+the support team is fine.,Neutral,Customer Service
+"App keeps crashing, good experience.",Positive,App/Website
+Customer service was superb.,Positive,Customer Service
+"Support replied immediately, dreadful service!",Negative,Customer Service
+The package arrived standard.,Neutral,Delivery
+Logistics and shipping speed were horrible.,Negative,Delivery
+delivery was awful.,Negative,Delivery
+Customer service was amazing.,Positive,Customer Service
+the price is perfect.,Positive,Pricing
+navigation is brilliant.,Positive,App/Website
+Value for money is ok!,Neutral,Pricing
+"For the cost, this is trash.",Negative,Pricing
+the price is cheap.,Negative,Pricing
+I found the item to be ok.,Neutral,Product Quality
+The build material is horrible!,Negative,Product Quality
+"It took forever to arrive, good shipping.",Positive,Delivery
+"it took forever to arrive, impressive shipping.",Positive,Delivery
+I found the item to be fantastic.,Positive,Product Quality
+Shipping was disappointing.,Negative,Delivery
+"They ignored my emails, passable support!",Neutral,Customer Service
+the website is hate.,Negative,App/Website
+The support team is cheap.,Negative,Customer Service
+value for money is disappointing.,Negative,Pricing
+Pricing is absolutely ok!,Neutral,Pricing
+Pricing is absolutely flawless.,Positive,Pricing
+The website is cheap!,Negative,App/Website
+I found the item to be disappointing!,Negative,Product Quality
+"It took forever to arrive, fantastic shipping.",Positive,Delivery
+I do not like this.,Negative,General
+"Honestly, the product feels wonderful.",Positive,Product Quality
+Shipping was passable!,Neutral,Delivery
+My experience with the agent was flawless!,Positive,Customer Service
+"It took forever to arrive, useless shipping.",Negative,Delivery
+Logistics and shipping speed were amazing!,Positive,Delivery
+"For the cost, this is impressive.",Positive,Pricing
+Pricing is absolutely flawless!,Positive,Pricing
+The website is standard.,Neutral,App/Website
+"App keeps crashing, terrible experience.",Negative,App/Website
+Customer service was flawless!,Positive,Customer Service
+I found the item to be horrible.,Negative,Product Quality
+My experience with the agent was worst!,Negative,Customer Service
+The app is perfect.,Positive,App/Website
+Customer service was impressive!,Positive,Customer Service
+Quality is love.,Positive,Product Quality
+I found the item to be acceptable!,Neutral,Product Quality
+The app is stellar.,Positive,App/Website
+The price is wonderful!,Positive,Pricing
+"For the cost, this is loved.",Positive,Pricing
+Customer service was fine.,Neutral,Customer Service
+"for the cost, this is worst.",Negative,Pricing
+shipping was loved.,Positive,Delivery
+Pricing is absolutely impressive.,Positive,Pricing
+i found the item to be decent.,Neutral,Product Quality
+My experience with the agent was fine.,Neutral,Customer Service
+i found the item to be passable.,Neutral,Product Quality
+The package arrived mediocre!,Neutral,Delivery
+delivery was garbage.,Negative,Delivery
+pricing is absolutely standard.,Neutral,Pricing
+Navigation is wonderful.,Positive,App/Website
+the package arrived cheap.,Negative,Delivery
+The product is outstanding.,Positive,Product Quality
+Pricing is absolutely average.,Neutral,Pricing
+logistics and shipping speed were decent.,Neutral,Delivery
+the app is terrible.,Negative,App/Website
+The product is average.,Neutral,Product Quality
+Value for money is amazing!,Positive,Pricing
+logistics and shipping speed were fair.,Neutral,Delivery
+"For the cost, this is flawless!",Positive,Pricing
+The support team is passable.,Neutral,Customer Service
+"app keeps crashing, fine experience.",Neutral,App/Website
+the support team is brilliant.,Positive,Customer Service
+The product is ok.,Neutral,Product Quality
+"Support replied immediately, ok service.",Neutral,Customer Service
+Navigation is cheap!,Negative,App/Website
+the app is worst.,Negative,App/Website
+"For the cost, this is flawless.",Positive,Pricing
+"They ignored my emails, acceptable support!",Neutral,Customer Service
+Navigation is mediocre!,Neutral,App/Website
+The product is bad.,Negative,Product Quality
+Shipping was dreadful!,Negative,Delivery
+"For the cost, this is perfect!",Positive,Pricing
+Delivery was fantastic!,Positive,Delivery
+Delivery was terrible.,Negative,Delivery
+"This product is exactly what I expected, absolutely decent!",Neutral,Product Quality
+customer service was dreadful.,Negative,Customer Service
+The website is terrible!,Negative,App/Website
+"support replied immediately, useless service.",Negative,Customer Service
+Quality is bad!,Negative,Product Quality
+i found the item to be okay.,Neutral,Product Quality
+Pricing is absolutely awesome!,Positive,Pricing
+Shipping was garbage!,Negative,Delivery
+"App keeps crashing, awful experience.",Negative,App/Website
+Quality is outstanding.,Positive,Product Quality
+Logistics and shipping speed were mediocre!,Neutral,Delivery
+The product is trash.,Negative,Product Quality
+customer service was loved.,Positive,Customer Service
+The price is excellent!,Positive,Pricing
+customer service was garbage.,Negative,Customer Service
+Pricing is absolutely perfect.,Positive,Pricing
+value for money is hated.,Negative,Pricing
+"support replied immediately, standard service.",Neutral,Customer Service
+The support team is fantastic!,Positive,Customer Service
+Customer service was phenomenal.,Positive,Customer Service
+"it is too expensive, unacceptable value.",Negative,Pricing
+"support replied immediately, fine service.",Neutral,Customer Service
+The package arrived loved.,Positive,Delivery
+The app is dreadful.,Negative,App/Website
+the product is excellent.,Positive,Product Quality
+"This product is exactly what I expected, absolutely mediocre.",Neutral,Product Quality
+the price is trash.,Negative,Pricing
+"they ignored my emails, unacceptable support.",Negative,Customer Service
+"it took forever to arrive, brilliant shipping.",Positive,Delivery
+Value for money is acceptable.,Neutral,Pricing
+i found the item to be awesome.,Positive,Product Quality
+Quality is brilliant.,Positive,Product Quality
+Shipping was fine.,Neutral,Delivery
+The website is decent!,Neutral,App/Website
+pricing is absolutely garbage.,Negative,Pricing
+delivery was hated.,Negative,Delivery
+Navigation is dreadful!,Negative,App/Website
+the build material is acceptable.,Neutral,Product Quality
+Shipping was dreadful.,Negative,Delivery
+The website is useless.,Negative,App/Website
+Delivery was horrible!,Negative,Delivery
+Customer service was hate!,Negative,Customer Service
+"They ignored my emails, amazing support.",Positive,Customer Service
+Delivery was awful.,Negative,Delivery
+Pricing is absolutely awful!,Negative,Pricing
+"App keeps crashing, great experience!",Positive,App/Website
+"For the cost, this is wonderful!",Positive,Pricing
+the app is loved.,Positive,App/Website
+"For the cost, this is worst!",Negative,Pricing
+My experience with the agent was excellent!,Positive,Customer Service
+"for the cost, this is fantastic.",Positive,Pricing
+Navigation is hate!,Negative,App/Website
+"Support replied immediately, flawless service.",Positive,Customer Service
+logistics and shipping speed were broken.,Negative,Delivery
+Value for money is standard!,Neutral,Pricing
+The support team is dreadful.,Negative,Customer Service
+the user interface is horrible.,Negative,App/Website
+the build material is terrible.,Negative,Product Quality
+Navigation is brilliant!,Positive,App/Website
+the support team is bad.,Negative,Customer Service
+"for the cost, this is okay.",Neutral,Pricing
+The package arrived disappointing!,Negative,Delivery
+Value for money is horrible.,Negative,Pricing
+the price is fantastic.,Positive,Pricing
+The package arrived hated!,Negative,Delivery
+the app is average.,Neutral,App/Website
+The user interface is outstanding.,Positive,App/Website
+navigation is cheap.,Negative,App/Website
+The package arrived decent.,Neutral,Delivery
+"For the cost, this is terrible.",Negative,Pricing
+"For the cost, this is okay!",Neutral,Pricing
+"It is too expensive, outstanding value!",Positive,Pricing
+delivery was useless.,Negative,Delivery
+Shipping was fantastic.,Positive,Delivery
+"app keeps crashing, awesome experience.",Positive,App/Website
+The app is fair!,Neutral,App/Website
+Navigation is fine.,Neutral,App/Website
+The price is hate.,Negative,Pricing
+customer service was okay.,Neutral,Customer Service
+"Support replied immediately, worst service!",Negative,Customer Service
+The user interface is mediocre!,Neutral,App/Website
+Quality is brilliant!,Positive,Product Quality
+I found the item to be outstanding!,Positive,Product Quality
+"It took forever to arrive, bad shipping.",Negative,Delivery
+logistics and shipping speed were excellent.,Positive,Delivery
+"App keeps crashing, phenomenal experience.",Positive,App/Website
+"They ignored my emails, hated support.",Negative,Customer Service
+Navigation is average!,Neutral,App/Website
+The product is ok!,Neutral,Product Quality
+The support team is okay.,Neutral,Customer Service
+the product is hated.,Negative,Product Quality
+delivery was terrible.,Negative,Delivery
+"App keeps crashing, awesome experience!",Positive,App/Website
+the app is standard.,Neutral,App/Website
+Navigation is worst.,Negative,App/Website
+The support team is flawless.,Positive,Customer Service
+Shipping was bad.,Negative,Delivery
+Customer service was brilliant.,Positive,Customer Service
+"app keeps crashing, bad experience.",Negative,App/Website
+The product is average!,Neutral,Product Quality
+the app is dreadful.,Negative,App/Website
+"Honestly, the product feels broken!",Negative,Product Quality
+The app is love!,Positive,App/Website
+"app keeps crashing, passable experience.",Neutral,App/Website
+Shipping was cheap!,Negative,Delivery
+"App keeps crashing, poor experience!",Negative,App/Website
+The app is hate.,Negative,App/Website
+My experience with the agent was average!,Neutral,Customer Service
+the product is poor.,Negative,Product Quality
+Customer service was good!,Positive,Customer Service
+Customer service was awful!,Negative,Customer Service
+"Honestly, the product feels standard.",Neutral,Product Quality
+"It took forever to arrive, worst shipping!",Negative,Delivery
+"For the cost, this is unacceptable!",Negative,Pricing
+The support team is horrible!,Negative,Customer Service
+shipping was cheap.,Negative,Delivery
+"Honestly, the product feels fantastic!",Positive,Product Quality
+Quality is ok!,Neutral,Product Quality
+Logistics and shipping speed were cheap!,Negative,Delivery
+The package arrived outstanding!,Positive,Delivery
+value for money is impressive.,Positive,Pricing
+"It is too expensive, disappointing value!",Negative,Pricing
+logistics and shipping speed were unacceptable.,Negative,Delivery
+Quality is stellar.,Positive,Product Quality
+Shipping was poor.,Negative,Delivery
+"they ignored my emails, trash support.",Negative,Customer Service
+"honestly, the product feels bad.",Negative,Product Quality
+customer service was good.,Positive,Customer Service
+Shipping was phenomenal!,Positive,Delivery
+the price is hate.,Negative,Pricing
+I found the item to be okay!,Neutral,Product Quality
+"They ignored my emails, loved support.",Positive,Customer Service
+Value for money is hated.,Negative,Pricing
+quality is excellent.,Positive,Product Quality
+"They ignored my emails, superb support.",Positive,Customer Service
+"This product is exactly what I expected, absolutely flawless!",Positive,Product Quality
+Logistics and shipping speed were excellent.,Positive,Delivery
+"this product is exactly what i expected, absolutely passable.",Neutral,Product Quality
+"They ignored my emails, fine support!",Neutral,Customer Service
+Quality is horrible!,Negative,Product Quality
+The app is cheap.,Negative,App/Website
+i found the item to be average.,Neutral,Product Quality
+The build material is decent.,Neutral,Product Quality
+Quality is broken.,Negative,Product Quality
+"For the cost, this is okay.",Neutral,Pricing
+The price is wonderful.,Positive,Pricing
+the build material is phenomenal.,Positive,Product Quality
+Quality is hate.,Negative,Product Quality
+"for the cost, this is brilliant.",Positive,Pricing
+Logistics and shipping speed were trash!,Negative,Delivery
+Customer service was poor.,Negative,Customer Service
+Quality is perfect.,Positive,Product Quality
+Shipping was impressive.,Positive,Delivery
+delivery was poor.,Negative,Delivery
+The product is fantastic.,Positive,Product Quality
+I found the item to be superb!,Positive,Product Quality
+My experience with the agent was hated.,Negative,Customer Service
+"Support replied immediately, amazing service!",Positive,Customer Service
+The product is fantastic!,Positive,Product Quality
+the user interface is superb.,Positive,App/Website
+"for the cost, this is great.",Positive,Pricing
+"This product is exactly what I expected, absolutely outstanding.",Positive,Product Quality
+"it is too expensive, awesome value.",Positive,Pricing
+"This product is exactly what I expected, absolutely stellar!",Positive,Product Quality
+"App keeps crashing, useless experience!",Negative,App/Website
+The website is stellar!,Positive,App/Website
+My experience with the agent was ok.,Neutral,Customer Service
+The user interface is useless!,Negative,App/Website
+"This product is exactly what I expected, absolutely bad!",Negative,Product Quality
+"Honestly, the product feels cheap.",Negative,Product Quality
+"For the cost, this is mediocre.",Neutral,Pricing
+"App keeps crashing, mediocre experience!",Neutral,App/Website
+The user interface is fine!,Neutral,App/Website
+"support replied immediately, average service.",Neutral,Customer Service
+The package arrived cheap.,Negative,Delivery
+Quality is ok.,Neutral,Product Quality
+the app is unacceptable.,Negative,App/Website
+the package arrived garbage.,Negative,Delivery
+"Support replied immediately, awful service.",Negative,Customer Service
+"App keeps crashing, wonderful experience.",Positive,App/Website
+"This product is exactly what I expected, absolutely trash!",Negative,Product Quality
+shipping was excellent.,Positive,Delivery
+The product is decent!,Neutral,Product Quality
+The build material is trash!,Negative,Product Quality
+Quality is amazing!,Positive,Product Quality
+pricing is absolutely broken.,Negative,Pricing
+"Support replied immediately, okay service.",Neutral,Customer Service
+The website is love!,Positive,App/Website
+Customer service was okay!,Neutral,Customer Service
+"this product is exactly what i expected, absolutely brilliant.",Positive,Product Quality
+I found the item to be perfect.,Positive,Product Quality
+"It took forever to arrive, mediocre shipping.",Neutral,Delivery
+"It took forever to arrive, garbage shipping!",Negative,Delivery
+"For the cost, this is terrible!",Negative,Pricing
+"They ignored my emails, outstanding support!",Positive,Customer Service
+Quality is superb!,Positive,Product Quality
+The price is cheap.,Negative,Pricing
+The user interface is wonderful.,Positive,App/Website
+customer service was fair.,Neutral,Customer Service
+The package arrived garbage!,Negative,Delivery
+Customer service was ok.,Neutral,Customer Service
+i found the item to be fine.,Neutral,Product Quality
+"It took forever to arrive, unacceptable shipping!",Negative,Delivery
+"support replied immediately, outstanding service.",Positive,Customer Service
+customer service was cheap.,Negative,Customer Service
+logistics and shipping speed were fine.,Neutral,Delivery
+"App keeps crashing, trash experience.",Negative,App/Website
+"It is too expensive, fine value.",Neutral,Pricing
+"support replied immediately, poor service.",Negative,Customer Service
+the website is unacceptable.,Negative,App/Website
+"For the cost, this is great.",Positive,Pricing
+Customer service was dreadful!,Negative,Customer Service
+"It is too expensive, amazing value.",Positive,Pricing
+"it is too expensive, excellent value.",Positive,Pricing
+Value for money is perfect.,Positive,Pricing
+The product is horrible.,Negative,Product Quality
+The user interface is disappointing!,Negative,App/Website
+the support team is amazing.,Positive,Customer Service
+the price is dreadful.,Negative,Pricing
+The product is brilliant.,Positive,Product Quality
+"Support replied immediately, good service!",Positive,Customer Service
+"They ignored my emails, perfect support.",Positive,Customer Service
+Logistics and shipping speed were excellent!,Positive,Delivery
+i found the item to be fantastic.,Positive,Product Quality
+Shipping was outstanding!,Positive,Delivery
+"Honestly, the product feels love!",Positive,Product Quality
+Delivery was decent.,Neutral,Delivery
+"app keeps crashing, great experience.",Positive,App/Website
+shipping was decent.,Neutral,Delivery
+Shipping was good.,Positive,Delivery
+"It took forever to arrive, horrible shipping.",Negative,Delivery
+"App keeps crashing, fantastic experience!",Positive,App/Website
+"It is too expensive, brilliant value!",Positive,Pricing
+Customer service was wonderful.,Positive,Customer Service
+The product is love!,Positive,Product Quality
+quality is fantastic.,Positive,Product Quality
+The website is poor.,Negative,App/Website
+The app is amazing!,Positive,App/Website
+"It is too expensive, terrible value.",Negative,Pricing
+Pricing is absolutely trash!,Negative,Pricing
+the website is superb.,Positive,App/Website
+the build material is average.,Neutral,Product Quality
+"it is too expensive, horrible value.",Negative,Pricing
+"They ignored my emails, dreadful support.",Negative,Customer Service
+my experience with the agent was hate.,Negative,Customer Service
+The app is wonderful.,Positive,App/Website
+The package arrived disappointing.,Negative,Delivery
+the price is decent.,Neutral,Pricing
+"they ignored my emails, good support.",Positive,Customer Service
+Pricing is absolutely hate.,Negative,Pricing
+Quality is bad.,Negative,Product Quality
+Delivery was acceptable!,Neutral,Delivery
+Delivery was awesome.,Positive,Delivery
+the build material is disappointing.,Negative,Product Quality
+Quality is okay!,Neutral,Product Quality
+I found the item to be excellent.,Positive,Product Quality
+The price is fair!,Neutral,Pricing
+The package arrived amazing!,Positive,Delivery
+I found the item to be phenomenal!,Positive,Product Quality
+The package arrived fantastic.,Positive,Delivery
+Delivery was useless.,Negative,Delivery
+"honestly, the product feels outstanding.",Positive,Product Quality
+My experience with the agent was horrible.,Negative,Customer Service
+The support team is great!,Positive,Customer Service
+Value for money is wonderful!,Positive,Pricing
+Shipping was useless.,Negative,Delivery
+The package arrived hate!,Negative,Delivery
+the product is decent.,Neutral,Product Quality
+logistics and shipping speed were love.,Positive,Delivery
+value for money is poor.,Negative,Pricing
+shipping was fine.,Neutral,Delivery
+The product is awesome.,Positive,Product Quality
+value for money is dreadful.,Negative,Pricing
+"This product is exactly what I expected, absolutely great.",Positive,Product Quality
+The build material is awful.,Negative,Product Quality
+The price is bad.,Negative,Pricing
+I found the item to be perfect!,Positive,Product Quality
+Delivery was trash.,Negative,Delivery
+The build material is ok.,Neutral,Product Quality
+"For the cost, this is cheap!",Negative,Pricing
+Quality is impressive!,Positive,Product Quality
+"it took forever to arrive, wonderful shipping.",Positive,Delivery
+Value for money is broken!,Negative,Pricing
+the price is useless.,Negative,Pricing
+Logistics and shipping speed were awesome!,Positive,Delivery
+"they ignored my emails, wonderful support.",Positive,Customer Service
+Pricing is absolutely loved!,Positive,Pricing
+"App keeps crashing, hated experience.",Negative,App/Website
+The build material is good.,Positive,Product Quality
+"This product is exactly what I expected, absolutely awesome!",Positive,Product Quality
+The product is awful!,Negative,Product Quality
+logistics and shipping speed were disappointing.,Negative,Delivery
+My experience with the agent was stellar!,Positive,Customer Service
+the user interface is awful.,Negative,App/Website
+The product is dreadful!,Negative,Product Quality
+Value for money is awful.,Negative,Pricing
+The product is awful.,Negative,Product Quality
+The website is fair!,Neutral,App/Website
+Value for money is bad!,Negative,Pricing
+My experience with the agent was outstanding!,Positive,Customer Service
+the price is unacceptable.,Negative,Pricing
+delivery was perfect.,Positive,Delivery
+The build material is standard.,Neutral,Product Quality
+The price is decent.,Neutral,Pricing
+Navigation is disappointing.,Negative,App/Website
+"They ignored my emails, hate support.",Negative,Customer Service
+Logistics and shipping speed were loved.,Positive,Delivery
+the support team is wonderful.,Positive,Customer Service
+"this product is exactly what i expected, absolutely wonderful.",Positive,Product Quality
+Delivery was acceptable.,Neutral,Delivery
+the package arrived useless.,Negative,Delivery
+"Honestly, the product feels good.",Positive,Product Quality
+"It took forever to arrive, fantastic shipping!",Positive,Delivery
+Value for money is trash!,Negative,Pricing
+My experience with the agent was brilliant!,Positive,Customer Service
+the package arrived excellent.,Positive,Delivery
+"This product is exactly what I expected, absolutely love.",Positive,Product Quality
+"For the cost, this is horrible!",Negative,Pricing
+"Honestly, the product feels bad!",Negative,Product Quality
+Value for money is terrible.,Negative,Pricing
+"It took forever to arrive, useless shipping!",Negative,Delivery
+Shipping was okay!,Neutral,Delivery
+"They ignored my emails, fine support.",Neutral,Customer Service
+Navigation is passable.,Neutral,App/Website
+my experience with the agent was phenomenal.,Positive,Customer Service
+Quality is hated!,Negative,Product Quality
+Logistics and shipping speed were great!,Positive,Delivery
+the build material is decent.,Neutral,Product Quality
+delivery was fair.,Neutral,Delivery
+"It took forever to arrive, terrible shipping!",Negative,Delivery
+Delivery was hated!,Negative,Delivery
+The support team is mediocre!,Neutral,Customer Service
+the website is love.,Positive,App/Website
+i found the item to be wonderful.,Positive,Product Quality
+"This product is exactly what I expected, absolutely acceptable!",Neutral,Product Quality
+Quality is broken!,Negative,Product Quality
+Delivery was cheap.,Negative,Delivery
+The support team is bad.,Negative,Customer Service
+Logistics and shipping speed were terrible!,Negative,Delivery
+"support replied immediately, perfect service.",Positive,Customer Service
+"they ignored my emails, amazing support.",Positive,Customer Service
+The support team is love!,Positive,Customer Service
+The support team is brilliant.,Positive,Customer Service
+"Honestly, the product feels okay.",Neutral,Product Quality
+value for money is horrible.,Negative,Pricing
+customer service was disappointing.,Negative,Customer Service
+The app is okay.,Neutral,App/Website
+the package arrived outstanding.,Positive,Delivery
+the user interface is perfect.,Positive,App/Website
+I found the item to be excellent!,Positive,Product Quality
+The price is stellar.,Positive,Pricing
+value for money is okay.,Neutral,Pricing
+The support team is fair!,Neutral,Customer Service
+The user interface is stellar!,Positive,App/Website
+"this product is exactly what i expected, absolutely flawless.",Positive,Product Quality
+"For the cost, this is awful.",Negative,Pricing
+the support team is perfect.,Positive,Customer Service
+"They ignored my emails, disappointing support.",Negative,Customer Service
+My experience with the agent was fair!,Neutral,Customer Service
+The app is average!,Neutral,App/Website
+Delivery was average.,Neutral,Delivery
+logistics and shipping speed were standard.,Neutral,Delivery
+The product is excellent.,Positive,Product Quality
+the user interface is disappointing.,Negative,App/Website
+Shipping was hate.,Negative,Delivery
+"They ignored my emails, dreadful support!",Negative,Customer Service
+The package arrived love.,Positive,Delivery
+"Honestly, the product feels great.",Positive,Product Quality
+Customer service was awful.,Negative,Customer Service
+The support team is wonderful!,Positive,Customer Service
+"Honestly, the product feels poor.",Negative,Product Quality
+"For the cost, this is amazing.",Positive,Pricing
+The user interface is dreadful.,Negative,App/Website
+Logistics and shipping speed were broken!,Negative,Delivery
+The build material is fair.,Neutral,Product Quality
+The user interface is great.,Positive,App/Website
+"App keeps crashing, trash experience!",Negative,App/Website
+Shipping was hate!,Negative,Delivery
+logistics and shipping speed were outstanding.,Positive,Delivery
+the product is phenomenal.,Positive,Product Quality
+value for money is great.,Positive,Pricing
+"They ignored my emails, brilliant support!",Positive,Customer Service
+the support team is fair.,Neutral,Customer Service
+The product is hated.,Negative,Product Quality
+The website is superb!,Positive,App/Website
+"It is too expensive, excellent value!",Positive,Pricing
+The support team is perfect.,Positive,Customer Service
+the package arrived fantastic.,Positive,Delivery
+The support team is great.,Positive,Customer Service
+"for the cost, this is loved.",Positive,Pricing
+The product is unacceptable.,Negative,Product Quality
+"It is too expensive, perfect value.",Positive,Pricing
+"Support replied immediately, excellent service!",Positive,Customer Service
+i found the item to be trash.,Negative,Product Quality
+the app is okay.,Neutral,App/Website
+"this product is exactly what i expected, absolutely dreadful.",Negative,Product Quality
+The user interface is wonderful!,Positive,App/Website
+The price is terrible.,Negative,Pricing
+"this product is exactly what i expected, absolutely broken.",Negative,Product Quality
+"They ignored my emails, fair support!",Neutral,Customer Service
+The user interface is outstanding!,Positive,App/Website
+the support team is broken.,Negative,Customer Service
+the user interface is brilliant.,Positive,App/Website
+"For the cost, this is fine!",Neutral,Pricing
+i found the item to be brilliant.,Positive,Product Quality
+The website is loved!,Positive,App/Website
+"it took forever to arrive, loved shipping.",Positive,Delivery
+"they ignored my emails, hated support.",Negative,Customer Service
+"For the cost, this is dreadful.",Negative,Pricing
+Shipping was mediocre!,Neutral,Delivery
+The price is horrible!,Negative,Pricing
+quality is wonderful.,Positive,Product Quality
+The website is flawless.,Positive,App/Website
+"For the cost, this is perfect.",Positive,Pricing
+"for the cost, this is excellent.",Positive,Pricing
+the price is amazing.,Positive,Pricing
+"this product is exactly what i expected, absolutely worst.",Negative,Product Quality
+Navigation is phenomenal!,Positive,App/Website
+"Support replied immediately, love service.",Positive,Customer Service
+"App keeps crashing, okay experience.",Neutral,App/Website
+the website is worst.,Negative,App/Website
+the package arrived hated.,Negative,Delivery
+navigation is awful.,Negative,App/Website
+The package arrived bad!,Negative,Delivery
+i found the item to be horrible.,Negative,Product Quality
+Value for money is brilliant.,Positive,Pricing
+The price is good.,Positive,Pricing
+Navigation is average.,Neutral,App/Website
+The user interface is hated.,Negative,App/Website
+The support team is trash.,Negative,Customer Service
+"they ignored my emails, mediocre support.",Neutral,Customer Service
+"Support replied immediately, passable service.",Neutral,Customer Service
+my experience with the agent was okay.,Neutral,Customer Service
+shipping was phenomenal.,Positive,Delivery
+the build material is flawless.,Positive,Product Quality
+The product is stellar!,Positive,Product Quality
+The app is okay!,Neutral,App/Website
+The package arrived loved!,Positive,Delivery
+I found the item to be phenomenal.,Positive,Product Quality
+The user interface is standard!,Neutral,App/Website
+Navigation is wonderful!,Positive,App/Website
+Customer service was standard!,Neutral,Customer Service
+"they ignored my emails, passable support.",Neutral,Customer Service
+"They ignored my emails, trash support.",Negative,Customer Service
+The website is impressive.,Positive,App/Website
+"app keeps crashing, loved experience.",Positive,App/Website
+"This product is exactly what I expected, absolutely good.",Positive,Product Quality
+"They ignored my emails, great support.",Positive,Customer Service
+The support team is disappointing.,Negative,Customer Service
+"support replied immediately, phenomenal service.",Positive,Customer Service
+"For the cost, this is mediocre!",Neutral,Pricing
+Delivery was terrible!,Negative,Delivery
+I found the item to be worst!,Negative,Product Quality
+"this product is exactly what i expected, absolutely terrible.",Negative,Product Quality
+the website is awful.,Negative,App/Website
+"it took forever to arrive, fair shipping.",Neutral,Delivery
+"It took forever to arrive, dreadful shipping.",Negative,Delivery
+"this product is exactly what i expected, absolutely trash.",Negative,Product Quality
+Navigation is awesome!,Positive,App/Website
+The build material is standard!,Neutral,Product Quality
+I found the item to be hate.,Negative,Product Quality
+"For the cost, this is unacceptable.",Negative,Pricing
+My experience with the agent was fine!,Neutral,Customer Service
+The support team is worst!,Negative,Customer Service
+Navigation is outstanding.,Positive,App/Website
+"This product is exactly what I expected, absolutely garbage.",Negative,Product Quality
+"app keeps crashing, worst experience.",Negative,App/Website
+"For the cost, this is impressive!",Positive,Pricing
+quality is okay.,Neutral,Product Quality
+Logistics and shipping speed were stellar.,Positive,Delivery
+"This product is exactly what I expected, absolutely average!",Neutral,Product Quality
+"This product is exactly what I expected, absolutely wonderful.",Positive,Product Quality
+Logistics and shipping speed were flawless.,Positive,Delivery
+"App keeps crashing, fair experience!",Neutral,App/Website
+the website is impressive.,Positive,App/Website
+"They ignored my emails, mediocre support.",Neutral,Customer Service
+Navigation is poor.,Negative,App/Website
+Navigation is stellar.,Positive,App/Website
+"It is too expensive, love value.",Positive,Pricing
+Value for money is worst!,Negative,Pricing
+"It is too expensive, awesome value.",Positive,Pricing
+I found the item to be mediocre.,Neutral,Product Quality
+The website is love.,Positive,App/Website
+the build material is trash.,Negative,Product Quality
+Customer service was acceptable.,Neutral,Customer Service
+Value for money is perfect!,Positive,Pricing
+Quality is phenomenal!,Positive,Product Quality
+the user interface is ok.,Neutral,App/Website
+the price is impressive.,Positive,Pricing
+Logistics and shipping speed were fantastic.,Positive,Delivery
+"It is too expensive, mediocre value.",Neutral,Pricing
+The user interface is garbage.,Negative,App/Website
+"Honestly, the product feels excellent.",Positive,Product Quality
+I found the item to be outstanding.,Positive,Product Quality
+The user interface is worst!,Negative,App/Website
+The support team is stellar!,Positive,Customer Service
+"Support replied immediately, average service!",Neutral,Customer Service
+"for the cost, this is useless.",Negative,Pricing
+"For the cost, this is fair.",Neutral,Pricing
+The support team is phenomenal.,Positive,Customer Service
+The product is cheap.,Negative,Product Quality
+The support team is standard!,Neutral,Customer Service
+shipping was terrible.,Negative,Delivery
+delivery was impressive.,Positive,Delivery
+The price is poor.,Negative,Pricing
+"App keeps crashing, superb experience.",Positive,App/Website
+"They ignored my emails, poor support.",Negative,Customer Service
+Value for money is fantastic!,Positive,Pricing
+Navigation is okay.,Neutral,App/Website
+"it is too expensive, cheap value.",Negative,Pricing
+"This product is exactly what I expected, absolutely dreadful.",Negative,Product Quality
+The product is stellar.,Positive,Product Quality
+"this product is exactly what i expected, absolutely standard.",Neutral,Product Quality
+My experience with the agent was acceptable.,Neutral,Customer Service
+value for money is terrible.,Negative,Pricing
+"support replied immediately, decent service.",Neutral,Customer Service
+Pricing is absolutely amazing!,Positive,Pricing
+"Honestly, the product feels awful!",Negative,Product Quality
+The website is great.,Positive,App/Website
+The support team is okay!,Neutral,Customer Service
+pricing is absolutely terrible.,Negative,Pricing
+The user interface is garbage!,Negative,App/Website
+Delivery was broken!,Negative,Delivery
+The package arrived good.,Positive,Delivery
+Logistics and shipping speed were good!,Positive,Delivery
+my experience with the agent was fantastic.,Positive,Customer Service
+the build material is hated.,Negative,Product Quality
+Customer service was useless!,Negative,Customer Service
+The price is excellent.,Positive,Pricing
+shipping was fantastic.,Positive,Delivery
+Quality is good.,Positive,Product Quality
+My experience with the agent was excellent.,Positive,Customer Service
+Customer service was horrible!,Negative,Customer Service
+Quality is acceptable.,Neutral,Product Quality
+The user interface is okay.,Neutral,App/Website
+I found the item to be stellar!,Positive,Product Quality
+shipping was okay.,Neutral,Delivery
+"It took forever to arrive, broken shipping.",Negative,Delivery
+Logistics and shipping speed were phenomenal.,Positive,Delivery
+"App keeps crashing, disappointing experience!",Negative,App/Website
+customer service was poor.,Negative,Customer Service
+The product is excellent!,Positive,Product Quality
+Navigation is worst!,Negative,App/Website
+"Honestly, the product feels brilliant!",Positive,Product Quality
+"it is too expensive, love value.",Positive,Pricing
+Navigation is flawless.,Positive,App/Website
+Quality is disappointing.,Negative,Product Quality
+Pricing is absolutely okay.,Neutral,Pricing
+"For the cost, this is fair!",Neutral,Pricing
+"Honestly, the product feels mediocre!",Neutral,Product Quality
+"It took forever to arrive, standard shipping.",Neutral,Delivery
+"Honestly, the product feels terrible!",Negative,Product Quality
+The website is hated.,Negative,App/Website
+"honestly, the product feels mediocre.",Neutral,Product Quality
+"they ignored my emails, standard support.",Neutral,Customer Service
+the support team is garbage.,Negative,Customer Service
+The price is impressive!,Positive,Pricing
+"For the cost, this is poor!",Negative,Pricing
+value for money is brilliant.,Positive,Pricing
+"support replied immediately, stellar service.",Positive,Customer Service
+"it is too expensive, disappointing value.",Negative,Pricing
+"Support replied immediately, garbage service.",Negative,Customer Service
+Customer service was brilliant!,Positive,Customer Service
+my experience with the agent was passable.,Neutral,Customer Service
+"They ignored my emails, fantastic support!",Positive,Customer Service
+the product is trash.,Negative,Product Quality
+pricing is absolutely love.,Positive,Pricing
+My experience with the agent was okay!,Neutral,Customer Service
+pricing is absolutely fine.,Neutral,Pricing
+Pricing is absolutely okay!,Neutral,Pricing
+the support team is passable.,Neutral,Customer Service
+"Support replied immediately, trash service!",Negative,Customer Service
+"app keeps crashing, hate experience.",Negative,App/Website
+"Support replied immediately, unacceptable service.",Negative,Customer Service
+"It took forever to arrive, garbage shipping.",Negative,Delivery
+Customer service was loved!,Positive,Customer Service
+"It is too expensive, decent value!",Neutral,Pricing
+"app keeps crashing, stellar experience.",Positive,App/Website
+Customer service was trash.,Negative,Customer Service
+"they ignored my emails, phenomenal support.",Positive,Customer Service
+The website is bad.,Negative,App/Website
+the user interface is terrible.,Negative,App/Website
+the user interface is hate.,Negative,App/Website
+Pricing is absolutely unacceptable.,Negative,Pricing
+The user interface is fantastic.,Positive,App/Website
+The user interface is fair.,Neutral,App/Website
+"For the cost, this is phenomenal.",Positive,Pricing
+"Support replied immediately, poor service.",Negative,Customer Service
+The price is hated!,Negative,Pricing
+Pricing is absolutely phenomenal.,Positive,Pricing
+The app is superb.,Positive,App/Website
+"for the cost, this is fair.",Neutral,Pricing
+"Honestly, the product feels acceptable!",Neutral,Product Quality
+Pricing is absolutely brilliant.,Positive,Pricing
+The support team is poor!,Negative,Customer Service
+The build material is great.,Positive,Product Quality
+"for the cost, this is average.",Neutral,Pricing
+My experience with the agent was decent!,Neutral,Customer Service
+delivery was flawless.,Positive,Delivery
+The build material is terrible.,Negative,Product Quality
+the package arrived phenomenal.,Positive,Delivery
+Navigation is phenomenal.,Positive,App/Website
+Value for money is brilliant!,Positive,Pricing
+"support replied immediately, brilliant service.",Positive,Customer Service
+"they ignored my emails, loved support.",Positive,Customer Service
+the website is flawless.,Positive,App/Website
+The app is loved.,Positive,App/Website
+"Support replied immediately, ok service!",Neutral,Customer Service
+"They ignored my emails, great support!",Positive,Customer Service
+Shipping was superb.,Positive,Delivery
+"They ignored my emails, passable support.",Neutral,Customer Service
+The support team is terrible!,Negative,Customer Service
+pricing is absolutely awesome.,Positive,Pricing
+Shipping was unacceptable!,Negative,Delivery
+the website is brilliant.,Positive,App/Website
+My experience with the agent was passable.,Neutral,Customer Service
+pricing is absolutely ok.,Neutral,Pricing
+Quality is good!,Positive,Product Quality
+Logistics and shipping speed were outstanding!,Positive,Delivery
+value for money is standard.,Neutral,Pricing
+The package arrived garbage.,Negative,Delivery
+the app is excellent.,Positive,App/Website
+"they ignored my emails, awful support.",Negative,Customer Service
+The price is good!,Positive,Pricing
+Quality is perfect!,Positive,Product Quality
+Shipping was awesome!,Positive,Delivery
+the price is average.,Neutral,Pricing
+Logistics and shipping speed were passable.,Neutral,Delivery
+Navigation is decent.,Neutral,App/Website
+Shipping was superb!,Positive,Delivery
+The support team is good.,Positive,Customer Service
+"honestly, the product feels good.",Positive,Product Quality
+"This product is exactly what I expected, absolutely average.",Neutral,Product Quality
+"Support replied immediately, passable service!",Neutral,Customer Service
+the product is love.,Positive,Product Quality
+pricing is absolutely superb.,Positive,Pricing
+Value for money is excellent.,Positive,Pricing
+"It took forever to arrive, amazing shipping!",Positive,Delivery
+navigation is love.,Positive,App/Website
+the website is fantastic.,Positive,App/Website
+the product is fantastic.,Positive,Product Quality
+"Honestly, the product feels unacceptable!",Negative,Product Quality
+"it is too expensive, garbage value.",Negative,Pricing
+The app is mediocre!,Neutral,App/Website
+the user interface is worst.,Negative,App/Website
+The app is amazing.,Positive,App/Website
+The price is superb.,Positive,Pricing
+The package arrived flawless.,Positive,Delivery
+My experience with the agent was awful!,Negative,Customer Service
+The app is disappointing.,Negative,App/Website
+i found the item to be mediocre.,Neutral,Product Quality
+The app is unacceptable.,Negative,App/Website
+"for the cost, this is bad.",Negative,Pricing
+The website is outstanding!,Positive,App/Website
+delivery was good.,Positive,Delivery
+The product is loved!,Positive,Product Quality
+the price is stellar.,Positive,Pricing
+The package arrived dreadful!,Negative,Delivery
+Customer service was acceptable!,Neutral,Customer Service
+"They ignored my emails, poor support!",Negative,Customer Service
+The price is perfect!,Positive,Pricing
+The app is awesome!,Positive,App/Website
+The website is awesome!,Positive,App/Website
+the user interface is cheap.,Negative,App/Website
+shipping was awful.,Negative,Delivery
+Pricing is absolutely great!,Positive,Pricing
+"this product is exactly what i expected, absolutely fine.",Neutral,Product Quality
+The support team is awesome.,Positive,Customer Service
+"App keeps crashing, useless experience.",Negative,App/Website
+the app is useless.,Negative,App/Website
+the product is flawless.,Positive,Product Quality
+The package arrived superb.,Positive,Delivery
+The product is impressive!,Positive,Product Quality
+pricing is absolutely fair.,Neutral,Pricing
+"they ignored my emails, okay support.",Neutral,Customer Service
+"They ignored my emails, good support!",Positive,Customer Service
+navigation is garbage.,Negative,App/Website
+"For the cost, this is great!",Positive,Pricing
+"They ignored my emails, useless support!",Negative,Customer Service
+Delivery was broken.,Negative,Delivery
+"They ignored my emails, brilliant support.",Positive,Customer Service
+the support team is decent.,Neutral,Customer Service
+the support team is hate.,Negative,Customer Service
+Navigation is acceptable!,Neutral,App/Website
+"This product is exactly what I expected, absolutely phenomenal!",Positive,Product Quality
+"it took forever to arrive, flawless shipping.",Positive,Delivery
+I found the item to be useless!,Negative,Product Quality
+"App keeps crashing, horrible experience!",Negative,App/Website
+the build material is great.,Positive,Product Quality
+The support team is garbage.,Negative,Customer Service
+"They ignored my emails, fair support.",Neutral,Customer Service
+shipping was good.,Positive,Delivery
+"Honestly, the product feels average.",Neutral,Product Quality
+The app is acceptable.,Neutral,App/Website
+The product is disappointing!,Negative,Product Quality
+Delivery was amazing!,Positive,Delivery
+navigation is decent.,Neutral,App/Website
+"Support replied immediately, terrible service.",Negative,Customer Service
+"they ignored my emails, horrible support.",Negative,Customer Service
+"it took forever to arrive, disappointing shipping.",Negative,Delivery
+quality is outstanding.,Positive,Product Quality
+"app keeps crashing, mediocre experience.",Neutral,App/Website
+Logistics and shipping speed were bad!,Negative,Delivery
+The package arrived average!,Neutral,Delivery
+Pricing is absolutely excellent!,Positive,Pricing
+"app keeps crashing, average experience.",Neutral,App/Website
+the build material is stellar.,Positive,Product Quality
+The website is perfect!,Positive,App/Website
+Pricing is absolutely superb!,Positive,Pricing
+The package arrived stellar.,Positive,Delivery
+Delivery was love.,Positive,Delivery
+The build material is brilliant.,Positive,Product Quality
+"honestly, the product feels love.",Positive,Product Quality
+"App keeps crashing, disappointing experience.",Negative,App/Website
+"For the cost, this is ok.",Neutral,Pricing
+"it is too expensive, phenomenal value.",Positive,Pricing
+Pricing is absolutely acceptable.,Neutral,Pricing
+The app is acceptable!,Neutral,App/Website
+"App keeps crashing, cheap experience.",Negative,App/Website
+"it is too expensive, loved value.",Positive,Pricing
+the user interface is hated.,Negative,App/Website
+"For the cost, this is poor.",Negative,Pricing
+the user interface is flawless.,Positive,App/Website
+the product is perfect.,Positive,Product Quality
+"app keeps crashing, standard experience.",Neutral,App/Website
+"They ignored my emails, stellar support.",Positive,Customer Service
+shipping was love.,Positive,Delivery
+"It took forever to arrive, fine shipping!",Neutral,Delivery
+The price is mediocre!,Neutral,Pricing
+the build material is useless.,Negative,Product Quality
+"For the cost, this is phenomenal!",Positive,Pricing
+delivery was decent.,Neutral,Delivery
+"It is too expensive, hated value.",Negative,Pricing
+"It took forever to arrive, wonderful shipping!",Positive,Delivery
+"This product is exactly what I expected, absolutely superb.",Positive,Product Quality
+"it took forever to arrive, unacceptable shipping.",Negative,Delivery
+"Support replied immediately, cheap service!",Negative,Customer Service
+the user interface is bad.,Negative,App/Website
+The user interface is passable!,Neutral,App/Website
+Pricing is absolutely cheap.,Negative,Pricing
+"It took forever to arrive, cheap shipping.",Negative,Delivery
+the support team is dreadful.,Negative,Customer Service
+the support team is mediocre.,Neutral,Customer Service
+"it is too expensive, outstanding value.",Positive,Pricing
+"support replied immediately, excellent service.",Positive,Customer Service
+"For the cost, this is stellar.",Positive,Pricing
+"App keeps crashing, mediocre experience.",Neutral,App/Website
+"Honestly, the product feels average!",Neutral,Product Quality
+Shipping was brilliant.,Positive,Delivery
+"For the cost, this is fine.",Neutral,Pricing
+Navigation is love.,Positive,App/Website
+The website is stellar.,Positive,App/Website
+I found the item to be cheap!,Negative,Product Quality
+"it took forever to arrive, acceptable shipping.",Neutral,Delivery
+"This product is exactly what I expected, absolutely horrible.",Negative,Product Quality
+navigation is average.,Neutral,App/Website
+"app keeps crashing, outstanding experience.",Positive,App/Website
+The app is fine!,Neutral,App/Website
+"support replied immediately, ok service.",Neutral,Customer Service
+"honestly, the product feels broken.",Negative,Product Quality
+the build material is amazing.,Positive,Product Quality
+The support team is hate.,Negative,Customer Service
+"For the cost, this is stellar!",Positive,Pricing
+"support replied immediately, passable service.",Neutral,Customer Service
+navigation is ok.,Neutral,App/Website
+value for money is excellent.,Positive,Pricing
+Shipping was poor!,Negative,Delivery
+Shipping was fair.,Neutral,Delivery
+Delivery was dreadful.,Negative,Delivery
+"for the cost, this is horrible.",Negative,Pricing
+I found the item to be love!,Positive,Product Quality
+Pricing is absolutely passable!,Neutral,Pricing
+"app keeps crashing, dreadful experience.",Negative,App/Website
+"this product is exactly what i expected, absolutely loved.",Positive,Product Quality
+quality is great.,Positive,Product Quality
+Quality is trash!,Negative,Product Quality
+Quality is trash.,Negative,Product Quality
+customer service was useless.,Negative,Customer Service
+delivery was outstanding.,Positive,Delivery
+Shipping was perfect.,Positive,Delivery
+the support team is useless.,Negative,Customer Service
+the price is bad.,Negative,Pricing
+"For the cost, this is horrible.",Negative,Pricing
+the support team is love.,Positive,Customer Service
+The website is wonderful!,Positive,App/Website
+Pricing is absolutely poor!,Negative,Pricing
+"support replied immediately, acceptable service.",Neutral,Customer Service
+The support team is disappointing!,Negative,Customer Service
+"it took forever to arrive, horrible shipping.",Negative,Delivery
+The price is fine!,Neutral,Pricing
+"It is too expensive, standard value.",Neutral,Pricing
+My experience with the agent was awesome!,Positive,Customer Service
+"It is too expensive, poor value.",Negative,Pricing
+the product is terrible.,Negative,Product Quality
+shipping was average.,Neutral,Delivery
+"It took forever to arrive, awful shipping.",Negative,Delivery
+value for money is good.,Positive,Pricing
+navigation is fine.,Neutral,App/Website
+Shipping was excellent!,Positive,Delivery
+The website is horrible!,Negative,App/Website
+Value for money is fair.,Neutral,Pricing
+"Support replied immediately, unacceptable service!",Negative,Customer Service
+"honestly, the product feels amazing.",Positive,Product Quality
+Customer service was disappointing!,Negative,Customer Service
+quality is poor.,Negative,Product Quality
+"For the cost, this is bad!",Negative,Pricing
+the package arrived disappointing.,Negative,Delivery
+The user interface is hate.,Negative,App/Website
+"Support replied immediately, hate service!",Negative,Customer Service
+shipping was brilliant.,Positive,Delivery
+"App keeps crashing, passable experience.",Neutral,App/Website
+The website is awful.,Negative,App/Website
+The product is passable.,Neutral,Product Quality
+Pricing is absolutely fair!,Neutral,Pricing
+The package arrived horrible.,Negative,Delivery
+The package arrived mediocre.,Neutral,Delivery
+"Support replied immediately, brilliant service!",Positive,Customer Service
+"they ignored my emails, broken support.",Negative,Customer Service
+My experience with the agent was garbage.,Negative,Customer Service
+delivery was fine.,Neutral,Delivery
+Quality is awesome!,Positive,Product Quality
+"this product is exactly what i expected, absolutely poor.",Negative,Product Quality
+The package arrived broken.,Negative,Delivery
+the product is hate.,Negative,Product Quality
+Navigation is disappointing!,Negative,App/Website
+Navigation is passable!,Neutral,App/Website
+Logistics and shipping speed were fine!,Neutral,Delivery
+The support team is fair.,Neutral,Customer Service
+Shipping was love!,Positive,Delivery
+"Support replied immediately, broken service.",Negative,Customer Service
+The user interface is useless.,Negative,App/Website
+The build material is impressive.,Positive,Product Quality
+the website is outstanding.,Positive,App/Website
+Delivery was love!,Positive,Delivery
+"for the cost, this is terrible.",Negative,Pricing
+The support team is standard.,Neutral,Customer Service
+shipping was unacceptable.,Negative,Delivery
+"It took forever to arrive, ok shipping!",Neutral,Delivery
+The build material is awesome!,Positive,Product Quality
+Delivery was fair.,Neutral,Delivery
+"It is too expensive, cheap value!",Negative,Pricing
+"Honestly, the product feels stellar!",Positive,Product Quality
+"it took forever to arrive, great shipping.",Positive,Delivery
+the support team is awesome.,Positive,Customer Service
+Quality is flawless!,Positive,Product Quality
+the build material is loved.,Positive,Product Quality
+the price is flawless.,Positive,Pricing
+"It is too expensive, bad value!",Negative,Pricing
+Quality is poor!,Negative,Product Quality
+My experience with the agent was trash!,Negative,Customer Service
+The support team is useless.,Negative,Customer Service
+Navigation is standard!,Neutral,App/Website
+The support team is hated.,Negative,Customer Service
+Navigation is okay!,Neutral,App/Website
+the website is wonderful.,Positive,App/Website
+Customer service was hated!,Negative,Customer Service
+Navigation is terrible!,Negative,App/Website
+"support replied immediately, terrible service.",Negative,Customer Service
+The price is stellar!,Positive,Pricing
+"Honestly, the product feels trash!",Negative,Product Quality
+Pricing is absolutely unacceptable!,Negative,Pricing
+Shipping was brilliant!,Positive,Delivery
+the product is great.,Positive,Product Quality
+Value for money is disappointing.,Negative,Pricing
+The package arrived impressive!,Positive,Delivery
+Logistics and shipping speed were ok!,Neutral,Delivery
+customer service was trash.,Negative,Customer Service
+"app keeps crashing, perfect experience.",Positive,App/Website
+"It is too expensive, fair value.",Neutral,Pricing
+The user interface is horrible!,Negative,App/Website
+"This product is exactly what I expected, absolutely terrible!",Negative,Product Quality
+"They ignored my emails, hated support!",Negative,Customer Service
+The website is good!,Positive,App/Website
+the website is standard.,Neutral,App/Website
+Customer service was poor!,Negative,Customer Service
+Logistics and shipping speed were terrible.,Negative,Delivery
+The package arrived great.,Positive,Delivery
+The package arrived flawless!,Positive,Delivery
+The user interface is impressive.,Positive,App/Website
+Customer service was excellent!,Positive,Customer Service
+Shipping was stellar.,Positive,Delivery
+Quality is worst.,Negative,Product Quality
+The build material is horrible.,Negative,Product Quality
+the package arrived love.,Positive,Delivery
+"app keeps crashing, amazing experience.",Positive,App/Website
+"support replied immediately, horrible service.",Negative,Customer Service
+Pricing is absolutely fantastic.,Positive,Pricing
+The build material is average!,Neutral,Product Quality
+the build material is standard.,Neutral,Product Quality
+"app keeps crashing, wonderful experience.",Positive,App/Website
+I found the item to be garbage!,Negative,Product Quality
+i found the item to be useless.,Negative,Product Quality
+"For the cost, this is hated!",Negative,Pricing
+The build material is garbage!,Negative,Product Quality
+logistics and shipping speed were cheap.,Negative,Delivery
+"This product is exactly what I expected, absolutely horrible!",Negative,Product Quality
+the support team is terrible.,Negative,Customer Service
+the product is unacceptable.,Negative,Product Quality
+navigation is mediocre.,Neutral,App/Website
+The user interface is fine.,Neutral,App/Website
+Customer service was unacceptable!,Negative,Customer Service
+"it is too expensive, wonderful value.",Positive,Pricing
+"It took forever to arrive, wonderful shipping.",Positive,Delivery
+The build material is fair!,Neutral,Product Quality
+The price is fine.,Neutral,Pricing
+"honestly, the product feels dreadful.",Negative,Product Quality
+I found the item to be okay.,Neutral,Product Quality
+"Honestly, the product feels ok!",Neutral,Product Quality
+I found the item to be decent.,Neutral,Product Quality
+"they ignored my emails, worst support.",Negative,Customer Service
+pricing is absolutely mediocre.,Neutral,Pricing
+My experience with the agent was worst.,Negative,Customer Service
+navigation is excellent.,Positive,App/Website
+"app keeps crashing, hated experience.",Negative,App/Website
+"It is too expensive, phenomenal value.",Positive,Pricing
+"They ignored my emails, wonderful support.",Positive,Customer Service
+the support team is poor.,Negative,Customer Service
+The support team is mediocre.,Neutral,Customer Service
+The website is ok!,Neutral,App/Website
+"App keeps crashing, bad experience.",Negative,App/Website
+My experience with the agent was hated!,Negative,Customer Service
+Shipping was trash.,Negative,Delivery
+I found the item to be awesome!,Positive,Product Quality
+"It is too expensive, great value.",Positive,Pricing
+Delivery was great!,Positive,Delivery
+The support team is fine.,Neutral,Customer Service
+The price is love!,Positive,Pricing
+The build material is worst!,Negative,Product Quality
+Shipping was ok!,Neutral,Delivery
+Delivery was unacceptable.,Negative,Delivery
+"It is too expensive, flawless value.",Positive,Pricing
+"This product is exactly what I expected, absolutely great!",Positive,Product Quality
+The support team is impressive!,Positive,Customer Service
+my experience with the agent was fair.,Neutral,Customer Service
+Value for money is fantastic.,Positive,Pricing
+the support team is phenomenal.,Positive,Customer Service
+My experience with the agent was okay.,Neutral,Customer Service
+The app is passable.,Neutral,App/Website
+"It is too expensive, amazing value!",Positive,Pricing
+The build material is passable!,Neutral,Product Quality
+The build material is poor.,Negative,Product Quality
+Quality is passable!,Neutral,Product Quality
+"For the cost, this is awesome.",Positive,Pricing
+"honestly, the product feels awful.",Negative,Product Quality
+customer service was acceptable.,Neutral,Customer Service
+Delivery was cheap!,Negative,Delivery
+"honestly, the product feels fine.",Neutral,Product Quality
+value for money is awful.,Negative,Pricing
+"It took forever to arrive, phenomenal shipping.",Positive,Delivery
+My experience with the agent was cheap!,Negative,Customer Service
+Navigation is garbage.,Negative,App/Website
+"support replied immediately, awesome service.",Positive,Customer Service
+"For the cost, this is ok!",Neutral,Pricing
+Value for money is acceptable!,Neutral,Pricing
+the package arrived mediocre.,Neutral,Delivery
+"It took forever to arrive, good shipping!",Positive,Delivery
+Delivery was horrible.,Negative,Delivery
+The build material is love!,Positive,Product Quality
+value for money is cheap.,Negative,Pricing
+Value for money is standard.,Neutral,Pricing
+"It took forever to arrive, hate shipping.",Negative,Delivery
+The price is average!,Neutral,Pricing
+pricing is absolutely cheap.,Negative,Pricing
+"Support replied immediately, broken service!",Negative,Customer Service
+The support team is superb.,Positive,Customer Service
+The app is terrible!,Negative,App/Website
+my experience with the agent was excellent.,Positive,Customer Service
+The support team is broken.,Negative,Customer Service
+the support team is impressive.,Positive,Customer Service
+Quality is fine.,Neutral,Product Quality
+"this product is exactly what i expected, absolutely awful.",Negative,Product Quality
+the website is phenomenal.,Positive,App/Website
+"For the cost, this is acceptable!",Neutral,Pricing
+the build material is garbage.,Negative,Product Quality
+"this product is exactly what i expected, absolutely okay.",Neutral,Product Quality
+Logistics and shipping speed were unacceptable!,Negative,Delivery
+The website is wonderful.,Positive,App/Website
+The product is cheap!,Negative,Product Quality
+"App keeps crashing, hate experience.",Negative,App/Website
+i found the item to be good.,Positive,Product Quality
+"it took forever to arrive, poor shipping.",Negative,Delivery
+navigation is amazing.,Positive,App/Website
+value for money is fair.,Neutral,Pricing
+"Support replied immediately, impressive service.",Positive,Customer Service
+the support team is superb.,Positive,Customer Service
+"For the cost, this is hated.",Negative,Pricing
+logistics and shipping speed were loved.,Positive,Delivery
+Pricing is absolutely garbage!,Negative,Pricing
+"It took forever to arrive, outstanding shipping!",Positive,Delivery
+The app is fantastic!,Positive,App/Website
+Value for money is excellent!,Positive,Pricing
+customer service was wonderful.,Positive,Customer Service
+customer service was mediocre.,Neutral,Customer Service
+The app is horrible.,Negative,App/Website
+Pricing is absolutely love!,Positive,Pricing
+"App keeps crashing, great experience.",Positive,App/Website
+My experience with the agent was love!,Positive,Customer Service
+"It took forever to arrive, loved shipping!",Positive,Delivery
+"it is too expensive, dreadful value.",Negative,Pricing
+Pricing is absolutely outstanding!,Positive,Pricing
+the package arrived dreadful.,Negative,Delivery
+The build material is loved.,Positive,Product Quality
+The build material is amazing!,Positive,Product Quality
+"honestly, the product feels worst.",Negative,Product Quality
+Customer service was decent!,Neutral,Customer Service
+navigation is disappointing.,Negative,App/Website
+The package arrived phenomenal.,Positive,Delivery
+The build material is dreadful.,Negative,Product Quality
+the website is amazing.,Positive,App/Website
+I found the item to be average.,Neutral,Product Quality
+"it is too expensive, great value.",Positive,Pricing
+the price is acceptable.,Neutral,Pricing
+"honestly, the product feels disappointing.",Negative,Product Quality
+The package arrived awful!,Negative,Delivery
+Pricing is absolutely fine!,Neutral,Pricing
+Pricing is absolutely poor.,Negative,Pricing
+the product is impressive.,Positive,Product Quality
+"it took forever to arrive, excellent shipping.",Positive,Delivery
+"App keeps crashing, dreadful experience.",Negative,App/Website
+The build material is bad!,Negative,Product Quality
+Logistics and shipping speed were average.,Neutral,Delivery
+i found the item to be poor.,Negative,Product Quality
+The price is hated.,Negative,Pricing
+the product is broken.,Negative,Product Quality
+Shipping was average!,Neutral,Delivery
+I found the item to be fine!,Neutral,Product Quality
+my experience with the agent was average.,Neutral,Customer Service
+logistics and shipping speed were hate.,Negative,Delivery
+"this product is exactly what i expected, absolutely stellar.",Positive,Product Quality
+"It took forever to arrive, poor shipping.",Negative,Delivery
+The app is unacceptable!,Negative,App/Website
+Delivery was phenomenal.,Positive,Delivery
+Navigation is awful!,Negative,App/Website
+"app keeps crashing, superb experience.",Positive,App/Website
+"For the cost, this is garbage.",Negative,Pricing
+"They ignored my emails, mediocre support!",Neutral,Customer Service
+"it took forever to arrive, trash shipping.",Negative,Delivery
+shipping was impressive.,Positive,Delivery
+"it is too expensive, fair value.",Neutral,Pricing
+"this product is exactly what i expected, absolutely horrible.",Negative,Product Quality
+"They ignored my emails, ok support!",Neutral,Customer Service
+the user interface is awesome.,Positive,App/Website
+Delivery was hated.,Negative,Delivery
+delivery was great.,Positive,Delivery
+The user interface is fair!,Neutral,App/Website
+"honestly, the product feels average.",Neutral,Product Quality
+Logistics and shipping speed were average!,Neutral,Delivery
+The build material is stellar.,Positive,Product Quality
+"They ignored my emails, terrible support.",Negative,Customer Service
+Pricing is absolutely amazing.,Positive,Pricing
+"Honestly, the product feels decent!",Neutral,Product Quality
+"it took forever to arrive, terrible shipping.",Negative,Delivery
+"App keeps crashing, dreadful experience!",Negative,App/Website
+The app is excellent!,Positive,App/Website
+"Support replied immediately, perfect service.",Positive,Customer Service
+Delivery was okay.,Neutral,Delivery
+Logistics and shipping speed were impressive.,Positive,Delivery
+"It is too expensive, worst value!",Negative,Pricing
+The product is superb.,Positive,Product Quality
+"Support replied immediately, great service.",Positive,Customer Service
+Navigation is excellent!,Positive,App/Website
+"It is too expensive, broken value!",Negative,Pricing
+"for the cost, this is stellar.",Positive,Pricing
+Navigation is awesome.,Positive,App/Website
+Navigation is awful.,Negative,App/Website
+"Support replied immediately, average service.",Neutral,Customer Service
+The build material is hated.,Negative,Product Quality
+The website is horrible.,Negative,App/Website
+"it took forever to arrive, fantastic shipping.",Positive,Delivery
+The support team is trash!,Negative,Customer Service
+quality is brilliant.,Positive,Product Quality
+Delivery was standard.,Neutral,Delivery
+Pricing is absolutely fair.,Neutral,Pricing
+The price is cheap!,Negative,Pricing
+The build material is worst.,Negative,Product Quality
+Customer service was outstanding.,Positive,Customer Service
+The user interface is good!,Positive,App/Website
+"support replied immediately, amazing service.",Positive,Customer Service
+Value for money is unacceptable.,Negative,Pricing
+Customer service was garbage.,Negative,Customer Service
+Value for money is fine!,Neutral,Pricing
+The app is outstanding.,Positive,App/Website
+The website is amazing!,Positive,App/Website
+"app keeps crashing, flawless experience.",Positive,App/Website
+The price is awesome!,Positive,Pricing
+"It is too expensive, okay value.",Neutral,Pricing
