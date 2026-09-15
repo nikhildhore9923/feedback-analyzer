@@ -27,21 +27,21 @@ function Nav() {
   ]
 
   return (
-    <nav className="bg-white/90 dark:bg-[#0f172a]/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300 sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <nav className="bg-white dark:bg-[#111827] border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link to="/" className="font-bold text-xl tracking-tight text-indigo-600 dark:text-indigo-400 hover:scale-105 transition-transform duration-300">
-            Pulse
+          <Link to="/" className="font-bold text-lg tracking-tight text-indigo-600 dark:text-indigo-400">
+            Pulse.
           </Link>
-          <div className="flex gap-1">
+          <div className="flex gap-1 sm:gap-2">
             {links.map(link => (
               <Link 
                 key={link.path} 
                 to={link.path}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 active:scale-95 ${
+                className={`px-2 sm:px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                   location.pathname === link.path 
-                    ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/20 dark:text-indigo-400' 
-                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-white'
+                    ? 'bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white' 
+                    : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800'
                 }`}
               >
                 {link.label}
@@ -52,7 +52,8 @@ function Nav() {
         
         <button 
           onClick={() => setIsDark(!isDark)}
-          className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 active:scale-90"
+          className="p-1.5 rounded-md text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors"
+          title="Toggle Dark Mode"
         >
           {isDark ? <Sun size={18} /> : <Moon size={18} />}
         </button>

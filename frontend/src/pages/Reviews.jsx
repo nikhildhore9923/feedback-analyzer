@@ -5,14 +5,14 @@ function ConfirmModal({ isOpen, onClose, onConfirm }) {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-sm overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className="bg-white dark:bg-[#111827] rounded-lg shadow-xl border border-gray-200 dark:border-gray-800 w-full max-w-sm overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         <div className="p-6">
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Delete Feedback</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">Are you sure you want to delete this feedback? This action cannot be undone.</p>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700/50 px-6 py-4 flex justify-end gap-3">
-          <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition">Cancel</button>
-          <button onClick={onConfirm} className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition shadow-sm">Delete</button>
+        <div className="bg-gray-50 dark:bg-[#0B0F19] px-6 py-4 flex justify-end gap-3 border-t border-gray-100 dark:border-gray-800">
+          <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md transition-colors">Cancel</button>
+          <button onClick={onConfirm} className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors shadow-sm">Delete</button>
         </div>
       </div>
     </div>
@@ -23,7 +23,12 @@ function timeAgo(timestamp) {
   if (!timestamp) return '';
   const utcDate = new Date(timestamp);
   if (isNaN(utcDate.getTime())) return 'Invalid Date';
-  return utcDate.toLocaleString();
+  
+  const diff = Math.floor((Date.now() - utcDate.getTime()) / 1000);
+  if (diff < 60) return `Just now`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  return utcDate.toLocaleDateString();
 }
 
 function Reviews() {
@@ -54,13 +59,14 @@ function Reviews() {
       setMeta(res.data.meta)
     } catch (err) {
       console.error(err)
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   useEffect(() => {
     fetchReviews()
-  }, [sentiment, aspect, status, batchType])
+  }, [])
 
   const handleSearchSubmit = (e) => {
     e.preventDefault()
@@ -73,7 +79,6 @@ function Reviews() {
       setReviews(reviews.map(r => r.id === id ? { ...r, status: newStatus } : r))
     } catch (err) {
       console.error(err)
-      alert("Failed to update status")
     }
   }
 
@@ -84,7 +89,7 @@ function Reviews() {
   const confirmDelete = async () => {
     if (!deleteId) return;
     
-    // Optimistic UI Update - instantly remove from screen
+    // Optimistic UI Update
     const idToDelete = deleteId;
     const previousReviews = [...reviews];
     setReviews(reviews.filter(r => r.id !== idToDelete));
@@ -92,24 +97,18 @@ function Reviews() {
     
     try {
       await api.deleteReview(idToDelete);
-      // Wait a moment and quietly sync meta in background
       setTimeout(() => fetchReviews(meta.page), 1000);
     } catch(err) {
       console.error(err)
-      // Revert if failed
       setReviews(previousReviews);
       alert("Failed to delete review");
     }
   }
 
   const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= Math.ceil(meta.total / meta.limit)) {
+    if (newPage >= 1 && newPage <= totalPages) {
       fetchReviews(newPage)
     }
-  }
-
-  const handleExport = () => {
-    exportReviewsToCsv(reviews)
   }
 
   const handleExportAll = async () => {
@@ -118,64 +117,55 @@ function Reviews() {
       exportReviewsToCsv(res.data.data);
     } catch (err) {
       console.error(err);
-      alert("Failed to export all reviews");
+      alert("Failed to export data");
     }
   }
 
   const totalPages = Math.ceil(meta.total / meta.limit)
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       <ConfirmModal 
         isOpen={!!deleteId} 
         onClose={() => setDeleteId(null)} 
         onConfirm={confirmDelete} 
       />
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Feedback List</h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Manage and respond to customer reviews.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Feedback List</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Browse, filter, and manage all ingested customer feedback.</p>
         </div>
-        <div className="flex gap-2">
-          <button
-            onClick={handleExport}
-            className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
-          >
-            Export Page
-          </button>
-          <button
-            onClick={handleExportAll}
-            className="px-4 py-2 bg-indigo-600 text-white border border-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-700 transition shadow-sm"
-          >
-            Export All
-          </button>
-        </div>
+        <button 
+          onClick={handleExportAll}
+          className="px-4 py-2 bg-white dark:bg-[#111827] text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-800 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors shadow-sm"
+        >
+          Export All CSV
+        </button>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-all duration-300 dark:bg-[#111827] dark:border-gray-800">
-        <form onSubmit={handleSearchSubmit} className="flex flex-wrap gap-4 mb-6">
-          <div className="flex-1 min-w-[200px]">
-            <input
-              type="text"
-              placeholder="Search feedback..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 border p-2 text-sm"
-            />
-          </div>
+      <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
+        {/* Filters */}
+        <form onSubmit={handleSearchSubmit} className="p-4 border-b border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-[#111827] flex flex-wrap gap-3">
+          <input
+            type="text"
+            placeholder="Search text..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="flex-1 min-w-[200px] h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+          />
           <select
             value={batchType}
             onChange={(e) => setBatchType(e.target.value)}
-            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 border p-2 text-sm"
+            className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
           >
             <option value="">All Upload Types</option>
+            <option value="csv">CSV Upload</option>
             <option value="manual">Manual Entry</option>
-            <option value="csv">Bulk CSV Upload</option>
           </select>
           <select
             value={sentiment}
             onChange={(e) => setSentiment(e.target.value)}
-            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 border p-2 text-sm"
+            className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
           >
             <option value="">All Sentiments</option>
             <option value="Positive">Positive</option>
@@ -185,7 +175,7 @@ function Reviews() {
           <select
             value={aspect}
             onChange={(e) => setAspect(e.target.value)}
-            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 border p-2 text-sm"
+            className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
           >
             <option value="">All Categories</option>
             <option value="Product Quality">Product Quality</option>
@@ -198,7 +188,7 @@ function Reviews() {
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 border p-2 text-sm"
+            className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
           >
             <option value="">All Statuses</option>
             <option value="New">New</option>
@@ -206,68 +196,74 @@ function Reviews() {
             <option value="Resolved">Resolved</option>
             <option value="Ignored">Ignored</option>
           </select>
-          <button type="submit" className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            Search
+          <button type="submit" className="h-9 px-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-md text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors">
+            Filter
           </button>
         </form>
 
+        {/* Table */}
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full text-left whitespace-nowrap">
             <thead>
-              <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 text-sm">
-                <th className="p-4 font-semibold text-gray-600 dark:text-gray-300 rounded-tl-lg">Source</th>
-                <th className="p-4 font-semibold text-gray-600 dark:text-gray-300">Review Text</th>
-                <th className="p-4 font-semibold text-gray-600 dark:text-gray-300">Intelligence</th>
-                <th className="p-4 font-semibold text-gray-600 dark:text-gray-300">Status</th>
-                <th className="p-4 font-semibold text-gray-600 dark:text-gray-300 text-right">Actions</th>
+              <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-[#111827]">
+                <th className="px-6 py-3 font-semibold text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Source</th>
+                <th className="px-6 py-3 font-semibold text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider w-full">Review Text</th>
+                <th className="px-6 py-3 font-semibold text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Intelligence</th>
+                <th className="px-6 py-3 font-semibold text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3 font-semibold text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
               {loading ? (
                 <tr>
-                  <td colSpan="5" className="p-8 text-center text-gray-500 dark:text-gray-400">Loading...</td>
+                  <td colSpan="5" className="px-6 py-12 text-center text-sm text-gray-500 dark:text-gray-400">
+                    <div className="flex justify-center items-center gap-2">
+                       <span className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></span>
+                       Loading feedback...
+                    </div>
+                  </td>
                 </tr>
               ) : reviews.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="p-8 text-center text-gray-500 dark:text-gray-400">No feedback found.</td>
+                  <td colSpan="5" className="px-6 py-12 text-center text-sm text-gray-500 dark:text-gray-400">No feedback found matching your criteria.</td>
                 </tr>
               ) : (
                 reviews.map(r => (
-                  <tr key={r.id} className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50/50 dark:hover:bg-gray-700/30">
-                    <td className="p-4 text-sm text-gray-500 dark:text-gray-400">
-                      <div className="flex flex-col gap-1">
+                  <tr key={r.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/20 transition-colors">
+                    <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 align-top">
+                      <div className="flex flex-col gap-1.5">
                         <span className="font-medium text-gray-700 dark:text-gray-300">#{r.id}</span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 w-max" title={r.batch_label}>
-                          {r.batch_type === 'csv' ? '📄 CSV' : '✍️ Manual'}
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400" title={r.batch_label}>
+                          {r.batch_type === 'csv' ? 'CSV' : 'Manual'}
                         </span>
                       </div>
                     </td>
-                    <td className="p-4 text-sm text-gray-800 dark:text-gray-200 max-w-md">
-                      <p className="line-clamp-3" title={r.review_text}>{r.review_text}</p>
+                    <td className="px-6 py-4 align-top max-w-sm whitespace-normal">
+                      <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed line-clamp-3" title={r.review_text}>{r.review_text}</p>
                       <div className="text-xs text-gray-400 dark:text-gray-500 mt-2">{timeAgo(r.timestamp)}</div>
                     </td>
-                    <td className="p-4">
-                      <div className="flex flex-col gap-1">
-                        <span className={`inline-block px-2 py-1 text-xs rounded-md font-medium w-max ${
-                          r.sentiment === 'Positive' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400' :
-                          r.sentiment === 'Negative' ? 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
-                          'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+                    <td className="px-6 py-4 align-top">
+                      <div className="flex flex-col gap-2 items-start">
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+                          r.sentiment === 'Positive' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-400 dark:border-emerald-800/30' :
+                          r.sentiment === 'Negative' ? 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-900/20 dark:text-rose-400 dark:border-rose-800/30' :
+                          'bg-slate-50 text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
                         }`}>
                           {r.sentiment} ({(r.confidence * 100).toFixed(0)}%)
                         </span>
-                        <span className="inline-block px-2 py-1 text-xs rounded-md font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 w-max">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
                           {r.aspect}
                         </span>
                       </div>
                     </td>
-                    <td className="p-4">
+                    <td className="px-6 py-4 align-top">
                       <select 
                         value={r.status}
                         onChange={(e) => handleStatusChange(r.id, e.target.value)}
-                        className={`text-xs font-medium rounded-md p-1 border cursor-pointer ${
-                          r.status === 'New' ? 'border-indigo-200 bg-indigo-50 text-indigo-700 dark:border-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400' :
-                          r.status === 'Resolved' ? 'border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-900/30 dark:text-green-400' :
-                          'border-yellow-200 bg-yellow-50 text-yellow-700 dark:border-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
+                        className={`text-xs font-medium rounded-md py-1 pl-2 pr-6 border cursor-pointer focus:ring-0 ${
+                          r.status === 'New' ? 'border-indigo-200 bg-indigo-50 text-indigo-700 dark:border-indigo-800/50 dark:bg-indigo-900/20 dark:text-indigo-400' :
+                          r.status === 'Resolved' ? 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800/50 dark:bg-emerald-900/20 dark:text-emerald-400' :
+                          'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800/50 dark:bg-amber-900/20 dark:text-amber-400'
                         }`}
                       >
                         <option value="New">New</option>
@@ -276,10 +272,10 @@ function Reviews() {
                         <option value="Ignored">Ignored</option>
                       </select>
                     </td>
-                    <td className="p-4 text-right">
+                    <td className="px-6 py-4 text-right align-top">
                       <button 
                         onClick={() => handleDeleteClick(r.id)}
-                        className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm font-medium transition"
+                        className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm font-medium transition-colors"
                       >
                         Delete
                       </button>
@@ -292,7 +288,7 @@ function Reviews() {
         </div>
         
         {/* Pagination */}
-        <div className="mt-6 flex items-center justify-between border-t border-gray-100 dark:border-gray-700 pt-4">
+        <div className="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-[#111827]">
           <div className="text-sm text-gray-500 dark:text-gray-400">
             Showing <span className="font-medium text-gray-900 dark:text-white">{reviews.length > 0 ? (meta.page - 1) * meta.limit + 1 : 0}</span> to <span className="font-medium text-gray-900 dark:text-white">{Math.min(meta.page * meta.limit, meta.total)}</span> of <span className="font-medium text-gray-900 dark:text-white">{meta.total}</span> results
           </div>
@@ -300,14 +296,14 @@ function Reviews() {
             <button
               onClick={() => handlePageChange(meta.page - 1)}
               disabled={meta.page <= 1}
-              className="px-3 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-700 dark:text-gray-300 disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-700"
+              className="px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm"
             >
               Previous
             </button>
             <button
               onClick={() => handlePageChange(meta.page + 1)}
               disabled={meta.page >= totalPages}
-              className="px-3 py-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md text-sm text-gray-700 dark:text-gray-300 disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-700"
+              className="px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm"
             >
               Next
             </button>
