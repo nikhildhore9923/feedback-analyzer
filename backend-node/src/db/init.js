@@ -43,6 +43,9 @@ async function initDB() {
             }
         }
 
+        // Now that the table definitely has tenant_id, we can safely insert the default
+        await connection.query("INSERT IGNORE INTO settings (setting_key, tenant_id, setting_value) VALUES ('alert_threshold', 'default', '-0.5')");
+
         console.log('[DB] Database tables and migrations verified successfully.');
         await connection.end();
     } catch (err) {

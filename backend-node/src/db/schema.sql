@@ -29,5 +29,3 @@ CREATE TABLE IF NOT EXISTS settings (
     setting_value VARCHAR(255),
     PRIMARY KEY (setting_key, tenant_id)
 );
-
-INSERT IGNORE INTO settings (setting_key, tenant_id, setting_value) VALUES ('alert_threshold', 'default', '-0.5');
