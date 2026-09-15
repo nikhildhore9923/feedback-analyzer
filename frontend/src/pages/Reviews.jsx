@@ -124,7 +124,7 @@ function Reviews() {
   const totalPages = Math.ceil(meta.total / meta.limit)
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 min-h-[calc(100vh-8rem)] flex flex-col">
       <ConfirmModal 
         isOpen={!!deleteId} 
         onClose={() => setDeleteId(null)} 
@@ -143,7 +143,7 @@ function Reviews() {
         </button>
       </div>
 
-      <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
+      <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col flex-1">
         {/* Filters */}
         <form onSubmit={handleSearchSubmit} className="p-4 border-b border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-[#111827] flex flex-wrap gap-3">
           <input
@@ -202,12 +202,12 @@ function Reviews() {
         </form>
 
         {/* Table */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto flex-1">
           <table className="w-full text-left whitespace-nowrap">
             <thead>
               <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-[#111827]">
                 <th className="px-6 py-3 font-semibold text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Source</th>
-                <th className="px-6 py-3 font-semibold text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider w-full">Review Text</th>
+                <th className="px-6 py-3 font-semibold text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider w-full min-w-[300px]">Review Text</th>
                 <th className="px-6 py-3 font-semibold text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Intelligence</th>
                 <th className="px-6 py-3 font-semibold text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
                 <th className="px-6 py-3 font-semibold text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">Actions</th>
@@ -238,7 +238,7 @@ function Reviews() {
                         </span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 align-top max-w-sm whitespace-normal">
+                    <td className="px-6 py-4 align-top max-w-sm whitespace-normal min-w-[300px]">
                       <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed line-clamp-3" title={r.review_text}>{r.review_text}</p>
                       <div className="text-xs text-gray-400 dark:text-gray-500 mt-2">{timeAgo(r.timestamp)}</div>
                     </td>
@@ -288,7 +288,7 @@ function Reviews() {
         </div>
         
         {/* Pagination */}
-        <div className="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-[#111827]">
+        <div className="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-[#111827] mt-auto">
           <div className="text-sm text-gray-500 dark:text-gray-400">
             Showing <span className="font-medium text-gray-900 dark:text-white">{reviews.length > 0 ? (meta.page - 1) * meta.limit + 1 : 0}</span> to <span className="font-medium text-gray-900 dark:text-white">{Math.min(meta.page * meta.limit, meta.total)}</span> of <span className="font-medium text-gray-900 dark:text-white">{meta.total}</span> results
           </div>

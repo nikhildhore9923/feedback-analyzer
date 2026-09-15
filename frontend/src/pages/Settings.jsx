@@ -78,8 +78,8 @@ function Settings() {
         <form onSubmit={handleSave} className="divide-y divide-gray-100 dark:divide-gray-800">
           
           {/* Threshold config */}
-          <div className="p-6 md:grid md:grid-cols-3 md:gap-6">
-            <div className="md:col-span-1 mb-4 md:mb-0">
+          <div className="p-5 md:grid md:grid-cols-3 md:gap-6">
+            <div className="md:col-span-1 mb-3 md:mb-0">
               <h2 className="text-base font-semibold text-gray-900 dark:text-white">Smart Alerts</h2>
               <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                 Configure the automated severity threshold for negative feedback alerts.
@@ -106,8 +106,8 @@ function Settings() {
           </div>
 
           {/* Email config */}
-          <div className="p-6 md:grid md:grid-cols-3 md:gap-6">
-            <div className="md:col-span-1 mb-4 md:mb-0">
+          <div className="p-5 md:grid md:grid-cols-3 md:gap-6">
+            <div className="md:col-span-1 mb-3 md:mb-0">
               <h2 className="text-base font-semibold text-gray-900 dark:text-white">Email Notifications</h2>
               <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                 Set where critical alerts should be delivered.
@@ -131,8 +131,9 @@ function Settings() {
             </div>
           </div>
 
-          <div className="p-6 bg-gray-50/50 dark:bg-[#111827] flex items-center justify-between">
+          <div className="p-5 bg-gray-50/50 dark:bg-[#0B0F19] flex items-center justify-end">
             <div className="flex items-center gap-3">
+              {saved && <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">Saved successfully!</span>}
               <button
                 type="submit"
                 disabled={loading}
@@ -140,21 +141,20 @@ function Settings() {
               >
                 {loading ? 'Saving...' : 'Save Configuration'}
               </button>
-              {saved && <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">Saved successfully!</span>}
             </div>
           </div>
         </form>
       </div>
 
       <div className="bg-white dark:bg-[#111827] rounded-lg border border-red-200 dark:border-red-900/50 shadow-sm overflow-hidden mt-8">
-        <div className="p-6 md:grid md:grid-cols-3 md:gap-6">
-          <div className="md:col-span-1 mb-4 md:mb-0">
+        <div className="p-5 md:grid md:grid-cols-3 md:gap-6">
+          <div className="md:col-span-1 mb-3 md:mb-0">
             <h2 className="text-base font-semibold text-red-700 dark:text-red-400">Danger Zone</h2>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               Irreversible actions for your workspace.
             </p>
           </div>
-          <div className="md:col-span-2 flex items-center">
+          <div className="md:col-span-2 flex items-center justify-end">
             <button
               onClick={() => setShowClearModal(true)}
               className="px-4 py-2 bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400 border border-red-200 dark:border-red-800/50 rounded-md text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors"

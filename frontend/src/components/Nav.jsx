@@ -38,10 +38,10 @@ function Nav() {
               <Link 
                 key={link.path} 
                 to={link.path}
-                className={`px-2 sm:px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
+                className={`px-3 py-1.5 rounded-md text-sm transition-colors ${
                   location.pathname === link.path 
-                    ? 'bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white' 
-                    : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800'
+                    ? 'bg-indigo-50 text-indigo-700 font-semibold dark:bg-indigo-900/30 dark:text-indigo-400' 
+                    : 'text-gray-600 font-medium hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800'
                 }`}
               >
                 {link.label}

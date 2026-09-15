@@ -132,8 +132,8 @@ function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: Analytics */}
         <div className="lg:col-span-1 space-y-8">
-          <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-6 shadow-sm flex flex-col h-[340px]">
-            <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-6 uppercase tracking-wider">Sentiment Distribution</h2>
+          <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-5 shadow-sm flex flex-col h-[280px]">
+            <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 uppercase tracking-wider">Sentiment Distribution</h2>
             {total === 0 ? (
               <div className="flex-1 flex items-center justify-center text-sm text-gray-500 dark:text-gray-400">
                 No data available.
@@ -144,8 +144,8 @@ function Dashboard() {
                   <PieChart>
                     <Pie
                       data={chartData}
-                      innerRadius={65}
-                      outerRadius={85}
+                      innerRadius={55}
+                      outerRadius={75}
                       paddingAngle={2}
                       dataKey="value"
                       stroke="none"
@@ -155,10 +155,10 @@ function Dashboard() {
                       ))}
                     </Pie>
                     <Tooltip 
-                      contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '6px', color: '#fff', fontSize: '13px' }}
+                      contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '6px', color: '#fff', fontSize: '13px', padding: '4px 8px' }}
                       itemStyle={{ color: '#fff' }}
                     />
-                    <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ fontSize: '13px' }}/>
+                    <Legend verticalAlign="bottom" height={24} iconType="circle" wrapperStyle={{ fontSize: '12px' }}/>
                   </PieChart>
                 </ResponsiveContainer>
               </div>
@@ -166,35 +166,35 @@ function Dashboard() {
           </div>
 
           {/* Add Data */}
-          <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-6 shadow-sm">
-            <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-4 uppercase tracking-wider">Add Feedback</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-5 shadow-sm">
+            <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 uppercase tracking-wider">Add Feedback</h2>
+            <form onSubmit={handleSubmit} className="space-y-3">
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Paste customer review here..."
-                className="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 p-3 text-sm min-h-[100px] resize-y transition-colors"
+                className="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 p-2 text-sm h-20 resize-y transition-colors"
               />
-              <div className="flex flex-col space-y-3">
+              <div className="flex flex-col space-y-2">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 py-2 px-4 rounded-md hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors disabled:opacity-50 text-sm font-medium"
+                  className="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 py-1.5 px-4 rounded-md hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors disabled:opacity-50 text-sm font-medium"
                 >
                   {loading ? 'Analyzing...' : 'Analyze Text'}
                 </button>
-                <div className="flex items-center gap-3 pt-3 border-t border-gray-100 dark:border-gray-800">
+                <div className="flex items-center gap-2 pt-2 border-t border-gray-100 dark:border-gray-800">
                   <input
                     type="file"
                     accept=".csv"
                     onChange={(e) => setFile(e.target.files[0])}
-                    className="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-medium file:bg-gray-100 file:text-gray-700 dark:file:bg-gray-800 dark:file:text-gray-300 hover:file:bg-gray-200 dark:hover:file:bg-gray-700 transition-colors cursor-pointer"
+                    className="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-medium file:bg-gray-100 file:text-gray-700 dark:file:bg-gray-800 dark:file:text-gray-300 hover:file:bg-gray-200 dark:hover:file:bg-gray-700 transition-colors cursor-pointer"
                   />
                   <button
                     type="button"
                     disabled={!file || loading}
                     onClick={handleBulkUpload}
-                    className="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/50 rounded-md hover:bg-indigo-100 dark:hover:bg-indigo-900/50 disabled:opacity-50 text-sm font-medium transition-colors whitespace-nowrap"
+                    className="px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/50 rounded-md hover:bg-indigo-100 dark:hover:bg-indigo-900/50 disabled:opacity-50 text-sm font-medium transition-colors whitespace-nowrap"
                   >
                     Upload CSV
                   </button>
