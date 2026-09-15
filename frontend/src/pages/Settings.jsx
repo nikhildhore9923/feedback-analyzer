@@ -51,6 +51,8 @@ function Settings() {
     setSettings({ ...settings, [e.target.name]: e.target.value })
   }
 
+  const [clearedToast, setClearedToast] = useState(false)
+
   const handleClearData = async () => {
     try {
       await api.clearDemoData();
@@ -59,13 +61,21 @@ function Settings() {
     } finally {
       // Guarantee a fresh workspace by rotating the local tenant ID
       localStorage.removeItem('pulse_tenant_id');
-      alert("Workspace reset successfully!");
-      window.location.reload();
+      setClearedToast(true);
+      setShowClearModal(false);
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1500);
     }
   }
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      {clearedToast && (
+        <div className="fixed bottom-4 right-4 bg-emerald-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-in slide-in-from-bottom-5 fade-in duration-300 font-medium">
+          Workspace reset successfully! Redirecting...
+        </div>
+      )}
       <ConfirmModal 
         isOpen={showClearModal} 
         onClose={() => setShowClearModal(false)} 
