@@ -31,6 +31,13 @@ function timeAgo(timestamp) {
   return utcDate.toLocaleDateString();
 }
 
+function getPriorityInfo(score) {
+  if (score >= 80) return { label: 'Critical', colors: 'bg-red-50 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800/40' };
+  if (score >= 60) return { label: 'High', colors: 'bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800/40' };
+  if (score >= 40) return { label: 'Medium', colors: 'bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800/40' };
+  return { label: 'Low', colors: 'bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700' };
+}
+
 function Reviews() {
   const [reviews, setReviews] = useState([])
   const [meta, setMeta] = useState({ total: 0, page: 1, limit: 10 })
@@ -43,6 +50,7 @@ function Reviews() {
   const [aspect, setAspect] = useState('')
   const [status, setStatus] = useState('')
   const [batchType, setBatchType] = useState('')
+  const [priority, setPriority] = useState('')
 
   const fetchReviews = async (page = 1) => {
     setLoading(true)
@@ -53,6 +61,7 @@ function Reviews() {
       if (aspect) filters.aspect = aspect
       if (status) filters.status = status
       if (batchType) filters.batch_type = batchType
+      if (priority) filters.priority = priority
 
       const res = await api.getReviews(filters)
       setReviews(res.data.data)
@@ -173,6 +182,17 @@ function Reviews() {
             <option value="Negative">Negative</option>
           </select>
           <select
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+            className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+          >
+            <option value="">All Priorities</option>
+            <option value="Critical">Critical</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+          <select
             value={aspect}
             onChange={(e) => setAspect(e.target.value)}
             className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
@@ -244,6 +264,14 @@ function Reviews() {
                     </td>
                     <td className="px-6 py-4 align-top">
                       <div className="flex flex-col gap-2 items-start">
+                        {r.priority_score > 0 && (() => {
+                          const pInfo = getPriorityInfo(r.priority_score);
+                          return (
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold border ${pInfo.colors}`} title={`Priority Score: ${r.priority_score}`}>
+                              {pInfo.label} Priority
+                            </span>
+                          );
+                        })()}
                         <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
                           r.sentiment === 'Positive' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-400 dark:border-emerald-800/30' :
                           r.sentiment === 'Negative' ? 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-900/20 dark:text-rose-400 dark:border-rose-800/30' :

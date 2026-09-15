@@ -109,12 +109,16 @@ function Dashboard() {
   const periodPositive = trends.reduce((acc, curr) => acc + curr.positive, 0);
   const periodNegative = trends.reduce((acc, curr) => acc + Number(curr.negative), 0); // Handle string sums if MySQL returned strings
   const periodNeutral = trends.reduce((acc, curr) => acc + Number(curr.neutral), 0);
+  const periodCritical = trends.reduce((acc, curr) => acc + Number(curr.critical || 0), 0);
+  const periodHigh = trends.reduce((acc, curr) => acc + Number(curr.high || 0), 0);
   
   // Need to parse string sum from SQL just in case
   const pTotal = parseInt(periodTotal, 10) || 0;
   const pPos = parseInt(periodPositive, 10) || 0;
   const pNeg = parseInt(periodNegative, 10) || 0;
   const pNeu = parseInt(periodNeutral, 10) || 0;
+  const pCrit = parseInt(periodCritical, 10) || 0;
+  const pHigh = parseInt(periodHigh, 10) || 0;
 
   const negativeRate = pTotal > 0 ? ((pNeg / pTotal) * 100).toFixed(1) : 0;
   
@@ -185,6 +189,24 @@ function Dashboard() {
           subtitle={rateSubtitle} 
           trendClass={pTotal > 0 ? (parseFloat(negativeRate) < 15 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400') : ''}
         />
+      </div>
+
+      {/* Priority Summary */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="bg-red-50 dark:bg-red-900/10 rounded-lg border border-red-200 dark:border-red-900/30 p-5 flex items-center justify-between shadow-sm">
+          <div>
+            <h2 className="text-sm font-bold text-red-900 dark:text-red-400 uppercase tracking-wider">Critical Priority</h2>
+            <p className="text-xs text-red-700 dark:text-red-500/80 mt-1">Requires immediate attention</p>
+          </div>
+          <span className="text-3xl font-bold text-red-700 dark:text-red-400">{pCrit}</span>
+        </div>
+        <div className="bg-orange-50 dark:bg-orange-900/10 rounded-lg border border-orange-200 dark:border-orange-900/30 p-5 flex items-center justify-between shadow-sm">
+          <div>
+            <h2 className="text-sm font-bold text-orange-900 dark:text-orange-400 uppercase tracking-wider">High Priority</h2>
+            <p className="text-xs text-orange-700 dark:text-orange-500/80 mt-1">Should be reviewed soon</p>
+          </div>
+          <span className="text-3xl font-bold text-orange-700 dark:text-orange-400">{pHigh}</span>
+        </div>
       </div>
 
       {/* Analytics Charts */}

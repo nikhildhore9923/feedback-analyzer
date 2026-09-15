@@ -78,10 +78,19 @@ async function bulkUpload(req, res, next) {
                             const mlResult = await analyzeFeedback(text);
                             const { sentiment, confidence, severity = 0, aspect } = mlResult;
                             
+                            let priorityScore = 0;
+                            if (sentiment === 'Negative') {
+                                priorityScore = Math.round(50 + (confidence * 50));
+                            } else if (sentiment === 'Neutral') {
+                                priorityScore = Math.round(50 - (confidence * 20));
+                            } else {
+                                priorityScore = Math.round(30 - (confidence * 20));
+                            }
+                            
                             const db = require('../db/connection');
                             await db.query(
-                                `INSERT INTO reviews (review_text, sentiment, confidence, severity, aspect, batch_id, tenant_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-                                [text, sentiment, confidence, severity, aspect, batchId, req.tenantId]
+                                `INSERT INTO reviews (review_text, sentiment, confidence, severity, aspect, batch_id, priority_score, tenant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+                                [text, sentiment, confidence, severity, aspect, batchId, priorityScore, req.tenantId]
                             );
                             processed.push({ text, sentiment });
                         }

@@ -29,7 +29,8 @@ async function initDB() {
             "ALTER TABLE batches ADD UNIQUE (label, tenant_id)",
             "ALTER TABLE reviews ADD COLUMN tenant_id VARCHAR(255) DEFAULT 'default'",
             "ALTER TABLE settings ADD COLUMN tenant_id VARCHAR(255) DEFAULT 'default'",
-            "ALTER TABLE settings DROP PRIMARY KEY, ADD PRIMARY KEY (setting_key, tenant_id)"
+            "ALTER TABLE settings DROP PRIMARY KEY, ADD PRIMARY KEY (setting_key, tenant_id)",
+            "UPDATE reviews SET priority_score = CASE WHEN sentiment = 'Negative' THEN ROUND(50 + (confidence * 50)) WHEN sentiment = 'Neutral' THEN ROUND(50 - (confidence * 20)) ELSE ROUND(30 - (confidence * 20)) END WHERE priority_score = 0"
         ];
 
         for (let sql of migrations) {

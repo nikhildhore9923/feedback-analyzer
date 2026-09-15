@@ -10,6 +10,8 @@ async function getSentimentTrends(req, res, next) {
                 SUM(CASE WHEN sentiment = 'Positive' THEN 1 ELSE 0 END) as positive,
                 SUM(CASE WHEN sentiment = 'Negative' THEN 1 ELSE 0 END) as negative,
                 SUM(CASE WHEN sentiment = 'Neutral' THEN 1 ELSE 0 END) as neutral,
+                SUM(CASE WHEN priority_score >= 80 THEN 1 ELSE 0 END) as critical,
+                SUM(CASE WHEN priority_score >= 60 AND priority_score < 80 THEN 1 ELSE 0 END) as high,
                 COUNT(*) as total
             FROM reviews
             WHERE tenant_id = ?

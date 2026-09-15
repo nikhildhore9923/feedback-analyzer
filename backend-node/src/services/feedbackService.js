@@ -38,7 +38,11 @@ async function processSingleFeedback(text, tenantId = 'default') {
 
     let priorityScore = 0;
     if (sentiment === 'Negative') {
-        priorityScore = confidence * (severity || 1) * 10;
+        priorityScore = Math.round(50 + (confidence * 50));
+    } else if (sentiment === 'Neutral') {
+        priorityScore = Math.round(50 - (confidence * 20));
+    } else {
+        priorityScore = Math.round(30 - (confidence * 20));
     }
 
     // 3. Batch Retrieval
@@ -58,7 +62,8 @@ async function processSingleFeedback(text, tenantId = 'default') {
     let alertSent = false;
     if (sentiment === 'Negative') {
         const mockPolarity = -1 * (confidence || 1); 
-        if (mockPolarity < threshold) {
+        // Trigger alert if it meets the user's custom threshold OR if it's inherently a Critical priority (>=80)
+        if (mockPolarity < threshold || priorityScore >= 80) {
             sendAlertEmail(text, sentiment, confidence, severity, aspect, tenantId)
                 .then(sent => {
                     if (sent) db.query(`UPDATE reviews SET alert_sent = 1 WHERE id = ? AND tenant_id = ?`, [reviewId, tenantId]);
@@ -109,6 +114,12 @@ async function getReviews(queryParams, tenantId = 'default') {
         query += ` AND r.batch_id = ?`;
         params.push(Number(batch_id));
     }
+    if (queryParams.priority) {
+        if (queryParams.priority === 'Critical') query += ` AND r.priority_score >= 80`;
+        else if (queryParams.priority === 'High') query += ` AND r.priority_score >= 60 AND r.priority_score < 80`;
+        else if (queryParams.priority === 'Medium') query += ` AND r.priority_score >= 40 AND r.priority_score < 60`;
+        else if (queryParams.priority === 'Low') query += ` AND r.priority_score < 40`;
+    }
 
     query += ` ORDER BY r.timestamp DESC`;
 
@@ -128,6 +139,12 @@ async function getReviews(queryParams, tenantId = 'default') {
     if(status) { countQuery += ` AND r.status = ?`; countParams.push(status); }
     if(queryParams.batch_type) { countQuery += ` AND b.type = ?`; countParams.push(queryParams.batch_type); }
     if(batch_id) { countQuery += ` AND r.batch_id = ?`; countParams.push(Number(batch_id)); }
+    if (queryParams.priority) {
+        if (queryParams.priority === 'Critical') countQuery += ` AND r.priority_score >= 80`;
+        else if (queryParams.priority === 'High') countQuery += ` AND r.priority_score >= 60 AND r.priority_score < 80`;
+        else if (queryParams.priority === 'Medium') countQuery += ` AND r.priority_score >= 40 AND r.priority_score < 60`;
+        else if (queryParams.priority === 'Low') countQuery += ` AND r.priority_score < 40`;
+    }
 
     const [countRows] = await db.query(countQuery, countParams);
 
