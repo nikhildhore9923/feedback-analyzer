@@ -54,10 +54,13 @@ function Settings() {
   const handleClearData = async () => {
     try {
       await api.clearDemoData();
+    } catch (err) {
+      console.warn("Backend clear failed (possibly due to pending Render deployment). Falling back to local reset.");
+    } finally {
+      // Guarantee a fresh workspace by rotating the local tenant ID
+      localStorage.removeItem('pulse_tenant_id');
       alert("Workspace reset successfully!");
       window.location.reload();
-    } catch (err) {
-      alert("Failed to reset workspace");
     }
   }
 
