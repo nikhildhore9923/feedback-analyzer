@@ -31,6 +31,7 @@ export const api = {
   updateSettings: (settings) => axios.post(`${API_BASE}/settings`, settings),
   updateStatus: (id, status) => axios.patch(`${API_BASE}/reviews/${id}/status`, { status }),
   clearDemoData: () => axios.delete(`${API_BASE}/settings/clear`),
+  getAnalyticsTrends: (days) => axios.get(`${API_BASE}/analytics/trends`, { params: { days } }),
 }
 
 export function exportReviewsToCsv(reviews) {

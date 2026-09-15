@@ -6,8 +6,12 @@ const feedbackController = require('../controllers/feedbackController');
 const statsController = require('../controllers/statsController');
 const batchController = require('../controllers/batchController');
 const settingsController = require('../controllers/settingsController');
+const analyticsController = require('../controllers/analyticsController');
 
 const upload = multer({ dest: 'uploads/' });
+
+// Analytics
+router.get('/analytics/trends', analyticsController.getSentimentTrends);
 
 // Reviews
 router.post('/reviews', feedbackController.submitReview);

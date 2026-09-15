@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
 const SENTIMENT_COLORS = {
   Positive: '#10b981', // emerald-500
@@ -37,18 +37,24 @@ function Dashboard() {
   const [text, setText] = useState('');
   const [reviews, setReviews] = useState([]);
   const [stats, setStats] = useState([]);
+  const [trends, setTrends] = useState([]);
+  const [previousStats, setPreviousStats] = useState(null);
+  const [timeRange, setTimeRange] = useState('30');
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
   const [alertToast, setAlertToast] = useState(null);
 
   const fetchData = async () => {
     try {
-      const [reviewsRes, statsRes] = await Promise.all([
+      const [reviewsRes, statsRes, trendsRes] = await Promise.all([
         api.getReviews({ limit: 10 }),
-        api.getStats()
+        api.getStats(),
+        api.getAnalyticsTrends(timeRange).catch(e => ({ data: { trends: [], previousStats: null } }))
       ]);
       setReviews(reviewsRes.data.data || []);
       setStats(statsRes.data || []);
+      setTrends(trendsRes.data?.trends || []);
+      setPreviousStats(trendsRes.data?.previousStats || null);
     } catch (err) {
       console.error(err);
     }
@@ -56,7 +62,7 @@ function Dashboard() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [timeRange]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,45 +102,158 @@ function Dashboard() {
     }
   };
 
-  const total = stats.reduce((acc, curr) => acc + curr.count, 0);
-  const positive = stats.find(s => s.sentiment === 'Positive')?.count || 0;
-  const negative = stats.find(s => s.sentiment === 'Negative')?.count || 0;
-  const neutral = stats.find(s => s.sentiment === 'Neutral')?.count || 0;
+  // Basic stats logic
+  // For the stat cards, we use the period trends so they reflect the selected time range.
+  // If we wanted global stats, we'd use `stats` from api.getStats(), but dynamic cards are better.
+  const periodTotal = trends.reduce((acc, curr) => acc + curr.total, 0);
+  const periodPositive = trends.reduce((acc, curr) => acc + curr.positive, 0);
+  const periodNegative = trends.reduce((acc, curr) => acc + Number(curr.negative), 0); // Handle string sums if MySQL returned strings
+  const periodNeutral = trends.reduce((acc, curr) => acc + Number(curr.neutral), 0);
+  
+  // Need to parse string sum from SQL just in case
+  const pTotal = parseInt(periodTotal, 10) || 0;
+  const pPos = parseInt(periodPositive, 10) || 0;
+  const pNeg = parseInt(periodNegative, 10) || 0;
+  const pNeu = parseInt(periodNeutral, 10) || 0;
+
+  const negativeRate = pTotal > 0 ? ((pNeg / pTotal) * 100).toFixed(1) : 0;
+  
+  let rateSubtitle = "Not enough data";
+  if (pTotal > 0) {
+    if (previousStats && previousStats.negativeRate !== undefined) {
+      const diff = negativeRate - previousStats.negativeRate;
+      if (Math.abs(diff) < 0.1) {
+        rateSubtitle = "No change vs previous period";
+      } else if (diff > 0) {
+        rateSubtitle = `↑ ${Math.abs(diff).toFixed(1)}% vs previous period`;
+      } else {
+        rateSubtitle = `↓ ${Math.abs(diff).toFixed(1)}% vs previous period`;
+      }
+    } else {
+      rateSubtitle = "Negative feedback %";
+    }
+  }
+
+  // Sentiment Distribution Pie Chart (using the period trends data)
   const chartData = [
-    { name: 'Positive', value: positive },
-    { name: 'Neutral', value: neutral },
-    { name: 'Negative', value: negative },
+    { name: 'Positive', value: pPos },
+    { name: 'Neutral', value: pNeu },
+    { name: 'Negative', value: pNeg },
   ].filter(d => d.value > 0);
 
+  // Format dates for the line charts
+  const formatXAxis = (tickItem) => {
+    const d = new Date(tickItem);
+    return `${d.getMonth() + 1}/${d.getDate()}`;
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      {/* Toast Notification */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 pb-12">
       {alertToast && (
-        <div className="fixed bottom-4 right-4 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-in slide-in-from-bottom-5 fade-in duration-300 font-medium">
+        <div className="fixed top-4 right-4 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-in slide-in-from-top-5 fade-in duration-300 font-medium">
           {alertToast}
         </div>
       )}
 
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Overview</h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Track and analyze customer feedback sentiment in real-time.</p>
+      {/* Header and Time Range Filter */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Overview</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Track and analyze customer feedback sentiment in real-time.</p>
+        </div>
+        <select
+          value={timeRange}
+          onChange={(e) => setTimeRange(e.target.value)}
+          className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+        >
+          <option value="7">Last 7 days</option>
+          <option value="30">Last 30 days</option>
+          <option value="90">Last 90 days</option>
+          <option value="all">All time</option>
+        </select>
       </div>
 
-      {/* KPIs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Total Feedback" value={total.toLocaleString()} subtitle="All time" />
-        <StatCard title="Positive" value={positive.toLocaleString()} subtitle={`${total ? Math.round((positive/total)*100) : 0}% of total`} />
-        <StatCard title="Negative" value={negative.toLocaleString()} subtitle={`${total ? Math.round((negative/total)*100) : 0}% of total`} trendClass="text-rose-600 dark:text-rose-400" />
-        <StatCard title="Neutral" value={neutral.toLocaleString()} subtitle={`${total ? Math.round((neutral/total)*100) : 0}% of total`} />
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <StatCard title="Total Feedback" value={pTotal} subtitle={timeRange === 'all' ? 'All time' : 'Selected period'} />
+        <StatCard title="Positive" value={pPos} subtitle={pTotal > 0 ? `${Math.round((pPos/pTotal)*100)}% of total` : ''} />
+        <StatCard title="Negative" value={pNeg} subtitle={pTotal > 0 ? `${Math.round((pNeg/pTotal)*100)}% of total` : ''} trendClass="text-rose-600 dark:text-rose-400" />
+        <StatCard title="Neutral" value={pNeu} subtitle={pTotal > 0 ? `${Math.round((pNeu/pTotal)*100)}% of total` : ''} />
+        <StatCard 
+          title="Negative Rate" 
+          value={pTotal > 0 ? `${negativeRate}%` : 'N/A'} 
+          subtitle={rateSubtitle} 
+          trendClass={pTotal > 0 ? (parseFloat(negativeRate) < 15 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400') : ''}
+        />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left Column: Analytics */}
-        <div className="lg:col-span-1 space-y-8">
-          <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-5 shadow-sm flex flex-col h-[280px]">
+      {/* Analytics Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Sentiment Trends */}
+        <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-5 shadow-sm flex flex-col">
+          <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-4 uppercase tracking-wider">Sentiment Trends</h2>
+          {trends.length < 2 ? (
+            <div className="flex-1 flex items-center justify-center min-h-[240px] text-sm text-gray-500 dark:text-gray-400">
+              Not enough feedback data to show a trend yet.
+            </div>
+          ) : (
+            <div className="w-full h-[240px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={trends} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#374151" opacity={0.2} />
+                  <XAxis dataKey="date" tickFormatter={formatXAxis} stroke="#6b7280" fontSize={12} tickMargin={10} minTickGap={20} />
+                  <YAxis stroke="#6b7280" fontSize={12} allowDecimals={false} />
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '6px', color: '#fff', fontSize: '13px', padding: '8px 12px' }}
+                    itemStyle={{ color: '#fff' }}
+                    labelFormatter={formatXAxis}
+                  />
+                  <Legend verticalAlign="bottom" height={24} iconType="circle" wrapperStyle={{ fontSize: '12px' }}/>
+                  <Line type="monotone" dataKey="positive" name="Positive" stroke={SENTIMENT_COLORS.Positive} strokeWidth={2} dot={{ r: 3, strokeWidth: 0 }} activeDot={{ r: 5 }} />
+                  <Line type="monotone" dataKey="negative" name="Negative" stroke={SENTIMENT_COLORS.Negative} strokeWidth={2} dot={{ r: 3, strokeWidth: 0 }} activeDot={{ r: 5 }} />
+                  <Line type="monotone" dataKey="neutral" name="Neutral" stroke={SENTIMENT_COLORS.Neutral} strokeWidth={2} dot={{ r: 3, strokeWidth: 0 }} activeDot={{ r: 5 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
+
+        {/* Feedback Volume */}
+        <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-5 shadow-sm flex flex-col">
+          <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-4 uppercase tracking-wider">Feedback Volume</h2>
+          {trends.length < 2 ? (
+            <div className="flex-1 flex items-center justify-center min-h-[240px] text-sm text-gray-500 dark:text-gray-400">
+              Not enough feedback data to show volume trends.
+            </div>
+          ) : (
+            <div className="w-full h-[240px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={trends} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#374151" opacity={0.2} />
+                  <XAxis dataKey="date" tickFormatter={formatXAxis} stroke="#6b7280" fontSize={12} tickMargin={10} minTickGap={20} />
+                  <YAxis stroke="#6b7280" fontSize={12} allowDecimals={false} />
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '6px', color: '#fff', fontSize: '13px', padding: '8px 12px' }}
+                    itemStyle={{ color: '#fff' }}
+                    labelFormatter={formatXAxis}
+                    cursor={{ fill: '#374151', opacity: 0.1 }}
+                  />
+                  <Bar dataKey="total" name="Total Feedback" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Main content grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* Left Column: Pie Chart & Add form */}
+        <div className="flex flex-col gap-6">
+          <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-5 shadow-sm h-[280px] flex flex-col">
             <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 uppercase tracking-wider">Sentiment Distribution</h2>
-            {total === 0 ? (
+            {pTotal === 0 ? (
               <div className="flex-1 flex items-center justify-center text-sm text-gray-500 dark:text-gray-400">
                 No data available.
               </div>
@@ -214,7 +333,7 @@ function Dashboard() {
               </Link>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-0">
+            <div className="flex-1 overflow-y-auto p-0 min-h-[400px]">
               {reviews.length === 0 ? (
                 <div className="p-8 text-center text-sm text-gray-500 dark:text-gray-400">
                   No feedback collected yet. Submit some feedback to see it here.
