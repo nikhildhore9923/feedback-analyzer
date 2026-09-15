@@ -78,7 +78,8 @@ function Dashboard() {
       }
     } catch (err) {
       console.error(err);
-      alert("Error submitting feedback");
+      const msg = err.response?.data?.error?.message || err.message || "Unknown error";
+      alert(`Error submitting feedback: ${msg}`);
     } finally {
       setLoading(false);
     }
@@ -96,7 +97,8 @@ function Dashboard() {
       fetchData();
     } catch (err) {
       console.error(err);
-      alert("Error uploading CSV");
+      const msg = err.response?.data?.error?.message || err.message || "Unknown error";
+      alert(`Error uploading CSV: ${msg}`);
     } finally {
       setLoading(false);
     }
