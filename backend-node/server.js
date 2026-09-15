@@ -18,8 +18,16 @@ const tenantMiddleware = require('./src/middleware/tenant');
 app.use('/api', tenantMiddleware, apiRoutes);
 
 // Health check endpoint
-app.get('/health', (req, res) => {
-    res.json({ status: 'Node API is running' });
+const db = require('./src/db/connection');
+app.get('/health', async (req, res) => {
+    try {
+        // Ping the database to keep the Aiven free-tier connection alive
+        await db.query('SELECT 1');
+        res.json({ status: 'Node API is running', database: 'connected' });
+    } catch (err) {
+        console.error('Health check DB error:', err.message);
+        res.status(500).json({ status: 'Node API is running', database: 'disconnected', error: err.message });
+    }
 });
 
 const initDB = require('./src/db/init');
