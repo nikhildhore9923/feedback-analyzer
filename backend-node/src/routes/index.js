@@ -7,11 +7,17 @@ const statsController = require('../controllers/statsController');
 const batchController = require('../controllers/batchController');
 const settingsController = require('../controllers/settingsController');
 const analyticsController = require('../controllers/analyticsController');
+const authController = require('../controllers/authController');
 
 const upload = multer({ dest: 'uploads/' });
 
+// Auth
+router.post('/signup', authController.signup);
+router.post('/login', authController.login);
+
 // Analytics
 router.get('/analytics/trends', analyticsController.getSentimentTrends);
+router.post('/analytics/summary', analyticsController.generateSummary);
 
 // Reviews
 router.post('/reviews', feedbackController.submitReview);

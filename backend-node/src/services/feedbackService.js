@@ -86,7 +86,7 @@ async function processSingleFeedback(text, tenantId = 'default') {
 }
 
 async function getReviews(queryParams, tenantId = 'default') {
-    const { search, sentiment, aspect, status, batch_id, page = 1, limit = 50 } = queryParams;
+    const { search, sentiment, sentiments, aspect, aspects, status, batch_id, priority, page = 1, limit = 50 } = queryParams;
     let query = `SELECT r.*, b.type as batch_type, b.label as batch_label FROM reviews r LEFT JOIN batches b ON r.batch_id = b.id WHERE r.tenant_id = ?`;
     const params = [tenantId];
 
@@ -94,14 +94,31 @@ async function getReviews(queryParams, tenantId = 'default') {
         query += ` AND r.review_text LIKE ?`;
         params.push(`%${search}%`);
     }
-    if (sentiment) {
+    
+    // Support legacy singular or new multi-select 'sentiments'
+    if (sentiments) {
+        const sentimentArray = Array.isArray(sentiments) ? sentiments : sentiments.split(',');
+        if (sentimentArray.length > 0) {
+            query += ` AND r.sentiment IN (?)`;
+            params.push(sentimentArray);
+        }
+    } else if (sentiment) {
         query += ` AND r.sentiment = ?`;
         params.push(sentiment);
     }
-    if (aspect) {
+    
+    // Support legacy singular or new multi-select 'aspects'
+    if (aspects) {
+        const aspectArray = Array.isArray(aspects) ? aspects : aspects.split(',');
+        if (aspectArray.length > 0) {
+            query += ` AND r.aspect IN (?)`;
+            params.push(aspectArray);
+        }
+    } else if (aspect) {
         query += ` AND r.aspect = ?`;
         params.push(aspect);
     }
+
     if (status) {
         query += ` AND r.status = ?`;
         params.push(status);
@@ -121,7 +138,8 @@ async function getReviews(queryParams, tenantId = 'default') {
         else if (queryParams.priority === 'Low') query += ` AND r.priority_score < 40`;
     }
 
-    query += ` ORDER BY r.timestamp DESC`;
+    // Bug Fix: Explicitly sort by timestamp and ID to ensure stable ordering across pagination
+    query += ` ORDER BY r.timestamp DESC, r.id DESC`;
 
     // Pagination
     const offset = (Number(page) - 1) * Number(limit);

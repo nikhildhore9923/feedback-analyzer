@@ -1,13 +1,33 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Rectangle } from 'recharts';
 
 const SENTIMENT_COLORS = {
   Positive: '#10b981', // emerald-500
   Negative: '#f43f5e', // rose-500
   Neutral:  '#94a3b8', // slate-400
 };
+
+function CustomTooltip({ active, payload, label }) {
+  if (active && payload && payload.length) {
+    const d = new Date(label);
+    const dateLabel = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+    return (
+      <div className="bg-white dark:bg-[#1f2937] p-3 shadow-lg rounded-lg border border-gray-100 dark:border-gray-700">
+        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">{dateLabel}</p>
+        {payload.map((entry, index) => (
+          <div key={`item-${index}`} className="flex items-center gap-2 text-sm">
+            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color || entry.fill }}></span>
+            <span className="text-gray-600 dark:text-gray-300 font-medium capitalize">{entry.name}:</span>
+            <span className="text-gray-900 dark:text-white font-bold">{entry.value}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return null;
+}
 
 function timeAgo(timestamp) {
   if (!timestamp) return '';
@@ -43,6 +63,24 @@ function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
   const [alertToast, setAlertToast] = useState(null);
+  const [summary, setSummary] = useState('');
+  const [summaryLoading, setSummaryLoading] = useState(false);
+
+  const handleGenerateSummary = async () => {
+    setSummaryLoading(true);
+    setSummary('');
+    try {
+      const reviewTexts = reviews.map(r => r.review_text);
+      const res = await api.generateSummary(reviewTexts);
+      if (res.data.success) {
+        setSummary(res.data.summary);
+      }
+    } catch (err) {
+      setSummary('Failed to generate summary. Please try again.');
+    } finally {
+      setSummaryLoading(false);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -161,6 +199,62 @@ function Dashboard() {
         </div>
       )}
 
+      {/* AI Executive Summary Card */}
+      <div className="bg-[#0f172a] dark:bg-[#0a0f1e] border border-indigo-500/20 rounded-xl p-6 shadow-lg relative overflow-hidden">
+        {/* Subtle glow accent */}
+        <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 to-purple-600 rounded-l-xl" />
+        <div className="pl-2">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">✦ AI Powered</span>
+              </div>
+              <h2 className="text-lg font-bold text-white tracking-tight">Executive Summary</h2>
+              <p className="text-sm text-gray-400 mt-0.5">A natural language overview of your latest customer feedback themes.</p>
+            </div>
+            <button
+              onClick={handleGenerateSummary}
+              disabled={summaryLoading || reviews.length === 0}
+              className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(99,102,241,0.25)] hover:shadow-[0_0_25px_rgba(99,102,241,0.45)]"
+            >
+              {summaryLoading ? (
+                <>
+                  <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                  </svg>
+                  Analyzing...
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                  Generate Insights
+                </>
+              )}
+            </button>
+          </div>
+
+          <div className="mt-5 min-h-[48px]">
+            {summaryLoading && (
+              <div className="space-y-2 animate-pulse">
+                <div className="h-4 bg-indigo-900/40 rounded-full w-full" />
+                <div className="h-4 bg-indigo-900/40 rounded-full w-5/6" />
+              </div>
+            )}
+            {!summaryLoading && summary && (
+              <p className="text-gray-200 text-sm leading-relaxed border-t border-indigo-500/20 pt-4">
+                {summary}
+              </p>
+            )}
+            {!summaryLoading && !summary && (
+              <p className="text-gray-500 text-sm italic">
+                Click "Generate Insights" to produce an AI summary of your most recent feedback.
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
       {/* Header and Time Range Filter */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
@@ -227,11 +321,7 @@ function Dashboard() {
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#374151" opacity={0.2} />
                   <XAxis dataKey="date" tickFormatter={formatXAxis} stroke="#6b7280" fontSize={12} tickMargin={10} minTickGap={20} />
                   <YAxis stroke="#6b7280" fontSize={12} allowDecimals={false} />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '6px', color: '#fff', fontSize: '13px', padding: '8px 12px' }}
-                    itemStyle={{ color: '#fff' }}
-                    labelFormatter={formatXAxis}
-                  />
+                  <Tooltip content={<CustomTooltip />} />
                   <Legend verticalAlign="bottom" height={24} iconType="circle" wrapperStyle={{ fontSize: '12px' }}/>
                   <Line type="monotone" dataKey="positive" name="Positive" stroke={SENTIMENT_COLORS.Positive} strokeWidth={2} dot={{ r: 3, strokeWidth: 0 }} activeDot={{ r: 5 }} />
                   <Line type="monotone" dataKey="negative" name="Negative" stroke={SENTIMENT_COLORS.Negative} strokeWidth={2} dot={{ r: 3, strokeWidth: 0 }} activeDot={{ r: 5 }} />
@@ -256,13 +346,8 @@ function Dashboard() {
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#374151" opacity={0.2} />
                   <XAxis dataKey="date" tickFormatter={formatXAxis} stroke="#6b7280" fontSize={12} tickMargin={10} minTickGap={20} />
                   <YAxis stroke="#6b7280" fontSize={12} allowDecimals={false} />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '6px', color: '#fff', fontSize: '13px', padding: '8px 12px' }}
-                    itemStyle={{ color: '#fff' }}
-                    labelFormatter={formatXAxis}
-                    cursor={{ fill: '#374151', opacity: 0.1 }}
-                  />
-                  <Bar dataKey="total" name="Total Feedback" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                  <Tooltip content={<CustomTooltip />} cursor={{ fill: '#374151', opacity: 0.1 }} />
+                  <Bar dataKey="total" name="Total Feedback" fill="#6366f1" radius={[4, 4, 0, 0]} activeBar={<Rectangle fill="#4f46e5" stroke="rgba(255,255,255,0.2)" strokeWidth={1} />} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -348,16 +433,16 @@ function Dashboard() {
         </div>
 
         {/* Right Column: Recent Activity */}
-        <div className="lg:col-span-2">
-          <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden h-full flex flex-col">
-            <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-[#111827]">
+        <div className="lg:col-span-2 flex flex-col">
+          <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col w-full h-[544px]">
+            <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-[#111827] flex-shrink-0">
               <h2 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Recent Activity</h2>
               <Link to="/reviews" className="text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
                 View all &rarr;
               </Link>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-0 min-h-[400px]">
+            <div className="flex-1 overflow-y-auto p-0 min-h-0">
               {reviews.length === 0 ? (
                 <div className="p-8 text-center text-sm text-gray-500 dark:text-gray-400">
                   No feedback collected yet. Submit some feedback to see it here.

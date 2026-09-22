@@ -62,4 +62,29 @@ async function getSentimentTrends(req, res, next) {
     }
 }
 
-module.exports = { getSentimentTrends };
+async function generateSummary(req, res, next) {
+    try {
+        const { reviews } = req.body;
+        
+        if (!reviews || !Array.isArray(reviews)) {
+            return res.status(400).json({ success: false, message: 'Invalid reviews data provided' });
+        }
+
+        // TODO: Swap this block with your real LLM API call (e.g., Gemini, OpenAI, Claude)
+        // const prompt = `Summarize these feedback items into 2 sentences: ${JSON.stringify(reviews)}`;
+        // const summary = await llm.generate(prompt);
+        
+        // Mock LLM Latency
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        const mockSummary = reviews.length > 0
+            ? "Customers generally appreciate the recent UI updates and praise the customer support team's responsiveness. However, several users have reported friction with the pricing structure and occasional app crashes on mobile devices."
+            : "Not enough data available to generate an executive summary. Please collect more feedback to generate insights.";
+
+        res.json({ success: true, summary: mockSummary });
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = { getSentimentTrends, generateSummary };

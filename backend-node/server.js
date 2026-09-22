@@ -14,8 +14,8 @@ app.use(cors({
 }));
 app.use(express.json());
 
-const tenantMiddleware = require('./src/middleware/tenant');
-app.use('/api', tenantMiddleware, apiRoutes);
+const authMiddleware = require('./src/middleware/authMiddleware');
+app.use('/api', authMiddleware, apiRoutes);
 
 // Health check endpoint
 const db = require('./src/db/connection');
@@ -31,12 +31,16 @@ app.get('/health', async (req, res) => {
 });
 
 const initDB = require('./src/db/init');
+const initializeCronJobs = require('./src/cronJobs');
 
 // Centralized error handling middleware
 app.use(errorHandler);
 
 // Initialize DB and start server
 initDB().then(() => {
+    // Initialize scheduled tasks
+    initializeCronJobs();
+
     app.listen(PORT, () => {
         console.log(`Node server running on port ${PORT}`);
     });

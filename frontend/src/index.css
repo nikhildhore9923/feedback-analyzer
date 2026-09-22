@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --color-midnight-slate: #0f172a;
+  --color-midnight-slate-lighter: #1e293b;
+  --color-midnight-slate-darker: #020617;
+  --color-electric-indigo: #6366f1;
+  --color-electric-indigo-hover: #4f46e5;
+  --color-electric-indigo-glow: rgba(99, 102, 241, 0.4);
+}
+
 @layer base {
   body {
     @apply bg-[#F9FAFB] text-gray-900 transition-colors duration-200 antialiased;

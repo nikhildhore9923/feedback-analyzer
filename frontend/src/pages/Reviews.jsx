@@ -46,8 +46,8 @@ function Reviews() {
 
   // Filters
   const [search, setSearch] = useState('')
-  const [sentiment, setSentiment] = useState('')
-  const [aspect, setAspect] = useState('')
+  const [selectedSentiments, setSelectedSentiments] = useState([])
+  const [selectedAspects, setSelectedAspects] = useState([])
   const [status, setStatus] = useState('')
   const [batchType, setBatchType] = useState('')
   const [priority, setPriority] = useState('')
@@ -57,8 +57,8 @@ function Reviews() {
     try {
       const filters = { page, limit: 10 }
       if (search) filters.search = search
-      if (sentiment) filters.sentiment = sentiment
-      if (aspect) filters.aspect = aspect
+      if (selectedSentiments.length > 0) filters.sentiments = selectedSentiments.join(',')
+      if (selectedAspects.length > 0) filters.aspects = selectedAspects.join(',')
       if (status) filters.status = status
       if (batchType) filters.batch_type = batchType
       if (priority) filters.priority = priority
@@ -80,6 +80,14 @@ function Reviews() {
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     fetchReviews(1)
+  }
+
+  const toggleArrayItem = (array, setArray, item) => {
+    if (array.includes(item)) {
+      setArray(array.filter(i => i !== item))
+    } else {
+      setArray([...array, item])
+    }
   }
 
   const handleStatusChange = async (id, newStatus) => {
@@ -130,6 +138,11 @@ function Reviews() {
     }
   }
 
+  const handleExportFiltered = () => {
+    if (reviews.length === 0) return alert("No reviews to export in current view");
+    exportReviewsToCsv(reviews);
+  }
+
   const totalPages = Math.ceil(meta.total / meta.limit)
 
   return (
@@ -144,81 +157,100 @@ function Reviews() {
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Feedback List</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Browse, filter, and manage all ingested customer feedback.</p>
         </div>
-        <button 
-          onClick={handleExportAll}
-          className="px-4 py-2 bg-white dark:bg-[#111827] text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-800 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors shadow-sm"
-        >
-          Export All CSV
-        </button>
+        <div className="flex gap-3">
+          <button 
+            onClick={handleExportFiltered}
+            className="group flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-[1px] hover:bg-gray-50 dark:hover:bg-gray-750 hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-500/50"
+          >
+            <svg className="w-4 h-4 text-gray-400 group-hover:text-indigo-500 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+            Export Filtered CSV
+          </button>
+          <button 
+            onClick={handleExportAll}
+            className="px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 border border-transparent rounded-md text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors shadow-sm"
+          >
+            Export All CSV
+          </button>
+        </div>
       </div>
 
       <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col flex-1">
         {/* Filters */}
-        <form onSubmit={handleSearchSubmit} className="p-4 border-b border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-[#111827] flex flex-wrap gap-3">
-          <input
-            type="text"
-            placeholder="Search text..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 min-w-[200px] h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-          />
-          <select
-            value={batchType}
-            onChange={(e) => setBatchType(e.target.value)}
-            className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-          >
-            <option value="">All Upload Types</option>
-            <option value="csv">CSV Upload</option>
-            <option value="manual">Manual Entry</option>
-          </select>
-          <select
-            value={sentiment}
-            onChange={(e) => setSentiment(e.target.value)}
-            className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-          >
-            <option value="">All Sentiments</option>
-            <option value="Positive">Positive</option>
-            <option value="Neutral">Neutral</option>
-            <option value="Negative">Negative</option>
-          </select>
-          <select
-            value={priority}
-            onChange={(e) => setPriority(e.target.value)}
-            className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-          >
-            <option value="">All Priorities</option>
-            <option value="Critical">Critical</option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-          </select>
-          <select
-            value={aspect}
-            onChange={(e) => setAspect(e.target.value)}
-            className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-          >
-            <option value="">All Categories</option>
-            <option value="Product Quality">Product Quality</option>
-            <option value="Customer Service">Customer Service</option>
-            <option value="Delivery">Delivery</option>
-            <option value="Pricing">Pricing</option>
-            <option value="App/Website">App/Website</option>
-            <option value="General">General</option>
-          </select>
-          <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-          >
-            <option value="">All Statuses</option>
-            <option value="New">New</option>
-            <option value="Reviewing">Reviewing</option>
-            <option value="Resolved">Resolved</option>
-            <option value="Ignored">Ignored</option>
-          </select>
-          <button type="submit" className="h-9 px-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-md text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors">
-            Filter
-          </button>
+        <form onSubmit={handleSearchSubmit} className="p-4 border-b border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-[#111827] flex flex-col gap-4">
+          <div className="flex flex-wrap gap-3 items-center">
+            <input
+              type="text"
+              placeholder="Search text..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="flex-1 min-w-[200px] h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+            />
+            <select
+              value={batchType}
+              onChange={(e) => setBatchType(e.target.value)}
+              className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+            >
+              <option value="">All Upload Types</option>
+              <option value="csv">CSV Upload</option>
+              <option value="manual">Manual Entry</option>
+            </select>
+            <select
+              value={priority}
+              onChange={(e) => setPriority(e.target.value)}
+              className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+            >
+              <option value="">All Priorities</option>
+              <option value="Critical">Critical</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+            >
+              <option value="">All Statuses</option>
+              <option value="New">New</option>
+              <option value="Reviewing">Reviewing</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Ignored">Ignored</option>
+            </select>
+            <button type="submit" className="h-9 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm font-medium transition-colors">
+              Filter
+            </button>
+          </div>
+          
+          {/* Pill Filters */}
+          <div className="flex flex-wrap gap-4 items-center pt-2 border-t border-gray-200 dark:border-gray-800">
+            <div className="flex gap-2 flex-wrap items-center">
+              <span className="text-xs font-medium text-gray-500 dark:text-gray-400 mr-2">Sentiment:</span>
+              {['Positive', 'Neutral', 'Negative'].map(s => (
+                <button
+                  type="button"
+                  key={s}
+                  onClick={() => toggleArrayItem(selectedSentiments, setSelectedSentiments, s)}
+                  className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${selectedSentiments.includes(s) ? 'bg-indigo-100 text-indigo-700 border-indigo-200 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-700' : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 dark:hover:bg-gray-750'}`}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+            
+            <div className="flex gap-2 flex-wrap items-center">
+              <span className="text-xs font-medium text-gray-500 dark:text-gray-400 mr-2 ml-4">Topic:</span>
+              {['Product Quality', 'Customer Service', 'Delivery', 'Pricing', 'App/Website', 'General'].map(a => (
+                <button
+                  type="button"
+                  key={a}
+                  onClick={() => toggleArrayItem(selectedAspects, setSelectedAspects, a)}
+                  className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${selectedAspects.includes(a) ? 'bg-indigo-100 text-indigo-700 border-indigo-200 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-700' : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 dark:hover:bg-gray-750'}`}
+                >
+                  {a}
+                </button>
+              ))}
+            </div>
+          </div>
         </form>
 
         {/* Table */}

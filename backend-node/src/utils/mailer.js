@@ -54,7 +54,7 @@ async function sendAlertEmail(reviewText, sentiment, confidence, severity, aspec
                         <tr><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0; color: #64748b; font-size: 14px;">Category</td><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0; color: #0f172a; font-weight: 600; text-align: right;">${aspect}</td></tr>
                     </table>
                     <div style="text-align: center;">
-                        <a href="https://pulse-feedback-analyzer.vercel.app/" style="display: inline-block; background-color: #4f46e5; color: white; padding: 12px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px;">View Dashboard</a>
+                        <a href="${process.env.FRONTEND_URL || 'http://localhost:5173/'}" style="display: inline-block; background-color: #4f46e5; color: white; padding: 12px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px;">View Dashboard</a>
                     </div>
                 </div>
             </div>
