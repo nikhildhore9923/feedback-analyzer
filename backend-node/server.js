@@ -31,19 +31,27 @@ app.get('/health', async (req, res) => {
 });
 
 const initDB = require('./src/db/init');
-const initializeCronJobs = require('./src/cronJobs');
+const { initializeCronJobs } = require('./src/cronJobs');
 
 // Centralized error handling middleware
 app.use(errorHandler);
 
-// Initialize DB and start server
-initDB().then(() => {
-    // Initialize scheduled tasks
-    initializeCronJobs();
+// Initialize DB and start server (only if NOT running in Vercel)
+if (!process.env.VERCEL) {
+    initDB().then(() => {
+        // Initialize local node-cron scheduled tasks (Vercel will use the /api/cron endpoint instead)
+        initializeCronJobs();
 
-    app.listen(PORT, () => {
-        console.log(`Node server running on port ${PORT}`);
+        app.listen(PORT, () => {
+            console.log(`Node server running on port ${PORT}`);
+        });
+    }).catch(err => {
+        console.error("Failed to start server due to DB initialization failure:", err);
     });
-}).catch(err => {
-    console.error("Failed to start server due to DB initialization failure:", err);
-});
+} else {
+    // For Vercel Serverless, initialize DB asynchronously on cold start
+    initDB().catch(console.error);
+}
+
+// Export the Express API for Vercel serverless
+module.exports = app;

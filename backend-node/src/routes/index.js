@@ -15,6 +15,20 @@ const upload = multer({ dest: 'uploads/' });
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
+// Cron (Vercel serverless trigger)
+const { runDailyEvaluation } = require('../cronJobs');
+router.get('/cron/daily-alerts', async (req, res, next) => {
+    try {
+        if (req.headers.authorization !== `Bearer ${process.env.CRON_SECRET || 'dev_cron_secret'}`) {
+            return res.status(401).json({ error: 'Unauthorized cron trigger' });
+        }
+        await runDailyEvaluation();
+        res.json({ success: true, message: 'Daily evaluation completed' });
+    } catch (err) {
+        next(err);
+    }
+});
+
 // Analytics
 router.get('/analytics/trends', analyticsController.getSentimentTrends);
 router.post('/analytics/summary', analyticsController.generateSummary);
