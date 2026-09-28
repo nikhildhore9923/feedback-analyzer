@@ -9,7 +9,8 @@ const settingsController = require('../controllers/settingsController');
 const analyticsController = require('../controllers/analyticsController');
 const authController = require('../controllers/authController');
 
-const upload = multer({ dest: 'uploads/' });
+// Vercel Serverless environments are read-only except for the /tmp directory.
+const upload = multer({ dest: '/tmp/' });
 
 // Auth
 router.post('/signup', authController.signup);
