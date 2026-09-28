@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 const db = require('../db/connection');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'pulse_super_secret_key_2026';
@@ -25,7 +25,7 @@ async function signup(req, res) {
         const passwordHash = await bcrypt.hash(password, salt);
 
         // 3. Generate unique tenant_id
-        const tenantId = uuidv4();
+        const tenantId = crypto.randomUUID();
 
         // 4. Save user to database
         const [result] = await db.query(
