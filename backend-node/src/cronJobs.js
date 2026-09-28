@@ -5,9 +5,6 @@ const { sendTrendAlertEmail } = require('./utils/mailer');
 /**
  * Automates daily sentiment trend evaluation for all active workspaces.
  */
-function initializeCronJobs() {
-    // Schedule: Runs every day at 08:00 AM server time
-    // Cron syntax: '0 8 * * *' (Minute: 0, Hour: 8)
 async function runDailyEvaluation() {
     console.log('[Cron] Starting daily trend evaluation task...');
 
