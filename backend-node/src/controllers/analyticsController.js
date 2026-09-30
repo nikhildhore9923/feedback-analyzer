@@ -87,9 +87,12 @@ async function generateSummary(req, res, next) {
         // Initialize Gemini client
         const ai = new GoogleGenAI({ apiKey });
         
-        // Extract text from reviews
+        // Extract text from reviews (handles both string arrays and object arrays)
         const feedbackText = reviews
-            .map(r => r.review_text || r.text || '')
+            .map(r => {
+                if (typeof r === 'string') return r;
+                return r.review_text || r.text || '';
+            })
             .filter(t => t.trim() !== '')
             .join('\n- ');
             
