@@ -98,10 +98,10 @@ async function generateSummary(req, res, next) {
             
         const prompt = `You are an expert product analyst. Based on the following customer feedback, provide a concise, 2-sentence executive summary of the overall themes. Do not use markdown, just return a professional, plain text paragraph.\n\nFeedback:\n- ${feedbackText}`;
 
-        // Call Groq Llama 3.1
+        // Call Groq Mixtral
         const chatCompletion = await groq.chat.completions.create({
             messages: [{ role: 'user', content: prompt }],
-            model: 'llama-3.1-8b-instant',
+            model: 'mixtral-8x7b-32768',
             temperature: 0.5,
         });
 
