@@ -1,5 +1,5 @@
 const db = require('../db/connection');
-const { GoogleGenAI } = require('@google/genai');
+const Groq = require('groq-sdk');
 
 async function getSentimentTrends(req, res, next) {
     try {
@@ -78,14 +78,14 @@ async function generateSummary(req, res, next) {
             });
         }
 
-        const apiKey = process.env.GEMINI_API_KEY;
+        const apiKey = process.env.GROQ_API_KEY;
         if (!apiKey) {
-            console.warn("GEMINI_API_KEY is missing. Falling back to mock summary.");
+            console.warn("GROQ_API_KEY is missing. Falling back to mock summary.");
             throw new Error("Missing API Key");
         }
 
-        // Initialize Gemini client
-        const ai = new GoogleGenAI({ apiKey });
+        // Initialize Groq client
+        const groq = new Groq({ apiKey });
         
         // Extract text from reviews (handles both string arrays and object arrays)
         const feedbackText = reviews
@@ -98,17 +98,20 @@ async function generateSummary(req, res, next) {
             
         const prompt = `You are an expert product analyst. Based on the following customer feedback, provide a concise, 2-sentence executive summary of the overall themes. Do not use markdown, just return a professional, plain text paragraph.\n\nFeedback:\n- ${feedbackText}`;
 
-        // Call Gemini 1.5 Flash
-        const response = await ai.models.generateContent({
-            model: 'gemini-1.5-flash',
-            contents: prompt,
+        // Call Groq Llama 3
+        const chatCompletion = await groq.chat.completions.create({
+            messages: [{ role: 'user', content: prompt }],
+            model: 'llama3-8b-8192',
+            temperature: 0.5,
         });
 
-        res.json({ success: true, summary: response.text });
+        const summaryText = chatCompletion.choices[0]?.message?.content || "Summary generated successfully, but no content returned.";
+
+        res.json({ success: true, summary: summaryText });
     } catch (err) {
-        console.error('[Gemini API Error]:', err.message);
+        console.error('[Groq API Error]:', err.message);
         
-        // Robust fallback message if Gemini hits limits, lacks key, or fails
+        // Robust fallback message if Groq fails
         const fallbackSummary = "Customers generally appreciate the recent UI updates and praise the customer support team's responsiveness. However, several users have reported friction with the pricing structure and occasional app crashes on mobile devices.";
         
         res.json({ success: true, summary: fallbackSummary });
