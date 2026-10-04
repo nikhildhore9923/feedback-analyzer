@@ -16,6 +16,17 @@ const upload = multer({ dest: '/tmp/' });
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
+// Public Health Check (For UptimeRobot to keep Aiven DB alive)
+const db = require('../db/connection');
+router.get('/health', async (req, res) => {
+    try {
+        await db.query('SELECT 1');
+        res.json({ status: 'ok', database: 'connected' });
+    } catch (err) {
+        res.status(500).json({ status: 'error', database: 'disconnected' });
+    }
+});
+
 // Cron (Vercel serverless trigger)
 const { runDailyEvaluation } = require('../cronJobs');
 router.get('/cron/daily-alerts', async (req, res, next) => {
