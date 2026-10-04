@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { api } from '../api';
 
@@ -9,6 +9,12 @@ function Signup() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('pulse_jwt_token')) {
+      navigate('/');
+    }
+  }, [navigate]);
 
   const handleSignup = async (e) => {
     e.preventDefault();
