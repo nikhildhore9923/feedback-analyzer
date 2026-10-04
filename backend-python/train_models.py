@@ -8,7 +8,7 @@ import joblib
 import os
 
 print("Loading dataset...")
-df = pd.read_csv("training_data.csv")
+df = pd.read_csv("../misc/training_data.csv")
 
 print(f"Dataset loaded with {len(df)} rows.")
 
