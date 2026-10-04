@@ -51,7 +51,9 @@ async function initDB() {
         await connection.end();
     } catch (err) {
         console.error('[DB] Failed to initialize database:', err.message);
-        process.exit(1);
+        if (!process.env.VERCEL) {
+            process.exit(1);
+        }
     }
 }
 
