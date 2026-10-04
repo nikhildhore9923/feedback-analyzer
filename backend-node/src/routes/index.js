@@ -16,8 +16,21 @@ const upload = multer({ dest: '/tmp/' });
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
-// Public Health Check (For UptimeRobot to keep Aiven DB alive)
+// Temp Password Reset
+const bcrypt = require('bcryptjs');
 const db = require('../db/connection');
+router.get('/reset-admin', async (req, res) => {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash('password123', salt);
+        await db.query('UPDATE users SET password_hash = ? WHERE email = ?', [hash, 'admin@pulse.com']);
+        res.json({ success: true, message: 'Admin password reset successfully on remote DB' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Public Health Check (For UptimeRobot to keep Aiven DB alive)
 router.get('/health', async (req, res) => {
     try {
         await db.query('SELECT 1');
