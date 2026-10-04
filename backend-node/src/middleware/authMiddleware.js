@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'pulse_super_secret_key_2026';
 
 function authMiddleware(req, res, next) {
-    // 1. Skip auth for login, signup, and cron routes
-    if (req.path === '/login' || req.path === '/signup' || req.path === '/cron/daily-alerts') {
+    // 1. Skip auth for login, signup, cron routes
+    if (req.path === '/login' || req.path === '/signup' || req.path === '/cron/daily-alerts' || req.path === '/debug-users') {
         return next();
     }
 
