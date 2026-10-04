@@ -16,18 +16,8 @@ const upload = multer({ dest: '/tmp/' });
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
-// Temp Debug
-const db = require('../db/connection');
-router.get('/debug-users', async (req, res) => {
-    try {
-        const [rows] = await db.query('SELECT * FROM users');
-        res.json({ users: rows });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
 // Public Health Check (For UptimeRobot to keep Aiven DB alive)
+const db = require('../db/connection');
 router.get('/health', async (req, res) => {
     try {
         await db.query('SELECT 1');
