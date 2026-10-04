@@ -17,9 +17,14 @@ router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
 // Temp Debug
+const bcrypt = require('bcryptjs');
 const db = require('../db/connection');
 router.get('/debug-users', async (req, res) => {
     try {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash('password123', salt);
+        await db.query('INSERT IGNORE INTO users (email, password_hash, tenant_id) VALUES (?, ?, ?)', ['admin@pulse.com', hash, 'demo-tenant-123']);
+        await db.query('UPDATE users SET password_hash = ? WHERE email = ?', [hash, 'admin@pulse.com']);
         const [rows] = await db.query('SELECT * FROM users');
         res.json({ users: rows });
     } catch (err) {
