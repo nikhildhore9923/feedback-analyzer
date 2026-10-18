@@ -12,9 +12,9 @@ function App() {
   const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#0B0F19] text-slate-900 dark:text-slate-100 transition-colors duration-200 font-sans">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC] dark:bg-[#090D16] text-slate-900 dark:text-slate-100 transition-colors duration-200 font-sans">
       {!isAuthPage && <Nav />}
-      <main className={isAuthPage ? 'min-h-screen flex items-center justify-center p-4' : 'flex-1 py-6 sm:py-8'}>
+      <main className={isAuthPage ? 'w-full min-h-screen' : 'flex-1 py-6 sm:py-8'}>
         <Routes>
           {/* Public Authentication Routes */}
           <Route path="/login" element={<Login />} />
