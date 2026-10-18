@@ -29,7 +29,8 @@ import {
   ArrowUpRight,
   Clock,
   CheckCircle2,
-  FileText
+  FileText,
+  Activity
 } from 'lucide-react';
 
 const SENTIMENT_COLORS = {
