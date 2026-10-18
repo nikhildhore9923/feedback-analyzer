@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const db = require('../db/connection');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'pulse_super_secret_key_2026';
+const { getJwtSecret } = require('../config/jwtConfig');
 
 // SIGNUP ROUTE
 async function signup(req, res) {
@@ -37,7 +37,7 @@ async function signup(req, res) {
 
         // 5. Generate JWT Token
         const payload = { userId, email, tenantId };
-        const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });
+        const token = jwt.sign(payload, getJwtSecret(), { expiresIn: '24h' });
 
         return res.status(201).json({
             success: true,
@@ -76,7 +76,7 @@ async function login(req, res) {
             email: user.email,
             tenantId: user.tenant_id
         };
-        const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });
+        const token = jwt.sign(payload, getJwtSecret(), { expiresIn: '24h' });
 
         return res.json({
             success: true,

@@ -80,4 +80,72 @@ async function sendAlertEmail(reviewText, sentiment, confidence, severity, aspec
     }
 }
 
-module.exports = { sendAlertEmail };
+/**
+ * Send a daily trend alert when the average feedback score drops below the threshold.
+ */
+async function sendTrendAlertEmail(averageScore, threshold, tenantId = 'default') {
+    const config = await getEmailConfig(tenantId);
+    const RESEND_API_KEY = process.env.RESEND_API_KEY;
+    const recipient = config.to || config.user;
+
+    if (!recipient) {
+        console.log(`[mailer] Skipped trend alert for tenant '${tenantId}' (no recipient email configured).`);
+        return false;
+    }
+
+    if (!RESEND_API_KEY) {
+        console.warn('[mailer] RESEND_API_KEY not configured. Skipping trend alert email.');
+        return false;
+    }
+
+    try {
+        const axios = require('axios');
+        const htmlContent = `
+            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background-color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                <div style="background-color: #ea580c; padding: 24px; text-align: center;">
+                    <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.5px;">⚡ Pulse</h1>
+                    <p style="color: #ffedd5; margin: 8px 0 0 0; font-size: 14px;">Daily Trend Health Warning</p>
+                </div>
+                <div style="padding: 32px;">
+                    <h2 style="color: #0f172a; margin-top: 0; font-size: 20px;">Sentiment Health Alert</h2>
+                    <p style="color: #475569; font-size: 15px; line-height: 1.6;">The 24-hour average feedback score for your workspace has fallen below the target health threshold.</p>
+                    
+                    <div style="background-color: #fff7ed; padding: 20px; border-left: 4px solid #ea580c; margin: 24px 0; border-radius: 0 8px 8px 0;">
+                        <p style="margin: 0; color: #9a3412; font-weight: 600; font-size: 16px;">
+                            24h Average Score: ${Number(averageScore).toFixed(1)} / 100
+                        </p>
+                        <p style="margin: 4px 0 0 0; color: #7c2d12; font-size: 14px;">
+                            Configured Threshold: ${threshold}
+                        </p>
+                    </div>
+
+                    <p style="color: #64748b; font-size: 14px;">Please review the incoming feedback volume on your dashboard to identify potential regressions or product issues.</p>
+
+                    <div style="text-align: center; margin-top: 32px;">
+                        <a href="${process.env.FRONTEND_URL || 'http://localhost:5173/'}" style="display: inline-block; background-color: #ea580c; color: white; padding: 12px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px;">Open Pulse Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        await axios.post('https://api.resend.com/emails', {
+            from: 'Pulse Intelligence <onboarding@resend.dev>',
+            to: recipient,
+            subject: `Pulse Alert: 24-Hour Feedback Health Dropped (${Number(averageScore).toFixed(1)}/100)`,
+            html: htmlContent
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${RESEND_API_KEY}`
+            }
+        });
+
+        console.log(`[mailer] Trend alert sent successfully to ${recipient}.`);
+        return true;
+    } catch (err) {
+        console.error('[mailer] Failed to send trend alert:', err.response?.data || err.message);
+        return false;
+    }
+}
+
+module.exports = { sendAlertEmail, sendTrendAlertEmail };

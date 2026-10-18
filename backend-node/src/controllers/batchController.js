@@ -5,7 +5,7 @@ async function getBatches(req, res, next) {
         const [rows] = await db.query(`
             SELECT b.id, b.label, b.type, b.created_at, COUNT(r.id) as review_count
             FROM batches b
-            LEFT JOIN reviews r ON r.batch_id = b.id
+            LEFT JOIN reviews r ON r.batch_id = b.id AND r.tenant_id = b.tenant_id
             WHERE b.tenant_id = ?
             GROUP BY b.id
             ORDER BY b.created_at DESC

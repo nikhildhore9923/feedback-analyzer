@@ -1,10 +1,8 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000/api'
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000/api';
 
-// No longer generating static UUID, relying entirely on JWT auth
-
-// Add interceptor
+// Request interceptor to attach JWT Authorization Bearer header
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem('pulse_jwt_token');
   if (token) {
@@ -16,6 +14,22 @@ axios.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// Response interceptor to handle expired JWT tokens automatically
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      const isAuthRoute = window.location.pathname.includes('/login') || window.location.pathname.includes('/signup');
+      if (!isAuthRoute && localStorage.getItem('pulse_jwt_token')) {
+        localStorage.removeItem('pulse_jwt_token');
+        localStorage.removeItem('pulse_tenant_id');
+        window.location.href = '/login';
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 export const api = {
   signup: (email, password) => axios.post(`${API_BASE}/signup`, { email, password }),
@@ -33,21 +47,33 @@ export const api = {
   clearDemoData: () => axios.delete(`${API_BASE}/settings/clear`),
   getAnalyticsTrends: (days) => axios.get(`${API_BASE}/analytics/trends`, { params: { days } }),
   generateSummary: (reviews) => axios.post(`${API_BASE}/analytics/summary`, { reviews }),
-}
+};
 
 export function exportReviewsToCsv(reviews) {
-  const header = 'id,review_text,sentiment,confidence,severity,aspect,status,upload_type,batch_label,alert_sent,timestamp\n'
+  const header = 'id,review_text,sentiment,confidence,severity,aspect,status,upload_type,batch_label,alert_sent,timestamp\n';
   const rows = reviews
     .map((r) =>
-      [r.id, `"${r.review_text.replace(/"/g, '""')}"`, r.sentiment, r.confidence, r.severity, r.aspect, r.status, r.batch_type, `"${r.batch_label || ''}"`, r.alert_sent, r.timestamp].join(',')
+      [
+        r.id,
+        `"${(r.review_text || '').replace(/"/g, '""')}"`,
+        r.sentiment,
+        r.confidence,
+        r.severity,
+        r.aspect,
+        r.status,
+        r.batch_type,
+        `"${(r.batch_label || '').replace(/"/g, '""')}"`,
+        r.alert_sent,
+        r.timestamp
+      ].join(',')
     )
-    .join('\n')
+    .join('\n');
 
-  const blob = new Blob([header + rows], { type: 'text/csv' })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = `feedback-export-${Date.now()}.csv`
-  a.click()
-  URL.revokeObjectURL(url)
+  const blob = new Blob([header + rows], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `feedback-export-${Date.now()}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
 }

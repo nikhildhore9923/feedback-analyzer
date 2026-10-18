@@ -1,7 +1,36 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Rectangle } from 'recharts';
+import { useTheme } from '../context/ThemeContext';
+import { 
+  PieChart, 
+  Pie, 
+  Cell, 
+  ResponsiveContainer, 
+  Tooltip, 
+  Legend, 
+  LineChart, 
+  Line, 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Rectangle 
+} from 'recharts';
+import { 
+  Sparkles, 
+  TrendingUp, 
+  TrendingDown, 
+  AlertTriangle, 
+  ShieldAlert, 
+  UploadCloud, 
+  Send, 
+  ArrowUpRight,
+  Clock,
+  CheckCircle2,
+  FileText
+} from 'lucide-react';
 
 const SENTIMENT_COLORS = {
   Positive: '#10b981', // emerald-500
@@ -12,17 +41,21 @@ const SENTIMENT_COLORS = {
 function CustomTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
     const d = new Date(label);
-    const dateLabel = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+    const dateLabel = isNaN(d.getTime()) ? label : `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
     return (
-      <div className="bg-white dark:bg-[#1f2937] p-3 shadow-lg rounded-lg border border-gray-100 dark:border-gray-700">
-        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">{dateLabel}</p>
-        {payload.map((entry, index) => (
-          <div key={`item-${index}`} className="flex items-center gap-2 text-sm">
-            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color || entry.fill }}></span>
-            <span className="text-gray-600 dark:text-gray-300 font-medium capitalize">{entry.name}:</span>
-            <span className="text-gray-900 dark:text-white font-bold">{entry.value}</span>
-          </div>
-        ))}
+      <div className="bg-white dark:bg-slate-900 p-3 shadow-xl rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+        <p className="font-semibold text-slate-900 dark:text-slate-100 mb-1.5">{dateLabel}</p>
+        <div className="space-y-1">
+          {payload.map((entry, index) => (
+            <div key={`item-${index}`} className="flex items-center justify-between gap-4">
+              <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color || entry.fill }}></span>
+                {entry.name}:
+              </span>
+              <span className="font-bold text-slate-900 dark:text-slate-100 tabular-nums">{entry.value}</span>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -32,31 +65,39 @@ function CustomTooltip({ active, payload, label }) {
 function timeAgo(timestamp) {
   if (!timestamp) return '';
   const utcDate = new Date(timestamp);
-  if (isNaN(utcDate.getTime())) return 'Invalid Date';
+  if (isNaN(utcDate.getTime())) return 'Recently';
   
   const diff = Math.floor((Date.now() - utcDate.getTime()) / 1000);
-  if (diff < 60) return `Just now`;
+  if (diff < 60) return 'Just now';
   if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
   if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
   return utcDate.toLocaleDateString();
 }
 
-function StatCard({ title, value, subtitle, trendClass = "" }) {
+function StatCard({ title, value, subtitle, trendClass = '', icon: Icon, badge }) {
   return (
-    <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-5 shadow-sm">
-      <div className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</div>
-      <div className={`mt-2 text-3xl font-bold text-gray-900 dark:text-white ${trendClass}`}>
+    <div className="bg-white dark:bg-[#111827] rounded-xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-xs hover:shadow-md transition-all">
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{title}</span>
+        {badge && (
+          <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${badge.className}`}>
+            {badge.text}
+          </span>
+        )}
+        {Icon && !badge && <Icon className="w-4 h-4 text-slate-400" />}
+      </div>
+      <div className={`mt-2.5 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white tabular-nums ${trendClass}`}>
         {value}
       </div>
-      {subtitle && <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">{subtitle}</div>}
+      {subtitle && <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 truncate">{subtitle}</p>}
     </div>
   );
 }
 
 function Dashboard() {
+  const { isDark } = useTheme();
   const [text, setText] = useState('');
   const [reviews, setReviews] = useState([]);
-  const [stats, setStats] = useState([]);
   const [trends, setTrends] = useState([]);
   const [previousStats, setPreviousStats] = useState(null);
   const [timeRange, setTimeRange] = useState('30');
@@ -65,6 +106,9 @@ function Dashboard() {
   const [alertToast, setAlertToast] = useState(null);
   const [summary, setSummary] = useState('');
   const [summaryLoading, setSummaryLoading] = useState(false);
+
+  const gridStroke = isDark ? '#1e293b' : '#e2e8f0';
+  const axisStroke = isDark ? '#64748b' : '#94a3b8';
 
   const handleGenerateSummary = async () => {
     setSummaryLoading(true);
@@ -76,7 +120,7 @@ function Dashboard() {
         setSummary(res.data.summary);
       }
     } catch (err) {
-      setSummary('Failed to generate summary. Please try again.');
+      setSummary('Failed to generate summary. Please ensure reviews exist and your Groq API key is configured.');
     } finally {
       setSummaryLoading(false);
     }
@@ -84,17 +128,29 @@ function Dashboard() {
 
   const fetchData = async () => {
     try {
-      const [reviewsRes, statsRes, trendsRes] = await Promise.all([
-        api.getReviews({ limit: 10 }),
-        api.getStats(),
-        api.getAnalyticsTrends(timeRange).catch(e => ({ data: { trends: [], previousStats: null } }))
+      const [reviewsRes, trendsRes] = await Promise.all([
+        api.getReviews({ limit: 8 }),
+        api.getAnalyticsTrends(timeRange).catch(() => ({ data: { trends: [], previousStats: null } }))
       ]);
+
       setReviews(reviewsRes.data.data || []);
-      setStats(statsRes.data || []);
-      setTrends(trendsRes.data?.trends || []);
+
+      // Critical numeric cast: convert MySQL string sums to clean JavaScript numbers
+      const rawTrends = trendsRes.data?.trends || [];
+      const cleanTrends = rawTrends.map(t => ({
+        ...t,
+        positive: Number(t.positive || 0),
+        negative: Number(t.negative || 0),
+        neutral: Number(t.neutral || 0),
+        critical: Number(t.critical || 0),
+        high: Number(t.high || 0),
+        total: Number(t.total || 0)
+      }));
+
+      setTrends(cleanTrends);
       setPreviousStats(trendsRes.data?.previousStats || null);
     } catch (err) {
-      console.error(err);
+      console.error('Failed to load dashboard data:', err);
     }
   };
 
@@ -107,16 +163,15 @@ function Dashboard() {
     if (!text.trim()) return;
     setLoading(true);
     try {
-      const res = await api.submitReview(text);
+      const res = await api.submitReview(text.trim());
       setText('');
       fetchData();
-      if (res.data.alert_sent) {
-        setAlertToast("Critical negative feedback detected. Alert email dispatched!");
+      if (res.data.alertSent) {
+        setAlertToast("Critical negative feedback detected. Alert notification dispatched!");
         setTimeout(() => setAlertToast(null), 5000);
       }
     } catch (err) {
-      console.error(err);
-      const msg = err.response?.data?.error?.message || err.message || "Unknown error";
+      const msg = err.response?.data?.error || err.response?.data?.message || err.message || "Failed to submit review.";
       alert(`Error submitting feedback: ${msg}`);
     } finally {
       setLoading(false);
@@ -129,242 +184,296 @@ function Dashboard() {
     const formData = new FormData();
     formData.append('file', file);
     try {
-      await api.uploadCsv(formData);
+      const res = await api.uploadCsv(formData);
       setFile(null);
-      document.querySelector('input[type="file"]').value = '';
+      const fileInput = document.querySelector('input[type="file"]');
+      if (fileInput) fileInput.value = '';
       fetchData();
+      alert(`Success: Processed ${res.data.processed} reviews from CSV.`);
     } catch (err) {
-      console.error(err);
-      const msg = err.response?.data?.error?.message || err.message || "Unknown error";
-      alert(`Error uploading CSV: ${msg}`);
+      const msg = err.response?.data?.error || err.response?.data?.message || err.message || "Failed to upload CSV.";
+      alert(`CSV Upload Error: ${msg}`);
     } finally {
       setLoading(false);
     }
   };
 
-  // Basic stats logic
-  // For the stat cards, we use the period trends so they reflect the selected time range.
-  // If we wanted global stats, we'd use `stats` from api.getStats(), but dynamic cards are better.
-  const periodTotal = trends.reduce((acc, curr) => acc + curr.total, 0);
-  const periodPositive = trends.reduce((acc, curr) => acc + curr.positive, 0);
-  const periodNegative = trends.reduce((acc, curr) => acc + Number(curr.negative), 0); // Handle string sums if MySQL returned strings
-  const periodNeutral = trends.reduce((acc, curr) => acc + Number(curr.neutral), 0);
-  const periodCritical = trends.reduce((acc, curr) => acc + Number(curr.critical || 0), 0);
-  const periodHigh = trends.reduce((acc, curr) => acc + Number(curr.high || 0), 0);
-  
-  // Need to parse string sum from SQL just in case
-  const pTotal = parseInt(periodTotal, 10) || 0;
-  const pPos = parseInt(periodPositive, 10) || 0;
-  const pNeg = parseInt(periodNegative, 10) || 0;
-  const pNeu = parseInt(periodNeutral, 10) || 0;
-  const pCrit = parseInt(periodCritical, 10) || 0;
-  const pHigh = parseInt(periodHigh, 10) || 0;
+  // Safe numerical calculations (guaranteed numbers, preventing string concatenation)
+  const pTotal = trends.reduce((acc, curr) => acc + Number(curr.total || 0), 0);
+  const pPos = trends.reduce((acc, curr) => acc + Number(curr.positive || 0), 0);
+  const pNeg = trends.reduce((acc, curr) => acc + Number(curr.negative || 0), 0);
+  const pNeu = trends.reduce((acc, curr) => acc + Number(curr.neutral || 0), 0);
+  const pCrit = trends.reduce((acc, curr) => acc + Number(curr.critical || 0), 0);
+  const pHigh = trends.reduce((acc, curr) => acc + Number(curr.high || 0), 0);
 
-  const negativeRate = pTotal > 0 ? ((pNeg / pTotal) * 100).toFixed(1) : 0;
+  const negativeRate = pTotal > 0 ? ((pNeg / pTotal) * 100).toFixed(1) : '0.0';
   
-  let rateSubtitle = "Not enough data";
+  let rateSubtitle = "Insufficient data";
   if (pTotal > 0) {
     if (previousStats && previousStats.negativeRate !== undefined) {
-      const diff = negativeRate - previousStats.negativeRate;
+      const diff = parseFloat(negativeRate) - parseFloat(previousStats.negativeRate);
       if (Math.abs(diff) < 0.1) {
-        rateSubtitle = "No change vs previous period";
+        rateSubtitle = "No change vs prior period";
       } else if (diff > 0) {
-        rateSubtitle = `↑ ${Math.abs(diff).toFixed(1)}% vs previous period`;
+        rateSubtitle = `↑ +${Math.abs(diff).toFixed(1)}% vs prior period`;
       } else {
-        rateSubtitle = `↓ ${Math.abs(diff).toFixed(1)}% vs previous period`;
+        rateSubtitle = `↓ -${Math.abs(diff).toFixed(1)}% vs prior period`;
       }
     } else {
-      rateSubtitle = "Negative feedback %";
+      rateSubtitle = "Baseline rate for period";
     }
   }
 
-  // Sentiment Distribution Pie Chart (using the period trends data)
+  // Distribution chart data
   const chartData = [
     { name: 'Positive', value: pPos },
     { name: 'Neutral', value: pNeu },
     { name: 'Negative', value: pNeg },
   ].filter(d => d.value > 0);
 
-  // Format dates for the line charts
   const formatXAxis = (tickItem) => {
     const d = new Date(tickItem);
-    return `${d.getMonth() + 1}/${d.getDate()}`;
+    return isNaN(d.getTime()) ? tickItem : `${d.getMonth() + 1}/${d.getDate()}`;
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 pb-12">
+      
+      {/* Toast Alert */}
       {alertToast && (
-        <div className="fixed top-4 right-4 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-in slide-in-from-top-5 fade-in duration-300 font-medium">
-          {alertToast}
+        <div className="fixed top-20 right-6 z-50 flex items-center gap-3 bg-rose-600 text-white px-5 py-3 rounded-xl shadow-2xl animate-bounce">
+          <ShieldAlert className="w-5 h-5 flex-shrink-0" />
+          <span className="text-sm font-semibold">{alertToast}</span>
         </div>
       )}
 
-      {/* AI Executive Summary Card */}
-      <div className="bg-[#0f172a] dark:bg-[#0a0f1e] border border-indigo-500/20 rounded-xl p-6 shadow-lg relative overflow-hidden">
-        {/* Subtle glow accent */}
-        <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 to-purple-600 rounded-l-xl" />
-        <div className="pl-2">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">✦ AI Powered</span>
-              </div>
-              <h2 className="text-lg font-bold text-white tracking-tight">Executive Summary</h2>
-              <p className="text-sm text-gray-400 mt-0.5">A natural language overview of your latest customer feedback themes.</p>
-            </div>
-            <button
-              onClick={handleGenerateSummary}
-              disabled={summaryLoading || reviews.length === 0}
-              className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(99,102,241,0.25)] hover:shadow-[0_0_25px_rgba(99,102,241,0.45)]"
-            >
-              {summaryLoading ? (
-                <>
-                  <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                  </svg>
-                  Analyzing...
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                  Generate Insights
-                </>
-              )}
-            </button>
-          </div>
-
-          <div className="mt-5 min-h-[48px]">
-            {summaryLoading && (
-              <div className="space-y-2 animate-pulse">
-                <div className="h-4 bg-indigo-900/40 rounded-full w-full" />
-                <div className="h-4 bg-indigo-900/40 rounded-full w-5/6" />
-              </div>
-            )}
-            {!summaryLoading && summary && (
-              <p className="text-gray-200 text-sm leading-relaxed border-t border-indigo-500/20 pt-4">
-                {summary}
-              </p>
-            )}
-            {!summaryLoading && !summary && (
-              <p className="text-gray-500 text-sm italic">
-                Click "Generate Insights" to produce an AI summary of your most recent feedback.
-              </p>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Header and Time Range Filter */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      {/* Header & Period Filter */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Overview</h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Track and analyze customer feedback sentiment in real-time.</p>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+            Customer Intelligence Dashboard
+          </h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Real-time sentiment telemetry, topic detection, and AI executive synthesis.
+          </p>
         </div>
-        <select
-          value={timeRange}
-          onChange={(e) => setTimeRange(e.target.value)}
-          className="h-9 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-        >
-          <option value="7">Last 7 days</option>
-          <option value="30">Last 30 days</option>
-          <option value="90">Last 90 days</option>
-          <option value="all">All time</option>
-        </select>
+
+        <div className="flex items-center gap-2">
+          <label className="text-xs font-medium text-slate-500 dark:text-slate-400">Time Range:</label>
+          <select
+            value={timeRange}
+            onChange={(e) => setTimeRange(e.target.value)}
+            className="h-9 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors shadow-xs"
+          >
+            <option value="7">Last 7 days</option>
+            <option value="30">Last 30 days</option>
+            <option value="90">Last 90 days</option>
+            <option value="all">All time records</option>
+          </select>
+        </div>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-        <StatCard title="Total Feedback" value={pTotal} subtitle={timeRange === 'all' ? 'All time' : 'Selected period'} />
-        <StatCard title="Positive" value={pPos} subtitle={pTotal > 0 ? `${Math.round((pPos/pTotal)*100)}% of total` : ''} />
-        <StatCard title="Negative" value={pNeg} subtitle={pTotal > 0 ? `${Math.round((pNeg/pTotal)*100)}% of total` : ''} trendClass="text-rose-600 dark:text-rose-400" />
-        <StatCard title="Neutral" value={pNeu} subtitle={pTotal > 0 ? `${Math.round((pNeu/pTotal)*100)}% of total` : ''} />
+      {/* AI Executive Summary Card */}
+      <div className="relative overflow-hidden rounded-2xl border border-indigo-200/80 dark:border-indigo-900/50 bg-gradient-to-br from-indigo-50/50 via-white to-violet-50/30 dark:from-indigo-950/20 dark:via-[#111827] dark:to-slate-900 p-6 shadow-sm">
+        <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-indigo-600 via-indigo-500 to-violet-500" />
+        
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+                <Sparkles className="w-3 h-3" /> GenAI Synthesis
+              </span>
+            </div>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">Executive Summary</h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Automated high-level themes extracted by Groq Cloud across your recent customer feedback.
+            </p>
+          </div>
+
+          <button
+            onClick={handleGenerateSummary}
+            disabled={summaryLoading || reviews.length === 0}
+            className="flex-shrink-0 flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-xl shadow-sm hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            {summaryLoading ? (
+              <>
+                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                Synthesizing...
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-4 h-4" />
+                Generate Insights
+              </>
+            )}
+          </button>
+        </div>
+
+        <div className="mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-800">
+          {summaryLoading ? (
+            <div className="space-y-2 animate-pulse">
+              <div className="h-4 bg-indigo-200/50 dark:bg-indigo-900/40 rounded w-full" />
+              <div className="h-4 bg-indigo-200/50 dark:bg-indigo-900/40 rounded w-4/5" />
+            </div>
+          ) : summary ? (
+            <p className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed font-normal">
+              {summary}
+            </p>
+          ) : (
+            <p className="text-xs text-slate-400 dark:text-slate-500 italic">
+              Click &quot;Generate Insights&quot; above to synthesize an instant executive summary.
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* KPI Cards Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <StatCard 
+          title="Total Feedback" 
+          value={pTotal} 
+          subtitle={timeRange === 'all' ? 'All recorded data' : 'In selected window'} 
+          icon={FileText}
+        />
+        <StatCard 
+          title="Positive" 
+          value={pPos} 
+          subtitle={pTotal > 0 ? `${Math.round((pPos / pTotal) * 100)}% of volume` : '0%'} 
+          trendClass="text-emerald-600 dark:text-emerald-400"
+          icon={CheckCircle2}
+        />
+        <StatCard 
+          title="Negative" 
+          value={pNeg} 
+          subtitle={pTotal > 0 ? `${Math.round((pNeg / pTotal) * 100)}% of volume` : '0%'} 
+          trendClass="text-rose-600 dark:text-rose-400"
+          icon={AlertTriangle}
+        />
+        <StatCard 
+          title="Neutral" 
+          value={pNeu} 
+          subtitle={pTotal > 0 ? `${Math.round((pNeu / pTotal) * 100)}% of volume` : '0%'} 
+          trendClass="text-slate-600 dark:text-slate-400"
+          icon={Clock}
+        />
         <StatCard 
           title="Negative Rate" 
           value={pTotal > 0 ? `${negativeRate}%` : 'N/A'} 
           subtitle={rateSubtitle} 
-          trendClass={pTotal > 0 ? (parseFloat(negativeRate) < 15 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400') : ''}
+          trendClass={pTotal > 0 ? (parseFloat(negativeRate) < 20 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400') : ''}
+          icon={parseFloat(negativeRate) < 20 ? TrendingDown : TrendingUp}
         />
       </div>
 
-      {/* Priority Summary */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div className="bg-red-50 dark:bg-red-900/10 rounded-lg border border-red-200 dark:border-red-900/30 p-5 flex items-center justify-between shadow-sm">
+      {/* Priority Urgency Banners */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="rounded-xl border border-red-200 dark:border-red-950/60 bg-red-50/60 dark:bg-red-950/20 p-5 flex items-center justify-between shadow-xs">
           <div>
-            <h2 className="text-sm font-bold text-red-900 dark:text-red-400 uppercase tracking-wider">Critical Priority</h2>
-            <p className="text-xs text-red-700 dark:text-red-500/80 mt-1">Requires immediate attention</p>
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-red-900 dark:text-red-400">Critical Priority</h3>
+            </div>
+            <p className="text-xs text-red-700/80 dark:text-red-400/70 mt-1">
+              Urgent negative feedback requiring immediate triage
+            </p>
           </div>
-          <span className="text-3xl font-bold text-red-700 dark:text-red-400">{pCrit}</span>
+          <span className="text-3xl font-extrabold text-red-700 dark:text-red-400 tabular-nums">{pCrit}</span>
         </div>
-        <div className="bg-orange-50 dark:bg-orange-900/10 rounded-lg border border-orange-200 dark:border-orange-900/30 p-5 flex items-center justify-between shadow-sm">
+
+        <div className="rounded-xl border border-amber-200 dark:border-amber-950/60 bg-amber-50/60 dark:bg-amber-950/20 p-5 flex items-center justify-between shadow-xs">
           <div>
-            <h2 className="text-sm font-bold text-orange-900 dark:text-orange-400 uppercase tracking-wider">High Priority</h2>
-            <p className="text-xs text-orange-700 dark:text-orange-500/80 mt-1">Should be reviewed soon</p>
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-400">High Priority</h3>
+            </div>
+            <p className="text-xs text-amber-700/80 dark:text-amber-400/70 mt-1">
+              Secondary issues recommended for review this sprint
+            </p>
           </div>
-          <span className="text-3xl font-bold text-orange-700 dark:text-orange-400">{pHigh}</span>
+          <span className="text-3xl font-extrabold text-amber-700 dark:text-amber-400 tabular-nums">{pHigh}</span>
         </div>
       </div>
 
       {/* Analytics Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Sentiment Trends */}
-        <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-5 shadow-sm flex flex-col">
-          <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-4 uppercase tracking-wider">Sentiment Trends</h2>
+        
+        {/* Sentiment Trends Line Chart */}
+        <div className="bg-white dark:bg-[#111827] rounded-xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-xs flex flex-col">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
+              Sentiment Trajectory
+            </h3>
+            <span className="text-xs text-slate-400">Daily Polarity</span>
+          </div>
+
           {trends.length < 2 ? (
-            <div className="flex-1 flex items-center justify-center min-h-[240px] text-sm text-gray-500 dark:text-gray-400">
-              Not enough feedback data to show a trend yet.
+            <div className="flex-1 flex flex-col items-center justify-center min-h-[240px] text-xs text-slate-400">
+              <Activity className="w-8 h-8 text-slate-300 dark:text-slate-700 mb-2" />
+              Insufficient data points for trend chart. Add feedback across multiple days to visualize trends.
             </div>
           ) : (
             <div className="w-full h-[240px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={trends} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#374151" opacity={0.2} />
-                  <XAxis dataKey="date" tickFormatter={formatXAxis} stroke="#6b7280" fontSize={12} tickMargin={10} minTickGap={20} />
-                  <YAxis stroke="#6b7280" fontSize={12} allowDecimals={false} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridStroke} />
+                  <XAxis dataKey="date" tickFormatter={formatXAxis} stroke={axisStroke} fontSize={11} tickMargin={8} minTickGap={20} />
+                  <YAxis stroke={axisStroke} fontSize={11} allowDecimals={false} />
                   <Tooltip content={<CustomTooltip />} />
-                  <Legend verticalAlign="bottom" height={24} iconType="circle" wrapperStyle={{ fontSize: '12px' }}/>
-                  <Line type="monotone" dataKey="positive" name="Positive" stroke={SENTIMENT_COLORS.Positive} strokeWidth={2} dot={{ r: 3, strokeWidth: 0 }} activeDot={{ r: 5 }} />
-                  <Line type="monotone" dataKey="negative" name="Negative" stroke={SENTIMENT_COLORS.Negative} strokeWidth={2} dot={{ r: 3, strokeWidth: 0 }} activeDot={{ r: 5 }} />
-                  <Line type="monotone" dataKey="neutral" name="Neutral" stroke={SENTIMENT_COLORS.Neutral} strokeWidth={2} dot={{ r: 3, strokeWidth: 0 }} activeDot={{ r: 5 }} />
+                  <Legend verticalAlign="bottom" height={24} iconType="circle" wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }}/>
+                  <Line type="monotone" dataKey="positive" name="Positive" stroke={SENTIMENT_COLORS.Positive} strokeWidth={2.5} dot={{ r: 3, strokeWidth: 0 }} activeDot={{ r: 5 }} />
+                  <Line type="monotone" dataKey="negative" name="Negative" stroke={SENTIMENT_COLORS.Negative} strokeWidth={2.5} dot={{ r: 3, strokeWidth: 0 }} activeDot={{ r: 5 }} />
+                  <Line type="monotone" dataKey="neutral" name="Neutral" stroke={SENTIMENT_COLORS.Neutral} strokeWidth={2} dot={{ r: 2, strokeWidth: 0 }} activeDot={{ r: 4 }} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
           )}
         </div>
 
-        {/* Feedback Volume */}
-        <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-5 shadow-sm flex flex-col">
-          <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-4 uppercase tracking-wider">Feedback Volume</h2>
+        {/* Feedback Volume Bar Chart */}
+        <div className="bg-white dark:bg-[#111827] rounded-xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-xs flex flex-col">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
+              Feedback Volume
+            </h3>
+            <span className="text-xs text-slate-400">Total Entries / Day</span>
+          </div>
+
           {trends.length < 2 ? (
-            <div className="flex-1 flex items-center justify-center min-h-[240px] text-sm text-gray-500 dark:text-gray-400">
-              Not enough feedback data to show volume trends.
+            <div className="flex-1 flex flex-col items-center justify-center min-h-[240px] text-xs text-slate-400">
+              <FileText className="w-8 h-8 text-slate-300 dark:text-slate-700 mb-2" />
+              Not enough daily activity to render volume distribution.
             </div>
           ) : (
             <div className="w-full h-[240px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={trends} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#374151" opacity={0.2} />
-                  <XAxis dataKey="date" tickFormatter={formatXAxis} stroke="#6b7280" fontSize={12} tickMargin={10} minTickGap={20} />
-                  <YAxis stroke="#6b7280" fontSize={12} allowDecimals={false} />
-                  <Tooltip content={<CustomTooltip />} cursor={{ fill: '#374151', opacity: 0.1 }} />
-                  <Bar dataKey="total" name="Total Feedback" fill="#6366f1" radius={[4, 4, 0, 0]} activeBar={<Rectangle fill="#4f46e5" stroke="rgba(255,255,255,0.2)" strokeWidth={1} />} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridStroke} />
+                  <XAxis dataKey="date" tickFormatter={formatXAxis} stroke={axisStroke} fontSize={11} tickMargin={8} minTickGap={20} />
+                  <YAxis stroke={axisStroke} fontSize={11} allowDecimals={false} />
+                  <Tooltip content={<CustomTooltip />} cursor={{ fill: isDark ? '#1e293b' : '#f1f5f9', opacity: 0.6 }} />
+                  <Bar dataKey="total" name="Total Feedback" fill="#6366f1" radius={[4, 4, 0, 0]} activeBar={<Rectangle fill="#4f46e5" />} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           )}
         </div>
+
       </div>
 
-      {/* Main content grid */}
+      {/* Bottom Main Grid: Ingestion & Recent Stream */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        {/* Left Column: Pie Chart & Add form */}
+        {/* Left Column: Sentiment Distribution & Input */}
         <div className="flex flex-col gap-6">
-          <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-5 shadow-sm h-[280px] flex flex-col">
-            <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 uppercase tracking-wider">Sentiment Distribution</h2>
+          
+          {/* Sentiment Distribution Pie */}
+          <div className="bg-white dark:bg-[#111827] rounded-xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-xs h-[280px] flex flex-col">
+            <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-2">
+              Sentiment Distribution
+            </h3>
             {pTotal === 0 ? (
-              <div className="flex-1 flex items-center justify-center text-sm text-gray-500 dark:text-gray-400">
-                No data available.
+              <div className="flex-1 flex items-center justify-center text-xs text-slate-400">
+                No feedback data recorded.
               </div>
             ) : (
               <div className="flex-1 min-h-0">
@@ -374,7 +483,7 @@ function Dashboard() {
                       data={chartData}
                       innerRadius={55}
                       outerRadius={75}
-                      paddingAngle={2}
+                      paddingAngle={3}
                       dataKey="value"
                       stroke="none"
                     >
@@ -383,113 +492,166 @@ function Dashboard() {
                       ))}
                     </Pie>
                     <Tooltip 
-                      contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '6px', color: '#fff', fontSize: '13px', padding: '4px 8px' }}
-                      itemStyle={{ color: '#fff' }}
+                      contentStyle={{ 
+                        backgroundColor: isDark ? '#0f172a' : '#ffffff', 
+                        border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`, 
+                        borderRadius: '10px', 
+                        color: isDark ? '#fff' : '#0f172a', 
+                        fontSize: '12px' 
+                      }} 
                     />
-                    <Legend verticalAlign="bottom" height={24} iconType="circle" wrapperStyle={{ fontSize: '12px' }}/>
+                    <Legend verticalAlign="bottom" height={24} iconType="circle" wrapperStyle={{ fontSize: '11px' }}/>
                   </PieChart>
                 </ResponsiveContainer>
               </div>
             )}
           </div>
 
-          {/* Add Data */}
-          <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 p-5 shadow-sm">
-            <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 uppercase tracking-wider">Add Feedback</h2>
+          {/* Ingest Feedback Card */}
+          <div className="bg-white dark:bg-[#111827] rounded-xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-xs">
+            <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-3">
+              Ingest Feedback
+            </h3>
+
             <form onSubmit={handleSubmit} className="space-y-3">
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                placeholder="Paste customer review here..."
-                className="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 p-2 text-sm h-20 resize-y transition-colors"
+                placeholder="Paste customer comment, review, or ticket note..."
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 text-xs h-24 resize-y transition-colors"
+                maxLength={5000}
               />
-              <div className="flex flex-col space-y-2">
+              
+              <div className="flex flex-col gap-2">
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 py-1.5 px-4 rounded-md hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors disabled:opacity-50 text-sm font-medium"
+                  disabled={loading || !text.trim()}
+                  className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white py-2 px-4 rounded-lg transition-colors text-xs font-semibold shadow-xs"
                 >
-                  {loading ? 'Analyzing...' : 'Analyze Text'}
+                  <Send className="w-3.5 h-3.5" />
+                  {loading ? 'Analyzing with ML...' : 'Analyze Single Feedback'}
                 </button>
-                <div className="flex items-center gap-2 pt-2 border-t border-gray-100 dark:border-gray-800">
-                  <input
-                    type="file"
-                    accept=".csv"
-                    onChange={(e) => setFile(e.target.files[0])}
-                    className="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-medium file:bg-gray-100 file:text-gray-700 dark:file:bg-gray-800 dark:file:text-gray-300 hover:file:bg-gray-200 dark:hover:file:bg-gray-700 transition-colors cursor-pointer"
-                  />
-                  <button
-                    type="button"
-                    disabled={!file || loading}
-                    onClick={handleBulkUpload}
-                    className="px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/50 rounded-md hover:bg-indigo-100 dark:hover:bg-indigo-900/50 disabled:opacity-50 text-sm font-medium transition-colors whitespace-nowrap"
-                  >
-                    Upload CSV
-                  </button>
+
+                <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
+                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block mb-1.5 uppercase tracking-wider">
+                    Bulk CSV Upload
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="file"
+                      accept=".csv"
+                      onChange={(e) => setFile(e.target.files[0])}
+                      className="block w-full text-xs text-slate-500 dark:text-slate-400 file:mr-2 file:py-1 file:px-2.5 file:rounded-md file:border-0 file:text-xs file:font-medium file:bg-slate-100 file:text-slate-700 dark:file:bg-slate-800 dark:file:text-slate-300 hover:file:bg-slate-200 dark:hover:file:bg-slate-700 cursor-pointer"
+                    />
+                    <button
+                      type="button"
+                      disabled={!file || loading}
+                      onClick={handleBulkUpload}
+                      className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-800 dark:text-slate-200 rounded-lg text-xs font-semibold disabled:opacity-40 transition-colors whitespace-nowrap flex items-center gap-1.5"
+                    >
+                      <UploadCloud className="w-3.5 h-3.5" />
+                      Upload
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-slate-400 mt-1">Supports up to 200 rows per batch (.csv)</p>
                 </div>
               </div>
             </form>
           </div>
+
         </div>
 
-        {/* Right Column: Recent Activity */}
+        {/* Right Column: Recent Activity Feed */}
         <div className="lg:col-span-2 flex flex-col">
-          <div className="bg-white dark:bg-[#111827] rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col w-full h-[544px]">
-            <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-[#111827] flex-shrink-0">
-              <h2 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Recent Activity</h2>
-              <Link to="/reviews" className="text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
-                View all &rarr;
+          <div className="bg-white dark:bg-[#111827] rounded-xl border border-slate-200/80 dark:border-slate-800 shadow-xs overflow-hidden flex flex-col w-full h-[544px]">
+            <div className="p-4 px-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-900/40 flex-shrink-0">
+              <div>
+                <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
+                  Recent Intelligence Stream
+                </h3>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Live classified customer reviews</p>
+              </div>
+              <Link 
+                to="/reviews" 
+                className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+              >
+                View Full Stream <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-            
-            <div className="flex-1 overflow-y-auto p-0 min-h-0">
+
+            <div className="flex-1 overflow-y-auto p-0 min-h-0 divide-y divide-slate-100 dark:divide-slate-800/80">
               {reviews.length === 0 ? (
-                <div className="p-8 text-center text-sm text-gray-500 dark:text-gray-400">
-                  No feedback collected yet. Submit some feedback to see it here.
+                <div className="p-12 text-center text-xs text-slate-400">
+                  No feedback items recorded yet. Submit a review above to see the ML telemetry in action.
                 </div>
               ) : (
-                <div className="divide-y divide-gray-100 dark:divide-gray-800">
-                  {reviews.map(r => (
-                    <div key={r.id} className="p-5 hover:bg-gray-50/50 dark:hover:bg-gray-800/20 transition-colors group">
-                      <div className="flex justify-between items-start gap-4">
-                        <div className="flex-1 min-w-0">
-                          <p className="text-gray-900 dark:text-gray-100 text-sm leading-relaxed">{r.review_text}</p>
-                          <div className="flex flex-wrap items-center gap-2 mt-3">
-                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
-                              r.sentiment === 'Positive' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-400 dark:border-emerald-800/30' :
-                              r.sentiment === 'Negative' ? 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-900/20 dark:text-rose-400 dark:border-rose-800/30' :
-                              'bg-slate-50 text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
-                            }`}>
-                              {r.sentiment}
-                            </span>
-                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
-                              {r.aspect}
-                            </span>
-                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-900/20 dark:text-indigo-400 dark:border-indigo-800/30">
-                              {(r.confidence * 100).toFixed(0)}% Conf.
-                            </span>
-                            {!!r.alert_sent && (
-                              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800 border border-red-200 dark:bg-red-900/40 dark:text-red-400 dark:border-red-800/50">
-                                Alerted
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <div className="flex flex-col items-end gap-2 flex-shrink-0">
-                          <span className="text-xs text-gray-400 dark:text-gray-500 tabular-nums">
-                            {timeAgo(r.timestamp)}
+                reviews.map(r => (
+                  <div key={r.id} className="p-4 px-6 hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors">
+                    <div className="flex justify-between items-start gap-4">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-slate-800 dark:text-slate-200 text-xs sm:text-sm leading-relaxed">
+                          {r.review_text}
+                        </p>
+                        
+                        <div className="flex flex-wrap items-center gap-2 mt-2.5">
+                          {/* Sentiment Tag */}
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold border ${
+                            r.sentiment === 'Positive' 
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/40' 
+                              : r.sentiment === 'Negative' 
+                              ? 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800/40' 
+                              : 'bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
+                          }`}>
+                            {r.sentiment}
                           </span>
+
+                          {/* Aspect Category */}
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                            {r.aspect || 'General'}
+                          </span>
+
+                          {/* Priority Score */}
+                          {r.priority_score > 0 && (
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold border ${
+                              r.priority_score >= 80 
+                                ? 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/50 dark:text-red-300 dark:border-red-800'
+                                : r.priority_score >= 60 
+                                ? 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800'
+                                : 'bg-slate-50 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700'
+                            }`}>
+                              Priority: {r.priority_score}
+                            </span>
+                          )}
+
+                          {/* Confidence */}
+                          <span className="text-[11px] text-slate-400 tabular-nums">
+                            {(Number(r.confidence || 0) * 100).toFixed(0)}% Conf.
+                          </span>
+
+                          {/* Alerted indicator */}
+                          {!!r.alert_sent && (
+                            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase bg-red-100 text-red-700 dark:bg-red-900/60 dark:text-red-300">
+                              Alert Dispatched
+                            </span>
+                          )}
                         </div>
                       </div>
+
+                      <div className="text-right flex-shrink-0">
+                        <span className="text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">
+                          {timeAgo(r.timestamp)}
+                        </span>
+                      </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))
               )}
             </div>
           </div>
         </div>
 
       </div>
+
     </div>
   );
 }

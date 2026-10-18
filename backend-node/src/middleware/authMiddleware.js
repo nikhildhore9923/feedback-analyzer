@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET || 'pulse_super_secret_key_2026';
+const { getJwtSecret } = require('../config/jwtConfig');
 
 function authMiddleware(req, res, next) {
     // 1. Skip auth for login, signup, and cron routes
@@ -13,7 +13,8 @@ function authMiddleware(req, res, next) {
     if (authHeader && authHeader.startsWith('Bearer ')) {
         const token = authHeader.split(' ')[1];
         try {
-            const decoded = jwt.verify(token, JWT_SECRET);
+            const secret = getJwtSecret();
+            const decoded = jwt.verify(token, secret);
             
             // Attach tenantId directly to the request for all downstream queries
             req.tenantId = decoded.tenantId; 
@@ -21,12 +22,20 @@ function authMiddleware(req, res, next) {
             
             return next();
         } catch (error) {
-            return res.status(401).json({ success: false, message: 'Invalid or expired token' });
+            return res.status(401).json({ 
+                success: false, 
+                message: 'Invalid or expired token. Please log in again.',
+                error: 'Invalid or expired token. Please log in again.' 
+            });
         }
     }
 
     // 3. Deny access if no valid token
-    return res.status(401).json({ success: false, message: 'Authentication required' });
+    return res.status(401).json({ 
+        success: false, 
+        message: 'Authentication required. No bearer token provided.',
+        error: 'Authentication required. No bearer token provided.' 
+    });
 }
 
 module.exports = authMiddleware;

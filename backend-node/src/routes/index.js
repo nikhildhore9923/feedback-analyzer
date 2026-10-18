@@ -9,14 +9,62 @@ const settingsController = require('../controllers/settingsController');
 const analyticsController = require('../controllers/analyticsController');
 const authController = require('../controllers/authController');
 
+// Rate Limiters
+const {
+    authLimiter,
+    reviewSubmitLimiter,
+    bulkUploadLimiter,
+    summaryLimiter
+} = require('../middleware/rateLimiter');
+
+// Input Validators
+const {
+    validateSignup,
+    validateLogin,
+    validateReviewSubmission,
+    validateStatusUpdate,
+    validateSummaryRequest,
+    validateSettingsUpdate
+} = require('../middleware/validate');
+
 // Vercel Serverless environments are read-only except for the /tmp directory.
-const upload = multer({ dest: '/tmp/' });
+// Configured with 5MB max file size and CSV extension validation.
+const upload = multer({
+    dest: '/tmp/',
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB max
+    fileFilter: (req, file, cb) => {
+        const ext = (file.originalname || '').toLowerCase();
+        if (
+            ext.endsWith('.csv') ||
+            file.mimetype === 'text/csv' ||
+            file.mimetype === 'application/vnd.ms-excel' ||
+            file.mimetype === 'text/plain'
+        ) {
+            cb(null, true);
+        } else {
+            cb(new Error('Invalid file format. Only CSV files (.csv) are supported.'));
+        }
+    }
+});
 
-// Auth
-router.post('/signup', authController.signup);
-router.post('/login', authController.login);
+// Multer error handling wrapper for safe, friendly JSON error responses
+const handleUpload = (req, res, next) => {
+    upload.single('file')(req, res, (err) => {
+        if (err) {
+            if (err.code === 'LIMIT_FILE_SIZE') {
+                return res.status(400).json({ error: 'File size exceeds the maximum limit of 5 MB.' });
+            }
+            return res.status(400).json({ error: err.message || 'File upload failed.' });
+        }
+        next();
+    });
+};
 
-// Public Health Check (For UptimeRobot to keep Aiven DB alive)
+// 1. Auth Routes (Rate Limited & Validated)
+router.post('/signup', authLimiter, validateSignup, authController.signup);
+router.post('/login', authLimiter, validateLogin, authController.login);
+
+// 2. Public Health Check (For UptimeRobot to keep Aiven DB alive)
 const db = require('../db/connection');
 router.get('/health', async (req, res) => {
     try {
@@ -27,7 +75,7 @@ router.get('/health', async (req, res) => {
     }
 });
 
-// Cron (Vercel serverless trigger)
+// 3. Cron (Vercel serverless trigger)
 const { runDailyEvaluation } = require('../cronJobs');
 router.get('/cron/daily-alerts', async (req, res, next) => {
     try {
@@ -41,26 +89,26 @@ router.get('/cron/daily-alerts', async (req, res, next) => {
     }
 });
 
-// Analytics
+// 4. Analytics
 router.get('/analytics/trends', analyticsController.getSentimentTrends);
-router.post('/analytics/summary', analyticsController.generateSummary);
+router.post('/analytics/summary', summaryLimiter, validateSummaryRequest, analyticsController.generateSummary);
 
-// Reviews
-router.post('/reviews', feedbackController.submitReview);
+// 5. Reviews
+router.post('/reviews', reviewSubmitLimiter, validateReviewSubmission, feedbackController.submitReview);
 router.get('/reviews', feedbackController.getReviews);
-router.patch('/reviews/:id/status', feedbackController.updateStatus);
+router.patch('/reviews/:id/status', validateStatusUpdate, feedbackController.updateStatus);
 router.delete('/reviews/:id', feedbackController.deleteReview);
-router.post('/reviews/bulk', upload.single('file'), feedbackController.bulkUpload);
+router.post('/reviews/bulk', bulkUploadLimiter, handleUpload, feedbackController.bulkUpload);
 
-// Stats
+// 6. Stats
 router.get('/stats', statsController.getStats);
 
-// Batches
+// 7. Batches
 router.get('/batches', batchController.getBatches);
 
-// Settings
+// 8. Settings
 router.get('/settings', settingsController.getSettings);
-router.post('/settings', settingsController.updateSettings);
+router.post('/settings', validateSettingsUpdate, settingsController.updateSettings);
 router.delete('/settings/clear', settingsController.clearTenantData);
 
 module.exports = router;
