@@ -340,7 +340,8 @@ export default function Reviews() {
               {/* Table Header */}
               <thead>
                 <tr className="border-b border-slate-200/80 dark:border-slate-800 bg-slate-50/75 dark:bg-slate-900/60 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider text-[10px]">
-                  <th className="py-3.5 px-4 sm:px-6">Record / Origin</th>
+                  <th className="py-3.5 px-4 sm:px-6 w-14 text-center">#</th>
+                  <th className="py-3.5 px-4">Tracking Ref / Origin</th>
                   <th className="py-3.5 px-4">Feedback Content</th>
                   <th className="py-3.5 px-4">ML Diagnostics</th>
                   <th className="py-3.5 px-4">Priority Score</th>
@@ -351,7 +352,8 @@ export default function Reviews() {
 
               {/* Table Rows */}
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80">
-                {reviews.map((r) => {
+                {reviews.map((r, index) => {
+                  const rowNumber = (meta.page - 1) * meta.limit + index + 1;
                   const isPos = r.sentiment === 'Positive';
                   const isNeg = r.sentiment === 'Negative';
                   const priorityClass = r.priority_score >= 80 
@@ -365,12 +367,21 @@ export default function Reviews() {
                       key={r.id} 
                       className="hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors group"
                     >
-                      {/* ID & Origin */}
-                      <td className="py-4 px-4 sm:px-6 align-top whitespace-nowrap">
-                        <span className="font-mono font-bold text-slate-800 dark:text-slate-200">
-                          #{r.id}
+                      {/* Sequential Row Number */}
+                      <td className="py-4 px-4 sm:px-6 align-top text-center whitespace-nowrap">
+                        <span className="inline-flex items-center justify-center w-7 h-7 rounded-xl bg-slate-100 dark:bg-slate-800 text-[11px] font-bold font-mono text-slate-700 dark:text-slate-300">
+                          {rowNumber}
                         </span>
-                        <div className="flex items-center gap-1.5 mt-1 text-[11px] text-slate-400">
+                      </td>
+
+                      {/* ID & Origin */}
+                      <td className="py-4 px-4 align-top whitespace-nowrap">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono font-bold text-xs px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-800/60">
+                            REF #{r.id}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5 mt-1.5 text-[11px] text-slate-400">
                           <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-medium text-[10px]">
                             {r.batch_type || 'Manual'}
                           </span>

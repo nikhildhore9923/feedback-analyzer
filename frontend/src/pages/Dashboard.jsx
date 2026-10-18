@@ -632,6 +632,10 @@ export default function Dashboard() {
                           {r.aspect || 'General'}
                         </span>
 
+                        <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200/80 dark:border-slate-700/80">
+                          REF #{r.id}
+                        </span>
+
                         {r.priority_score >= 80 && (
                           <span className="text-[10px] font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/80 px-2 py-0.5 rounded-md border border-red-200 dark:border-red-900/60">
                             Critical ({r.priority_score})
