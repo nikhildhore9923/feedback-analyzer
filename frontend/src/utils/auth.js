@@ -37,4 +37,5 @@ export function isTokenValid(token) {
 export function clearAuth() {
   localStorage.removeItem('pulse_jwt_token');
   localStorage.removeItem('pulse_tenant_id');
+  localStorage.removeItem('pulse_user_email');
 }

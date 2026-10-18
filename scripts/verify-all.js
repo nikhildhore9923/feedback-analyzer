@@ -146,6 +146,54 @@ async function runTests() {
     assert('Express routes index module', false, err.message);
   }
 
+  // 8. Verify Demo Mode Protection Contracts
+  try {
+    const settingsController = require('../backend-node/src/controllers/settingsController');
+    const feedbackController = require('../backend-node/src/controllers/feedbackController');
+
+    // 8a. Demo workspace reset blocked
+    let clearStatus = null;
+    let clearJson = null;
+    await settingsController.clearTenantData(
+      { tenantId: 'demo-tenant-123', user: { email: 'admin@pulse.com' } },
+      { status: (s) => ({ json: (j) => { clearStatus = s; clearJson = j; } }) },
+      () => {}
+    );
+    assert('clearTenantData blocks demo workspace reset with 403', clearStatus === 403 && clearJson?.error);
+
+    // 8b. Demo settings modification blocked
+    let settingsStatus = null;
+    let settingsJson = null;
+    await settingsController.updateSettings(
+      { tenantId: 'demo-tenant-123', user: { email: 'admin@pulse.com' }, body: { alertThreshold: -0.8 } },
+      { status: (s) => ({ json: (j) => { settingsStatus = s; settingsJson = j; } }) },
+      () => {}
+    );
+    assert('updateSettings blocks demo settings modification with 403', settingsStatus === 403 && settingsJson?.error);
+
+    // 8c. Demo review deletion blocked
+    let deleteStatus = null;
+    let deleteJson = null;
+    await feedbackController.deleteReview(
+      { params: { id: '316' }, tenantId: 'demo-tenant-123', user: { email: 'admin@pulse.com' } },
+      { status: (s) => ({ json: (j) => { deleteStatus = s; deleteJson = j; } }) },
+      () => {}
+    );
+    assert('deleteReview blocks demo review deletion with 403', deleteStatus === 403 && deleteJson?.error);
+
+    // 8d. Regular non-demo user is NOT blocked by demo restrictions
+    let regularClearBlocked = false;
+    await settingsController.clearTenantData(
+      { tenantId: 'real-corp-uuid-456', user: { email: 'lead@enterprise.com' } },
+      { status: (s) => { if (s === 403) regularClearBlocked = true; return { json: () => {} }; } },
+      () => {}
+    );
+    assert('Regular non-demo user is permitted (not blocked with 403)', !regularClearBlocked);
+
+  } catch (err) {
+    assert('Demo protection contract tests', false, err.message);
+  }
+
   console.log('\n----------------------------------------------------');
   console.log(`Results: ${passed} passed, ${failed} failed`);
   console.log('====================================================\n');

@@ -23,10 +23,15 @@ function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const token = localStorage.getItem('pulse_jwt_token');
+  const userEmail = localStorage.getItem('pulse_user_email') || 'admin@pulse.com';
+  const tenantId = localStorage.getItem('pulse_tenant_id') || 'demo-tenant-123';
+  const isDemo = tenantId === 'demo-tenant-123' || tenantId === 'tenant_123' || userEmail === 'admin@pulse.com';
+  const initials = userEmail.slice(0, 2).toUpperCase();
 
   const handleLogout = () => {
     localStorage.removeItem('pulse_jwt_token');
     localStorage.removeItem('pulse_tenant_id');
+    localStorage.removeItem('pulse_user_email');
     navigate('/login');
   };
 
@@ -113,13 +118,18 @@ function Nav() {
             {token ? (
               <div className="flex items-center gap-2.5 pl-1">
                 {/* User Avatar Badge */}
-                <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800">
                   <div className="w-6 h-6 rounded-lg bg-indigo-600 text-white text-[11px] font-bold flex items-center justify-center">
-                    AD
+                    {initials}
                   </div>
-                  <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 max-w-[120px] truncate">
-                    admin@pulse.com
+                  <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 max-w-[120px] truncate" title={userEmail}>
+                    {userEmail}
                   </span>
+                  {isDemo && (
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 border border-amber-200/70 dark:border-amber-800/60">
+                      Demo
+                    </span>
+                  )}
                 </div>
 
                 {/* Sign Out Button */}

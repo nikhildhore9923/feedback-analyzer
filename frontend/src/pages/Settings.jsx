@@ -58,6 +58,8 @@ export default function Settings() {
   const [clearedToast, setClearedToast] = useState(false);
 
   const tenantId = localStorage.getItem('pulse_tenant_id') || 'demo-tenant-123';
+  const userEmail = localStorage.getItem('pulse_user_email') || 'admin@pulse.com';
+  const isDemo = tenantId === 'demo-tenant-123' || tenantId === 'tenant_123' || userEmail === 'admin@pulse.com';
 
   useEffect(() => {
     api.getSettings().then((res) => {
@@ -69,6 +71,10 @@ export default function Settings() {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    if (isDemo) {
+      alert("Settings modification is disabled in demo mode to preserve shared evaluation configuration.");
+      return;
+    }
     setLoading(true);
     try {
       await api.updateSettings(settings);
@@ -82,16 +88,21 @@ export default function Settings() {
   };
 
   const handleClearData = async () => {
+    if (isDemo) {
+      alert("Workspace reset is disabled in demo mode to protect sample data for evaluators.");
+      setShowClearModal(false);
+      return;
+    }
     try {
       await api.clearDemoData();
-    } catch (err) {
-      console.warn("Backend clear call failed; resetting state.", err);
-    } finally {
       setClearedToast(true);
       setShowClearModal(false);
       setTimeout(() => {
         window.location.href = '/';
       }, 1200);
+    } catch (err) {
+      setShowClearModal(false);
+      alert("Clear failed: " + (err.response?.data?.error || err.message));
     }
   };
 
@@ -127,6 +138,19 @@ export default function Settings() {
           Configure real-time automated incident thresholds, email dispatch destinations, and tenant data.
         </p>
       </div>
+
+      {/* Demo Notice Banner */}
+      {isDemo && (
+        <div className="flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 text-xs">
+          <ShieldAlert className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <p className="font-bold text-sm text-slate-900 dark:text-white">Public Demo Mode Active</p>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Platform threshold modifications and workspace data resets are read-only in demo mode to protect shared sample data for all recruiters and evaluators. You can still test all parameters and view configurations safely.
+            </p>
+          </div>
+        </div>
+      )}
 
       <form onSubmit={handleSave} className="space-y-6">
         
@@ -237,13 +261,19 @@ export default function Settings() {
 
             <button
               type="submit"
-              disabled={loading}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+              disabled={loading || isDemo}
+              title={isDemo ? "Settings modification is disabled in demo mode" : "Save configuration"}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
                   <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                   <span>Saving...</span>
+                </>
+              ) : isDemo ? (
+                <>
+                  <Lock className="w-3.5 h-3.5" />
+                  <span>Save Disabled (Demo Mode)</span>
                 </>
               ) : (
                 <>
@@ -274,11 +304,13 @@ export default function Settings() {
 
           <button
             type="button"
+            disabled={isDemo}
+            title={isDemo ? "Workspace purge is disabled in demo mode" : "Clear workspace data"}
             onClick={() => setShowClearModal(true)}
-            className="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 rounded-xl transition-all"
+            className="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Trash2 className="w-3.5 h-3.5" />
-            <span>Clear Workspace Data</span>
+            {isDemo ? <Lock className="w-3.5 h-3.5" /> : <Trash2 className="w-3.5 h-3.5" />}
+            <span>{isDemo ? "Purge Disabled (Demo Mode)" : "Clear Workspace Data"}</span>
           </button>
         </div>
       </div>

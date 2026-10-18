@@ -142,7 +142,8 @@ export default function Reviews() {
       setReviews(reviews.filter(r => r.id !== deleteId));
       setDeleteId(null);
     } catch (err) {
-      alert(`Delete failed: ${err.message}`);
+      setDeleteId(null);
+      alert(err.response?.data?.error || `Delete failed: ${err.message}`);
     }
   };
 

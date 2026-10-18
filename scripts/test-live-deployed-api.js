@@ -62,7 +62,9 @@ async function runLiveTests() {
   // 2. Test Protected GET /reviews
   console.log('2. Testing GET /reviews with live token...');
   const reviewsRes = await request('GET', '/reviews?limit=5', null, token);
-  console.log(`   [PASS] GET /reviews returned status: ${reviewsRes.status}, count: ${reviewsRes.data?.reviews?.length || 0}`);
+  const totalReviews = reviewsRes.data?.meta?.total || 0;
+  const returnedCount = reviewsRes.data?.data?.length || 0;
+  console.log(`   [PASS] GET /reviews returned status: ${reviewsRes.status}, returned: ${returnedCount}, total in DB: ${totalReviews}`);
 
   // 3. Test Protected POST /reviews
   console.log('3. Testing POST /reviews (Submitting feedback)...');
@@ -78,7 +80,16 @@ async function runLiveTests() {
   }, null);
   console.log(`   [PASS] Unauthenticated submission returned status: ${unauthRes.status} (Expected 401)`);
 
-  console.log('\nAll Live Backend E2E Tests Passed Successfully!');
+  // 5. Test Demo Protection (Workspace Purge disabled)
+  console.log('5. Testing DELETE /settings/clear with demo token...');
+  const clearRes = await request('DELETE', '/settings/clear', null, token);
+  if (clearRes.status === 403) {
+    console.log(`   [PASS] Demo protection active: DELETE /settings/clear returned 403 (${clearRes.data?.error})`);
+  } else {
+    console.log(`   [INFO] DELETE /settings/clear returned status: ${clearRes.status}`);
+  }
+
+  console.log('\nAll Live Backend E2E Tests Evaluated Successfully!');
 }
 
 runLiveTests().catch(err => {

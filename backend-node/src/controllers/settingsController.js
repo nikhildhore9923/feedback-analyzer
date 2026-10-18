@@ -1,6 +1,14 @@
 const db = require('../db/connection');
 const feedbackService = require('../services/feedbackService');
 
+function isDemoTenant(tenantId, user) {
+    return (
+        tenantId === 'demo-tenant-123' ||
+        tenantId === 'tenant_123' ||
+        user?.email === 'admin@pulse.com'
+    );
+}
+
 async function getSettings(req, res, next) {
     try {
         const [rows] = await db.query(`SELECT setting_key, setting_value FROM settings WHERE tenant_id = ?`, [req.tenantId]);
@@ -26,11 +34,19 @@ async function getSettings(req, res, next) {
 
 async function updateSettings(req, res, next) {
     try {
+        const tid = req.tenantId;
+
+        // Restrict destructive/operational configuration in demo mode
+        if (isDemoTenant(tid, req.user)) {
+            return res.status(403).json({
+                error: "Settings modification is disabled in demo mode to preserve shared evaluation configuration."
+            });
+        }
+
         const { alertThreshold, emailUser, emailPass, alertTo } = req.body;
         
         const queries = [];
         const params = [];
-        const tid = req.tenantId;
 
         if (alertThreshold !== undefined) {
             queries.push(`INSERT INTO settings (setting_key, tenant_id, setting_value) VALUES ('alert_threshold', ?, ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)`);
@@ -62,6 +78,14 @@ async function updateSettings(req, res, next) {
 async function clearTenantData(req, res, next) {
     try {
         const tid = req.tenantId;
+
+        // Restrict workspace purge in demo mode to protect sample data
+        if (isDemoTenant(tid, req.user)) {
+            return res.status(403).json({
+                error: "Workspace reset is disabled in demo mode to protect sample data for evaluators."
+            });
+        }
+
         // Due to foreign keys, delete reviews first, then batches
         await db.query(`DELETE FROM reviews WHERE tenant_id = ?`, [tid]);
         await db.query(`DELETE FROM batches WHERE tenant_id = ?`, [tid]);

@@ -61,6 +61,7 @@ export default function Signup() {
       if (res.data?.success) {
         localStorage.setItem('pulse_jwt_token', res.data.token);
         localStorage.setItem('pulse_tenant_id', res.data.user.tenant_id);
+        localStorage.setItem('pulse_user_email', res.data.user.email);
         navigate('/');
       }
     } catch (err) {

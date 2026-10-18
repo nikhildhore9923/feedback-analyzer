@@ -37,7 +37,23 @@ async function updateStatus(req, res, next) {
 async function deleteReview(req, res, next) {
     try {
         const { id } = req.params;
-        await feedbackService.deleteReview(id, req.tenantId);
+        const tid = req.tenantId;
+        const isDemo = (
+            tid === 'demo-tenant-123' ||
+            tid === 'tenant_123' ||
+            req.user?.email === 'admin@pulse.com'
+        );
+
+        if (isDemo) {
+            return res.status(403).json({
+                error: "Deleting feedback records is disabled in demo mode to protect sample data for evaluators."
+            });
+        }
+
+        const deleted = await feedbackService.deleteReview(id, tid);
+        if (!deleted) {
+            return res.status(404).json({ error: "Review not found or unauthorized" });
+        }
         res.json({ message: "Review deleted" });
     } catch (err) {
         next(err);

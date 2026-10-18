@@ -24,7 +24,8 @@ axios.interceptors.response.use(
       if (!isAuthRoute && localStorage.getItem('pulse_jwt_token')) {
         localStorage.removeItem('pulse_jwt_token');
         localStorage.removeItem('pulse_tenant_id');
-        window.location.href = '/login';
+        localStorage.removeItem('pulse_user_email');
+        window.location.href = '/login?expired=1';
       }
     }
     return Promise.reject(error);
