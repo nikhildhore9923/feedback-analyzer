@@ -107,7 +107,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 pb-16">
+    <div className="max-w-4xl space-y-8 pb-16">
       
       {/* Reset Toast */}
       {clearedToast && (

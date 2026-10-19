@@ -163,7 +163,7 @@ export default function Reviews() {
   const hasActiveFilters = search.trim() !== '' || selectedSentiment !== 'ALL' || selectedAspect !== 'ALL' || selectedPriority !== 'ALL' || selectedStatus !== 'ALL';
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 pb-16">
+    <div className="space-y-6 pb-16">
       
       {/* Delete Confirmation Modal */}
       <ConfirmModal 

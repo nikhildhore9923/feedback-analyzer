@@ -11,11 +11,13 @@ import {
   Lock, 
   Mail, 
   ShieldCheck, 
-  AlertCircle, 
   Activity,
   CheckCircle2,
   Eye,
-  EyeOff
+  EyeOff,
+  UserPlus,
+  Radio,
+  ShieldAlert
 } from 'lucide-react';
 
 export default function Signup() {
@@ -72,44 +74,50 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen w-full flex bg-[#F8FAFC] dark:bg-[#090D16] text-slate-900 dark:text-slate-100 transition-colors duration-200">
+    <div className="min-h-screen w-full flex bg-[#F8FAFC] dark:bg-[#070A12] text-slate-900 dark:text-slate-100 transition-colors duration-200">
       
       {/* Left Column: Visual Showcase */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-950 to-[#090D16] p-12 flex-col justify-between border-r border-slate-800/80">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-[#061826] via-[#081F38] to-[#040E1B] p-12 lg:p-16 flex-col justify-between border-r border-slate-800/80">
         
         {/* Glow */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 left-1/4 w-[450px] h-[450px] bg-emerald-600/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
 
         {/* Brand */}
         <div className="relative z-10 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
             <Activity className="w-6 h-6 text-white stroke-[2.5]" />
           </div>
           <span className="text-xl font-extrabold tracking-tight text-white flex items-center gap-2">
             Pulse
-            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
               Workspace Setup
             </span>
           </span>
         </div>
 
-        {/* Narrative */}
-        <div className="relative z-10 my-auto max-w-lg space-y-6">
-          <h1 className="text-4xl font-extrabold text-white tracking-tight leading-tight">
-            Start listening to customer sentiment in seconds.
-          </h1>
-          <p className="text-sm text-slate-400 leading-relaxed">
-            Create an isolated tenant workspace with built-in ML categorization, daily automated email summaries, and priority scoring.
-          </p>
+        {/* Narrative & Benefits */}
+        <div className="relative z-10 my-auto max-w-xl space-y-8">
+          <div className="space-y-4">
+            <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+              Instant Workspace, <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-indigo-400">
+                Guaranteed Isolation.
+              </span>
+            </h1>
+            <p className="text-sm text-slate-300/90 leading-relaxed max-w-lg">
+              Spin up a private customer feedback telemetry tenant with dedicated parameters, incident alerting rules, and real-time NLP classification.
+            </p>
+          </div>
 
-          <div className="space-y-3 pt-2">
+          <div className="space-y-3">
             {[
-              "Dedicated UUID tenant isolation",
-              "Instant access to pre-trained sentiment models",
-              "Llama-3 powered executive theme synthesis",
-              "Zero setup required — start ingesting immediately"
+              "Dedicated Cryptographic UUID Tenant Isolation",
+              "Sub-second Polarity & Multi-Aspect Classification",
+              "Automated High-Priority Incident Notification Engine",
+              "One-Click CSV Ingestion & Historical Telemetry Sync"
             ].map((feature, i) => (
-              <div key={i} className="flex items-center gap-3 text-xs text-slate-300 font-medium">
+              <div key={i} className="flex items-center gap-3 text-xs text-slate-200 font-medium p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
                 <div className="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center shrink-0">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                 </div>
@@ -119,41 +127,41 @@ export default function Signup() {
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="relative z-10 flex items-center justify-between text-xs text-slate-500 pt-6 border-t border-slate-800/80">
-          <span>Enterprise Security Standard</span>
-          <span className="flex items-center gap-1.5 text-slate-400">
-            <ShieldCheck className="w-4 h-4 text-indigo-400" /> Multi-Tenant TLS 1.3
+        {/* Left Footer */}
+        <div className="relative z-10 flex items-center justify-between text-xs text-slate-400 pt-6 border-t border-white/10">
+          <span>Enterprise Tenant Security</span>
+          <span className="flex items-center gap-1.5 text-slate-300">
+            <ShieldCheck className="w-4 h-4 text-emerald-400" /> Multi-Tenant TLS 1.3
           </span>
         </div>
 
       </div>
 
-      {/* Right Column: Registration Card */}
+      {/* Right Column: Signup Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 relative">
         
         {/* Floating Theme Toggle */}
         <div className="absolute top-6 right-6">
           <button
             onClick={toggleTheme}
-            aria-label="Toggle theme"
-            className="p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white shadow-2xs transition-colors"
+            aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+            className="p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white shadow-2xs transition-colors"
           >
             {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
           </button>
         </div>
 
-        <div className="w-full max-w-md saas-card rounded-3xl p-8 sm:p-10 shadow-xl dark:shadow-none">
+        <div className="w-full max-w-md saas-card rounded-3xl p-8 sm:p-10 shadow-2xl">
           
-          <div className="text-center mb-7">
-            <div className="inline-flex lg:hidden items-center justify-center w-12 h-12 rounded-2xl bg-indigo-600 text-white shadow-md shadow-indigo-600/30 mb-4">
-              <Activity className="w-6 h-6 stroke-[2.5]" />
+          <div className="text-center mb-8">
+            <div className="w-14 h-14 rounded-2xl bg-emerald-600 dark:bg-emerald-500 text-white shadow-lg shadow-emerald-600/30 mx-auto flex items-center justify-center mb-4">
+              <UserPlus className="w-7 h-7 stroke-[2.2]" />
             </div>
             <h2 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Create Your Workspace
+              Create Organization
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Spin up your dedicated customer intelligence platform.
+              Initialize your private intelligence workspace
             </p>
           </div>
 
@@ -173,12 +181,9 @@ export default function Signup() {
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    setError('');
-                  }}
-                  placeholder="alex@company.com"
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="lead@company.com"
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   required
                 />
               </div>
@@ -186,20 +191,16 @@ export default function Signup() {
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                Password (min. 6 characters)
+                Password
               </label>
               <div className="relative">
                 <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    setError('');
-                  }}
-                  placeholder="••••••••••••"
-                  minLength={6}
-                  className="w-full pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Min. 6 characters"
+                  className="w-full pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   required
                 />
                 <button
@@ -221,13 +222,9 @@ export default function Signup() {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={confirmPassword}
-                  onChange={(e) => {
-                    setConfirmPassword(e.target.value);
-                    setError('');
-                  }}
-                  placeholder="••••••••••••"
-                  minLength={6}
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Confirm password"
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   required
                 />
               </div>
@@ -236,12 +233,12 @@ export default function Signup() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow-md shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full mt-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow-md shadow-emerald-600/25 hover:shadow-emerald-600/35 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading ? (
                 <>
                   <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Registering Workspace...</span>
+                  <span>Provisioning Tenant...</span>
                 </>
               ) : (
                 <>
@@ -252,11 +249,11 @@ export default function Signup() {
             </button>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 text-center">
+          <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
             <p className="text-xs text-slate-500 dark:text-slate-400">
               Already have an account?{' '}
-              <Link to="/login" className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold">
-                Sign in here
+              <Link to="/login" className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold">
+                Sign In
               </Link>
             </p>
           </div>
