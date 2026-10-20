@@ -1,57 +1,80 @@
+import os
+import joblib
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.metrics import classification_report, accuracy_score
-import joblib
-import os
 
-print("Loading dataset...")
-df = pd.read_csv("../misc/training_data.csv")
+print("=== PULSE ML MODEL TRAINING PIPELINE ===")
 
-print(f"Dataset loaded with {len(df)} rows.")
+# ==============================================================================
+# 1. TRAIN IMPROVED SENTIMENT ANALYSIS MODEL (ON REAL CUSTOMER FEEDBACK)
+# ==============================================================================
+print("\n--- 1. Training Improved Sentiment Analysis Model ---")
+train_sentiment_path = "../misc/train_real_sentiment.csv"
+if not os.path.exists(train_sentiment_path):
+    train_sentiment_path = "misc/train_real_sentiment.csv"
 
-# Split the dataset into training and testing sets to evaluate accuracy
-X_train, X_test, y_sent_train, y_sent_test, y_asp_train, y_asp_test = train_test_split(
-    df['text'], df['sentiment'], df['aspect'], test_size=0.2, random_state=42
-)
+df_sent = pd.read_csv(train_sentiment_path)
+print(f"Loaded real sentiment training set: {len(df_sent)} records.")
+print("Class breakdown:")
+print(df_sent['sentiment'].value_counts())
 
-# 1. Train Sentiment Model
-print("\n--- Training Sentiment Analysis Model ---")
 sentiment_pipeline = Pipeline([
-    ('tfidf', TfidfVectorizer(ngram_range=(1, 3))),
-    ('clf', LogisticRegression(C=10.0, random_state=42, multi_class='multinomial', max_iter=1000))
+    ('tfidf', TfidfVectorizer(
+        ngram_range=(1, 2),
+        min_df=2,
+        max_df=0.9,
+        sublinear_tf=True
+    )),
+    ('clf', LogisticRegression(
+        C=1.0,
+        max_iter=1000,
+        random_state=42,
+        class_weight='balanced'
+    ))
 ])
-sentiment_pipeline.fit(X_train, y_sent_train)
 
-# Evaluate Sentiment Model
-sent_preds = sentiment_pipeline.predict(X_test)
-sent_acc = accuracy_score(y_sent_test, sent_preds)
-print(f"Sentiment Model Accuracy: {sent_acc * 100:.2f}%")
-print("Sentiment Classification Report:")
-print(classification_report(y_sent_test, sent_preds))
+# 5-Fold Stratified Cross-Validation strictly inside training set
+print("\nPerforming 5-Fold Stratified Cross-Validation on training data...")
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+cv_scores = cross_val_score(sentiment_pipeline, df_sent['text'], df_sent['sentiment'], cv=cv, scoring='accuracy')
+print(f"5-Fold CV Accuracy: {cv_scores.mean() * 100:.2f}% (+/- {cv_scores.std() * 100:.2f}%)")
 
-# 2. Train Aspect/Category Model
-print("\n--- Training Topic Detection Model ---")
+print("Fitting final sentiment pipeline on full training pool...")
+sentiment_pipeline.fit(df_sent['text'], df_sent['sentiment'])
+
+# ==============================================================================
+# 2. TRAIN ASPECT / CATEGORY MODEL (FOR PULSE TOPIC DETECTION)
+# ==============================================================================
+print("\n--- 2. Training Aspect / Topic Detection Model ---")
+aspect_data_path = "../misc/training_data.csv"
+if not os.path.exists(aspect_data_path):
+    aspect_data_path = "misc/training_data.csv"
+
+df_asp = pd.read_csv(aspect_data_path)
+print(f"Loaded aspect training data: {len(df_asp)} records.")
+
 aspect_pipeline = Pipeline([
     ('tfidf', TfidfVectorizer(ngram_range=(1, 3))),
     ('clf', LogisticRegression(C=10.0, random_state=42, multi_class='multinomial', max_iter=1000))
 ])
-aspect_pipeline.fit(X_train, y_asp_train)
+aspect_pipeline.fit(df_asp['text'], df_asp['aspect'])
+print("Aspect model successfully trained.")
 
-# Evaluate Aspect Model
-asp_preds = aspect_pipeline.predict(X_test)
-asp_acc = accuracy_score(y_asp_test, asp_preds)
-print(f"Aspect Model Accuracy: {asp_acc * 100:.2f}%")
-print("Aspect Classification Report:")
-print(classification_report(y_asp_test, asp_preds))
-
-# Ensure models directory exists
+# ==============================================================================
+# 3. EXPORT SERIALIZED ARTIFACTS
+# ==============================================================================
 os.makedirs('models', exist_ok=True)
+os.makedirs('../models', exist_ok=True)
 
-# 3. Export Models
+# Export to backend-python/models/ and root models/
 joblib.dump(sentiment_pipeline, 'models/sentiment_model.pkl')
 joblib.dump(aspect_pipeline, 'models/aspect_model.pkl')
+joblib.dump(sentiment_pipeline, '../models/sentiment_model.pkl')
+joblib.dump(aspect_pipeline, '../models/aspect_model.pkl')
 
-print("\nModels successfully trained and saved to the 'models' directory.")
+print("\nModels successfully exported to 'models/' and '../models/' directories.")
+print("Training phase complete.")

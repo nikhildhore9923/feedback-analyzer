@@ -10,9 +10,23 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# Load models at startup
-SENTIMENT_MODEL_PATH = "models/sentiment_model.pkl"
-ASPECT_MODEL_PATH = "models/aspect_model.pkl"
+# Resolve model paths reliably across execution contexts
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def get_model_path(filename: str) -> str:
+    candidates = [
+        os.path.join(BASE_DIR, "models", filename),
+        os.path.join("models", filename),
+        os.path.join("..", "models", filename),
+        os.path.join(BASE_DIR, "..", "models", filename)
+    ]
+    for p in candidates:
+        if os.path.exists(p):
+            return p
+    return os.path.join(BASE_DIR, "models", filename)
+
+SENTIMENT_MODEL_PATH = get_model_path("sentiment_model.pkl")
+ASPECT_MODEL_PATH = get_model_path("aspect_model.pkl")
 
 sentiment_model = None
 aspect_model = None
@@ -25,6 +39,9 @@ def load_models():
     if os.path.exists(ASPECT_MODEL_PATH):
         aspect_model = joblib.load(ASPECT_MODEL_PATH)
     print("Models loaded successfully.")
+
+# Preload models immediately on module import
+load_models()
 
 class FeedbackRequest(BaseModel):
     text: str
