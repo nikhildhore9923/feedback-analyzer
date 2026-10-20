@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { api, exportReviewsToCsv } from '../api';
+import { formatFeedback } from '../utils/textFormat';
 import { 
   Search, 
   Download, 
@@ -391,11 +392,31 @@ export default function Reviews() {
                         </div>
                       </td>
 
-                      {/* Review Text */}
-                      <td className="py-4 px-4 align-top max-w-md">
-                        <p className="text-slate-800 dark:text-slate-200 font-normal leading-relaxed line-clamp-3">
-                          {r.review_text}
-                        </p>
+                      {/* Review Text Box with Sentiment-Tuned Container & Typography */}
+                      <td className="py-3.5 px-4 align-top max-w-lg">
+                        {(() => {
+                          const formatted = formatFeedback(r.review_text);
+                          return (
+                            <div className={`p-3 rounded-xl border text-[12.5px] leading-relaxed transition-all ${
+                              isPos
+                                ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200/60 dark:border-emerald-800/40 text-slate-800 dark:text-slate-200'
+                                : isNeg
+                                ? 'bg-rose-50/50 dark:bg-rose-950/20 border-rose-200/60 dark:border-rose-800/40 text-slate-800 dark:text-slate-200'
+                                : 'bg-slate-50/80 dark:bg-[#0E1017] border-slate-200/70 dark:border-slate-800/70 text-slate-700 dark:text-slate-300'
+                            }`}>
+                              <div className="flex items-start gap-2">
+                                {formatted.isAutomated && (
+                                  <span className="shrink-0 text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-300/60 dark:border-slate-700/60 mt-0.5">
+                                    Test
+                                  </span>
+                                )}
+                                <p className="font-sans font-normal leading-relaxed line-clamp-3">
+                                  {formatted.content}
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        })()}
                       </td>
 
                       {/* ML Diagnostics (Sentiment & Aspect) */}

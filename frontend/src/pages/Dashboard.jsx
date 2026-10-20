@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
 import { useTheme } from '../context/ThemeContext';
+import { formatFeedback } from '../utils/textFormat';
 import { 
   AreaChart, 
   Area, 
@@ -592,13 +593,23 @@ export default function Dashboard() {
                 <span>No feedback items recorded yet. Click &quot;Ingest&quot; to submit a test review.</span>
               </div>
             ) : (
-              <div className="divide-y divide-slate-100 dark:divide-slate-800/80">
+              <div className="space-y-3">
                 {reviews.map((r, index) => {
                   const isPos = r.sentiment === 'Positive';
                   const isNeg = r.sentiment === 'Negative';
+                  const formatted = formatFeedback(r.review_text);
                   return (
-                    <div key={r.id} className="py-3.5 flex flex-col gap-2 hover:bg-slate-50/60 dark:hover:bg-slate-800/30 px-3 rounded-2xl transition-colors">
-                      <div className="flex items-center justify-between gap-2">
+                    <div 
+                      key={r.id} 
+                      className={`p-3.5 sm:p-4 rounded-2xl border transition-all duration-200 ${
+                        isPos
+                          ? 'bg-emerald-500/[0.02] dark:bg-emerald-500/[0.03] border-emerald-200/60 dark:border-emerald-800/40 hover:border-emerald-300 dark:hover:border-emerald-700/60'
+                          : isNeg
+                          ? 'bg-rose-500/[0.02] dark:bg-rose-500/[0.03] border-rose-200/60 dark:border-rose-800/40 hover:border-rose-300 dark:hover:border-rose-700/60'
+                          : 'bg-slate-50/50 dark:bg-[#12151E] border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-2 mb-2.5">
                         <div className="flex flex-wrap items-center gap-2">
                           
                           {/* Sequential Display Row # */}
@@ -619,7 +630,7 @@ export default function Dashboard() {
                           </span>
 
                           {/* Aspect Driver */}
-                          <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800">
+                          <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60">
                             {r.aspect || 'General'}
                           </span>
 
@@ -628,12 +639,16 @@ export default function Dashboard() {
                             REF #{r.id}
                           </span>
 
-                          {/* Critical Incident Badge */}
-                          {r.priority_score >= 80 && (
+                          {/* Priority Incident Badges */}
+                          {r.priority_score >= 80 ? (
                             <span className="text-[10px] font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/80 px-2 py-0.5 rounded-md border border-rose-200 dark:border-rose-900/60">
                               Critical ({r.priority_score})
                             </span>
-                          )}
+                          ) : r.priority_score >= 60 ? (
+                            <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/80 px-2 py-0.5 rounded-md border border-amber-200 dark:border-amber-900/60">
+                              High ({r.priority_score})
+                            </span>
+                          ) : null}
                         </div>
 
                         <span className="text-[11px] font-mono text-slate-400">
@@ -641,9 +656,25 @@ export default function Dashboard() {
                         </span>
                       </div>
 
-                      <p className="text-xs text-slate-800 dark:text-slate-200 line-clamp-2 leading-relaxed font-normal">
-                        &quot;{r.review_text}&quot;
-                      </p>
+                      {/* Enclosed Feedback Content Box with Sentiment Color Tint */}
+                      <div className={`p-3 rounded-xl border text-[13px] leading-relaxed transition-all ${
+                        isPos
+                          ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200/60 dark:border-emerald-800/40 text-slate-800 dark:text-slate-200'
+                          : isNeg
+                          ? 'bg-rose-50/50 dark:bg-rose-950/20 border-rose-200/60 dark:border-rose-800/40 text-slate-800 dark:text-slate-200'
+                          : 'bg-white dark:bg-[#0E1017] border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300'
+                      }`}>
+                        <div className="flex items-start gap-2">
+                          {formatted.isAutomated && (
+                            <span className="shrink-0 text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-300/60 dark:border-slate-700/60 mt-0.5">
+                              Automated Test
+                            </span>
+                          )}
+                          <p className="font-sans font-normal leading-relaxed line-clamp-3">
+                            {formatted.content}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   );
                 })}
