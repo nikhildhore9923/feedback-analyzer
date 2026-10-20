@@ -78,12 +78,12 @@ export default function Signup() {
     <div className="min-h-screen w-full flex bg-slate-50 dark:bg-[#070A12] text-slate-900 dark:text-slate-100 transition-colors duration-200">
       
       {/* Left Column: Visual Showcase (Hidden on Mobile) */}
-      <div className="hidden lg:flex lg:w-7/12 relative overflow-hidden bg-gradient-to-br from-slate-950 via-[#0B132B] to-slate-950 p-12 xl:p-16 flex-col justify-between border-r border-slate-800/60">
+      <div className="hidden lg:flex lg:w-7/12 relative overflow-hidden bg-gradient-to-br from-slate-50 via-indigo-50/30 to-slate-100/90 dark:from-slate-950 dark:via-[#0B132B] dark:to-slate-950 p-12 xl:p-16 flex-col justify-between border-r border-slate-200/80 dark:border-slate-800/60 transition-colors duration-200">
         
         {/* Subtle Ambient Glow Mesh */}
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-1/2 -right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-20 left-1/3 w-80 h-80 bg-violet-600/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-indigo-500/10 dark:bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 -right-20 w-96 h-96 bg-cyan-500/10 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 left-1/3 w-80 h-80 bg-violet-500/10 dark:bg-violet-600/15 rounded-full blur-3xl pointer-events-none" />
 
         {/* Brand Header */}
         <div className="relative z-10 flex items-center gap-3.5">
@@ -91,11 +91,11 @@ export default function Signup() {
             <Activity className="w-5 h-5 text-white stroke-[2.5]" />
           </div>
           <div className="flex items-center gap-2.5">
-            <span className="text-xl font-bold tracking-tight text-white">
+            <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
               Pulse
             </span>
-            <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-400/30">
-              <Sparkles className="w-3 h-3 text-indigo-400" />
+            <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-400/30">
+              <Sparkles className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
               Workspace Setup
             </span>
           </div>
@@ -104,13 +104,13 @@ export default function Signup() {
         {/* Narrative & Benefits */}
         <div className="relative z-10 my-auto max-w-xl space-y-8">
           <div className="space-y-4">
-            <h1 className="text-4xl xl:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
+            <h1 className="text-4xl xl:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15]">
               Instant Workspace,{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-300 to-teal-300">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-cyan-600 to-teal-600 dark:from-indigo-400 dark:via-cyan-300 dark:to-teal-300">
                 Guaranteed Isolation.
               </span>
             </h1>
-            <p className="text-sm xl:text-base text-slate-300/90 leading-relaxed max-w-lg font-normal">
+            <p className="text-sm xl:text-base text-slate-600 dark:text-slate-300/90 leading-relaxed max-w-lg font-normal">
               Create a dedicated customer feedback workspace with custom triage thresholds, automated alert routing, and real-time sentiment analytics.
             </p>
           </div>
@@ -122,8 +122,8 @@ export default function Signup() {
               "Automated High-Priority Incident Notification Engine",
               "Batch CSV Upload with Historical Telemetry Indexing"
             ].map((feature, i) => (
-              <div key={i} className="flex items-center gap-3 text-xs text-slate-200 font-medium p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-sm">
-                <div className="w-5 h-5 rounded-full bg-indigo-500/20 border border-indigo-500/40 text-indigo-400 flex items-center justify-center shrink-0">
+              <div key={i} className="flex items-center gap-3 text-xs text-slate-800 dark:text-slate-200 font-medium p-3.5 rounded-xl bg-white/80 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800/80 backdrop-blur-sm shadow-xs dark:shadow-none transition-all">
+                <div className="w-5 h-5 rounded-full bg-indigo-50 dark:bg-indigo-500/20 border border-indigo-200 dark:border-indigo-500/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                 </div>
                 <span>{feature}</span>
@@ -133,13 +133,13 @@ export default function Signup() {
         </div>
 
         {/* Left Footer */}
-        <div className="relative z-10 flex items-center justify-between text-xs text-slate-400 pt-6 border-t border-slate-800/80">
+        <div className="relative z-10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-6 border-t border-slate-200/80 dark:border-slate-800/80">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-slate-300 font-medium">Enterprise Tenant Security</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
+            <span className="text-slate-700 dark:text-slate-300 font-medium">Enterprise Tenant Security</span>
           </div>
-          <div className="flex items-center gap-1.5 text-slate-400">
-            <ShieldCheck className="w-4 h-4 text-indigo-400" />
+          <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+            <ShieldCheck className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>Multi-Tenant TLS 1.3 Encryption</span>
           </div>
         </div>
