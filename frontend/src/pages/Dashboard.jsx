@@ -423,7 +423,7 @@ export default function Dashboard() {
         </div>
 
         {/* Executive AI Synthesis Card (1/3 Width) */}
-        <div className="saas-card rounded-3xl p-5 sm:p-7 flex flex-col justify-between border-indigo-200/80 dark:border-indigo-900/40 bg-gradient-to-br from-indigo-50/30 via-white to-violet-50/20 dark:from-indigo-950/30 dark:via-[#0F172A] dark:to-slate-900">
+        <div className="saas-card rounded-3xl p-5 sm:p-7 flex flex-col justify-between border-indigo-200/80 dark:border-indigo-900/40 bg-gradient-to-br from-indigo-50/30 via-white to-violet-50/20 dark:from-indigo-950/20 dark:via-[#12151E] dark:to-[#12151E]">
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
@@ -455,7 +455,7 @@ export default function Dashboard() {
               Synthesizes real-time customer sentiment into an actionable executive brief for product leads.
             </p>
 
-            <div className="p-4 rounded-2xl bg-white/90 dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800/80 text-xs min-h-[140px] flex items-center justify-center">
+            <div className="p-4 rounded-2xl bg-white/95 dark:bg-[#0B0D13] border border-slate-200/90 dark:border-slate-800/90 text-xs min-h-[140px] flex flex-col justify-center">
               {summaryLoading ? (
                 <div className="space-y-2.5 w-full animate-pulse">
                   <div className="h-3 bg-indigo-200/60 dark:bg-indigo-900/40 rounded-full w-full" />
@@ -463,9 +463,11 @@ export default function Dashboard() {
                   <div className="h-3 bg-indigo-200/60 dark:bg-indigo-900/40 rounded-full w-2/3" />
                 </div>
               ) : summary ? (
-                <p className="text-slate-800 dark:text-slate-200 leading-relaxed font-normal whitespace-pre-line text-left">
-                  &quot;{summary}&quot;
-                </p>
+                <div className="border-l-2 border-indigo-500 pl-3 py-0.5">
+                  <p className="text-slate-800 dark:text-slate-200 leading-relaxed font-sans text-xs whitespace-pre-line text-left">
+                    {summary.replace(/^["'\s]+|["'\s]+$/g, '').trim()}
+                  </p>
+                </div>
               ) : (
                 <span className="text-slate-400 dark:text-slate-500 italic text-center">
                   Click below to generate an AI executive summary across your recent feedback entries.
@@ -590,7 +592,7 @@ export default function Dashboard() {
             {reviews.length === 0 ? (
               <div className="py-12 flex flex-col items-center justify-center text-xs text-slate-400">
                 <Inbox className="w-8 h-8 text-slate-300 dark:text-slate-700 mb-2" />
-                <span>No feedback items recorded yet. Click &quot;Ingest&quot; to submit a test review.</span>
+                <span>No feedback items recorded yet. Click Ingest to submit a test review.</span>
               </div>
             ) : (
               <div className="space-y-3">

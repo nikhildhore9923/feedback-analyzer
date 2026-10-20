@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { api, exportReviewsToCsv } from '../api';
 import { formatFeedback } from '../utils/textFormat';
+import { useToast } from '../context/ToastContext';
 import { 
   Search, 
   Download, 
@@ -18,7 +19,10 @@ import {
   AlertTriangle,
   SlidersHorizontal,
   ChevronDown,
-  X
+  X,
+  ShieldAlert,
+  RefreshCw,
+  Sparkles
 } from 'lucide-react';
 
 const SENTIMENT_STYLES = {
@@ -34,32 +38,110 @@ const STATUS_STYLES = {
   Ignored: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700',
 };
 
-function ConfirmModal({ isOpen, onClose, onConfirm }) {
+function ConfirmModal({ isOpen, onClose, onConfirm, review, isDemo, deleting }) {
   if (!isOpen) return null;
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 dark:bg-black/60 backdrop-blur-xs p-4 animate-in fade-in">
-      <div className="bg-white dark:bg-[#0F172A] rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full max-w-sm overflow-hidden p-6 animate-in zoom-in-95">
-        <div className="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-900/40 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
-          <Trash2 className="w-6 h-6" />
-        </div>
-        <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1.5">Delete Feedback Entry</h3>
-        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-          Are you sure you want to permanently delete this customer review? This will remove it from trend analysis.
-        </p>
-        <div className="flex items-center justify-end gap-2.5">
-          <button 
-            onClick={onClose} 
-            className="px-4 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
-          >
-            Cancel
-          </button>
-          <button 
-            onClick={onConfirm} 
-            className="px-4 py-2 text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 rounded-xl transition-colors shadow-xs"
-          >
-            Delete Permanently
-          </button>
-        </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-md p-4 animate-in fade-in duration-200">
+      <div 
+        className="bg-white dark:bg-[#12151E] rounded-3xl shadow-2xl border border-slate-200/90 dark:border-slate-800/90 w-full max-w-md overflow-hidden p-6 sm:p-7 animate-in zoom-in-95 duration-200"
+        role="dialog"
+        aria-modal="true"
+      >
+        {isDemo ? (
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800/60 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+                <ShieldAlert className="w-6 h-6" />
+              </div>
+              <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase bg-amber-100/80 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60">
+                Demo Sandbox
+              </span>
+            </div>
+
+            <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">
+              Review Deletion Restricted
+            </h3>
+
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+              You are currently logged into the shared evaluator account (<span className="font-mono text-slate-800 dark:text-slate-200 font-semibold">admin@pulse.com</span>). Deleting feedback records is locked so that other evaluators and recruiters have access to real benchmark distributions.
+            </p>
+
+            {review && (
+              <div className="p-3.5 mb-5 rounded-2xl bg-slate-50 dark:bg-[#0B0D13] border border-slate-200/80 dark:border-slate-800/80">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-1">
+                  Target Record #{review.id}
+                </span>
+                <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-2 italic">
+                  &ldquo;{review.feedback || review.text}&rdquo;
+                </p>
+              </div>
+            )}
+
+            <div className="p-3 mb-6 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-900/50 text-[11px] text-indigo-700 dark:text-indigo-300 leading-relaxed">
+              💡 <span className="font-semibold">Full Access Tip:</span> To test custom feedback ingestion, data modification, and deletion freely, register your own private tenant workspace.
+            </div>
+
+            <div className="flex items-center justify-end">
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-full sm:w-auto px-5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-colors shadow-xs"
+              >
+                Understood
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div className="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-900/40 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
+              <Trash2 className="w-6 h-6" />
+            </div>
+
+            <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1.5">
+              Permanently Delete Feedback
+            </h3>
+
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              Are you sure you want to permanently delete this customer review? This will immediately purge it from trend analysis, aspect breakdown, and severity scores.
+            </p>
+
+            {review && (
+              <div className="p-3.5 mb-5 rounded-2xl bg-slate-50 dark:bg-[#0B0D13] border border-slate-200/80 dark:border-slate-800/80">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-1">
+                  Target Record #{review.id}
+                </span>
+                <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-2">
+                  {review.feedback || review.text}
+                </p>
+              </div>
+            )}
+
+            <div className="flex items-center justify-end gap-2.5">
+              <button 
+                onClick={onClose} 
+                disabled={deleting}
+                className="px-4 py-2.5 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={onConfirm} 
+                disabled={deleting}
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 rounded-xl transition-colors shadow-xs disabled:opacity-50"
+              >
+                {deleting ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>Deleting...</span>
+                  </>
+                ) : (
+                  <span>Delete Permanently</span>
+                )}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -78,10 +160,17 @@ function timeAgo(timestamp) {
 }
 
 export default function Reviews() {
+  const toast = useToast();
   const [reviews, setReviews] = useState([]);
   const [meta, setMeta] = useState({ total: 0, page: 1, limit: 10 });
   const [loading, setLoading] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [deleting, setDeleting] = useState(false);
+
+  // Authentication Context & Demo Protection
+  const tenantId = localStorage.getItem('pulse_tenant_id') || 'demo-tenant-123';
+  const userEmail = localStorage.getItem('pulse_user_email') || 'admin@pulse.com';
+  const isDemo = tenantId === 'demo-tenant-123' || tenantId === 'tenant_123' || userEmail === 'admin@pulse.com';
 
   // Filters State
   const [search, setSearch] = useState('');
@@ -105,6 +194,7 @@ export default function Reviews() {
       setMeta(res.data?.meta || { total: 0, page, limit: 10 });
     } catch (err) {
       console.error('Failed to load reviews data grid:', err);
+      toast.error('Data Grid Sync Error', 'Could not refresh feedback records.');
     } finally {
       setLoading(false);
     }
@@ -131,33 +221,51 @@ export default function Reviews() {
     try {
       await api.updateStatus(id, newStatus);
       setReviews(reviews.map(r => r.id === id ? { ...r, status: newStatus } : r));
+      toast.success('Status Updated', `Review #${id} triage status marked as "${newStatus}".`);
     } catch (err) {
-      alert(`Status update failed: ${err.message}`);
+      toast.error('Status Update Failed', err.message);
     }
   };
 
   const handleDeleteConfirm = async () => {
     if (!deleteId) return;
+    if (isDemo) {
+      setDeleteId(null);
+      toast.warning('Demo Account Protected', 'Feedback record deletion is disabled on the shared demo account.');
+      return;
+    }
+
+    setDeleting(true);
     try {
       await api.deleteReview(deleteId);
       setReviews(reviews.filter(r => r.id !== deleteId));
       setDeleteId(null);
+      toast.success('Record Deleted', 'The feedback item has been permanently removed.');
     } catch (err) {
       setDeleteId(null);
-      alert(err.response?.data?.error || `Delete failed: ${err.message}`);
+      toast.error('Deletion Failed', err.response?.data?.error || err.message);
+    } finally {
+      setDeleting(false);
     }
   };
 
   const handleExportView = () => {
+    if (reviews.length === 0) {
+      toast.info('Export Notice', 'No reviews to export in the current view.');
+      return;
+    }
     exportReviewsToCsv(reviews);
+    toast.success('Export Ready', `Exported ${reviews.length} filtered records to CSV.`);
   };
 
   const handleExportAll = async () => {
     try {
       const res = await api.exportAllReviews();
-      exportReviewsToCsv(res.data?.data || []);
+      const allRecords = res.data?.data || [];
+      exportReviewsToCsv(allRecords);
+      toast.success('Full Export Ready', `Exported all ${allRecords.length} feedback records to CSV.`);
     } catch (err) {
-      alert(`Export failed: ${err.message}`);
+      toast.error('Export Failed', err.message);
     }
   };
 
@@ -170,7 +278,10 @@ export default function Reviews() {
       <ConfirmModal 
         isOpen={!!deleteId} 
         onClose={() => setDeleteId(null)} 
-        onConfirm={handleDeleteConfirm} 
+        onConfirm={handleDeleteConfirm}
+        review={reviews.find(r => r.id === deleteId)}
+        isDemo={isDemo}
+        deleting={deleting}
       />
 
       {/* Page Header & Export Actions */}
