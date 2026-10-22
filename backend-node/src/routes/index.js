@@ -147,7 +147,7 @@ router.post('/admin/seed-demo', async (req, res, next) => {
             const item = benchmarkReviews[i];
             const hoursAgo = Math.floor(i * 5 + Math.random() * 4); // Spread over past 3 days
             await db.query(`
-                INSERT INTO reviews (tenant_id, review_text, sentiment, confidence_score, aspect, priority_score, status, timestamp)
+                INSERT INTO reviews (tenant_id, review_text, sentiment, confidence, aspect, priority_score, status, timestamp)
                 VALUES ('demo-tenant-123', ?, ?, 0.94, ?, ?, 'New', NOW() - INTERVAL ? HOUR)
             `, [item.text, item.sentiment, item.aspect, item.priority, hoursAgo]);
         }
