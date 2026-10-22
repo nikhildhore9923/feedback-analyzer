@@ -49,8 +49,12 @@ export default function Header({ onToggleSidebar, onOpenIngest }) {
     switch (location.pathname) {
       case '/reviews':
         return { section: 'Intelligence', title: 'Feedback Stream' };
+      case '/aspects':
+        return { section: 'Intelligence', title: 'Aspect Analytics' };
+      case '/alerts':
+        return { section: 'Automations', title: 'Incident Alert Rules' };
       case '/settings':
-        return { section: 'Configuration', title: 'Platform Settings' };
+        return { section: 'System', title: 'Platform Settings' };
       default:
         return { section: 'Intelligence', title: 'Overview & Telemetry' };
     }

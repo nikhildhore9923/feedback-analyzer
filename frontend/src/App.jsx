@@ -2,6 +2,8 @@ import { Routes, Route } from 'react-router-dom';
 import AppLayout from './components/AppLayout';
 import Dashboard from './pages/Dashboard';
 import Reviews from './pages/Reviews';
+import Aspects from './pages/Aspects';
+import Alerts from './pages/Alerts';
 import Settings from './pages/Settings';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -19,6 +21,8 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/aspects" element={<Aspects />} />
+          <Route path="/alerts" element={<Alerts />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
       </Route>

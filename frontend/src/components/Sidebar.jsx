@@ -2,6 +2,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   MessageSquareText, 
+  BarChart3,
+  BellRing,
   SlidersHorizontal, 
   Activity, 
   LogOut, 
@@ -12,7 +14,8 @@ import {
   ExternalLink,
   ChevronRight,
   Layers,
-  Sparkles
+  Sparkles,
+  Plus
 } from 'lucide-react';
 import { clearAuth } from '../utils/auth';
 
@@ -35,11 +38,18 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onOpenIngest }) {
       group: 'INTELLIGENCE',
       items: [
         { path: '/', label: 'Overview & Telemetry', icon: LayoutDashboard },
-        { path: '/reviews', label: 'Feedback Stream', icon: MessageSquareText },
+        { path: '/reviews', label: 'Feedback Stream', icon: MessageSquareText, badge: 'Live' },
+        { path: '/aspects', label: 'Aspect Analytics', icon: BarChart3, badge: '5 Topics' },
       ]
     },
     {
-      group: 'CONFIGURATION',
+      group: 'AUTOMATIONS',
+      items: [
+        { path: '/alerts', label: 'Incident Alert Rules', icon: BellRing, badge: 'Active' },
+      ]
+    },
+    {
+      group: 'SYSTEM',
       items: [
         { path: '/settings', label: 'Platform Settings', icon: SlidersHorizontal },
       ]
@@ -61,7 +71,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onOpenIngest }) {
       {/* Sidebar Container */}
       <aside className={`
         fixed top-0 bottom-0 left-0 z-50 w-72 flex flex-col
-        bg-white dark:bg-[#080C15] 
+        bg-white dark:bg-[#080C14] 
         border-r border-slate-200/80 dark:border-slate-800/80
         transition-transform duration-300 ease-in-out
         ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
@@ -76,7 +86,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onOpenIngest }) {
           >
             <div className="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-600 flex items-center justify-center shadow-md shadow-indigo-500/25 group-hover:scale-105 transition-transform duration-200">
               <Activity className="w-5 h-5 text-white stroke-[2.5]" />
-              <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white dark:border-[#080C15]" />
+              <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white dark:border-[#080C14]" />
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
@@ -96,12 +106,23 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onOpenIngest }) {
 
         {/* Navigation Sections */}
         <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6">
+          
+          {/* Quick Action Ingest Button */}
+          <button
+            type="button"
+            onClick={() => { setMobileOpen(false); if (onOpenIngest) onOpenIngest(); }}
+            className="w-full flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-xs hover:shadow-indigo-500/20 transition-all active:scale-[0.985] cursor-pointer"
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>Ingest Customer Feedback</span>
+          </button>
+
           {navGroups.map((group) => (
-            <div key={group.group} className="space-y-1.5">
+            <div key={group.group} className="space-y-1">
               <div className="px-3 text-[10px] font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">
                 {group.group}
               </div>
-              {group.items.map(({ path, label, icon: Icon }) => {
+              {group.items.map(({ path, label, icon: Icon, badge }) => {
                 const active = isActive(path);
                 return (
                   <Link
@@ -109,23 +130,32 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onOpenIngest }) {
                     to={path}
                     onClick={() => setMobileOpen(false)}
                     className={`
-                      relative flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold
+                      relative flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold
                       transition-all duration-150 group
                       ${active 
-                        ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 font-bold shadow-xs border border-indigo-200/60 dark:border-indigo-800/50' 
+                        ? 'bg-indigo-50/80 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 font-bold shadow-xs border border-indigo-200/80 dark:border-indigo-800/60' 
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-900/60'
                       }
                     `}
                   >
-                    {active && (
-                      <span className="absolute left-1 top-2.5 bottom-2.5 w-1 rounded-full bg-indigo-600 dark:bg-indigo-400" />
-                    )}
-                    <Icon className={`w-4 h-4 shrink-0 transition-colors ${
-                      active ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300'
-                    }`} />
-                    <span className="flex-1 truncate">{label}</span>
-                    {active && (
-                      <ChevronRight className="w-3.5 h-3.5 text-indigo-500 opacity-60" />
+                    <div className="flex items-center gap-3 min-w-0">
+                      {active && (
+                        <span className="absolute left-1 top-2.5 bottom-2.5 w-1 rounded-full bg-indigo-600 dark:bg-indigo-400" />
+                      )}
+                      <Icon className={`w-4 h-4 shrink-0 transition-colors ${
+                        active ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300'
+                      }`} />
+                      <span className="truncate">{label}</span>
+                    </div>
+
+                    {badge && (
+                      <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md ${
+                        active
+                          ? 'bg-indigo-200/60 dark:bg-indigo-900/60 text-indigo-800 dark:text-indigo-200'
+                          : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                      }`}>
+                        {badge}
+                      </span>
                     )}
                   </Link>
                 );
@@ -147,15 +177,15 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onOpenIngest }) {
             <div className="text-[11px] text-slate-500 dark:text-slate-400 space-y-1">
               <div className="flex justify-between">
                 <span>Model:</span>
-                <span className="font-semibold text-slate-700 dark:text-slate-300">Logistic Reg.</span>
+                <span className="font-semibold text-slate-700 dark:text-slate-300">Logistic Reg. (89.2%)</span>
               </div>
               <div className="flex justify-between">
-                <span>Aspect Extraction:</span>
-                <span className="font-semibold text-slate-700 dark:text-slate-300">Multi-class</span>
+                <span>Aspects:</span>
+                <span className="font-semibold text-slate-700 dark:text-slate-300">Multi-class (5)</span>
               </div>
               <div className="flex justify-between">
-                <span>LLM Synthesis:</span>
-                <span className="font-semibold text-indigo-600 dark:text-indigo-400">Groq Qwen</span>
+                <span>LLM Engine:</span>
+                <span className="font-semibold text-indigo-600 dark:text-indigo-400">Groq Qwen 2.5 70B</span>
               </div>
             </div>
           </div>
@@ -184,7 +214,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onOpenIngest }) {
             <button
               onClick={handleLogout}
               title="Sign Out"
-              className="p-2 rounded-xl text-slate-400 hover:text-rose-600 dark:text-slate-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-transparent hover:border-rose-200 dark:hover:border-rose-900/50 transition-all focus:outline-none"
+              className="p-2 rounded-xl text-slate-400 hover:text-rose-600 dark:text-slate-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-transparent hover:border-rose-200 dark:hover:border-rose-900/50 transition-all focus:outline-none cursor-pointer"
             >
               <LogOut className="w-4 h-4" />
             </button>
