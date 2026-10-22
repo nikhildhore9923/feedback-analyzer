@@ -111,4 +111,51 @@ router.get('/settings', settingsController.getSettings);
 router.post('/settings', validateSettingsUpdate, settingsController.updateSettings);
 router.delete('/settings/clear', settingsController.clearTenantData);
 
+// 9. Admin Maintenance Seed Route (Cleans automated test spam & restores balanced benchmark data)
+router.post('/admin/seed-demo', async (req, res, next) => {
+    try {
+        const { secret } = req.body;
+        if (secret !== 'pulse_demo_seed_2026') {
+            return res.status(401).json({ error: 'Unauthorized maintenance seed trigger' });
+        }
+        const db = require('../db/connection');
+
+        // 1. Purge automated test spam and repetitive stress-test reviews
+        await db.query(`
+            DELETE FROM reviews 
+            WHERE review_text LIKE '%Automated stress test review%' 
+               OR review_text LIKE '%[Automated Test%'
+        `);
+
+        // 2. High-quality realistic customer feedback entries across all 5 operational aspects
+        const benchmarkReviews = [
+            { text: "The updated checkout experience is blazing fast and our order arrived two days ahead of schedule! Truly exceptional service.", sentiment: "Positive", aspect: "Delivery", priority: 12 },
+            { text: "The mobile application crashes intermittently whenever I try to edit payment details on iOS 17. Please patch this bug.", sentiment: "Negative", aspect: "App/Website", priority: 85 },
+            { text: "Customer support answered within three minutes and resolved our billing dispute immediately. Very courteous team.", sentiment: "Positive", aspect: "Customer Service", priority: 10 },
+            { text: "Product build quality is solid, but the monthly subscription pricing tiers are slightly high for small businesses.", sentiment: "Neutral", aspect: "Pricing", priority: 45 },
+            { text: "Package arrived with damaged outer packaging and one accessory missing. Frustrated with carrier handling.", sentiment: "Negative", aspect: "Delivery", priority: 90 },
+            { text: "Intuitive dashboard interface and instant search filtering across large datasets. Streamlined our daily operations.", sentiment: "Positive", aspect: "App/Website", priority: 14 },
+            { text: "Standard build quality that meets basic expectations. Nothing groundbreaking, but it gets the job done reliably.", sentiment: "Neutral", aspect: "Product Quality", priority: 35 },
+            { text: "Submitted a technical inquiry four days ago and have not received an acknowledgment or ticket update from support.", sentiment: "Negative", aspect: "Customer Service", priority: 78 },
+            { text: "The platform onboarding walkthrough made team rollout seamless. Great experience overall.", sentiment: "Positive", aspect: "App/Website", priority: 15 },
+            { text: "Fair pricing structure for the features offered. Transparent invoices and reliable notifications.", sentiment: "Positive", aspect: "Pricing", priority: 20 },
+            { text: "The product itself is of very good quality, and the material durable for high-frequency daily use.", sentiment: "Positive", aspect: "Product Quality", priority: 15 },
+            { text: "Order arrived on time, but communication regarding the shipment tracking numbers was somewhat ambiguous.", sentiment: "Neutral", aspect: "Delivery", priority: 42 }
+        ];
+
+        for (let i = 0; i < benchmarkReviews.length; i++) {
+            const item = benchmarkReviews[i];
+            const hoursAgo = Math.floor(i * 5 + Math.random() * 4); // Spread over past 3 days
+            await db.query(`
+                INSERT INTO reviews (tenant_id, review_text, sentiment, confidence_score, aspect, priority_score, status, timestamp)
+                VALUES ('demo-tenant-123', ?, ?, 0.94, ?, ?, 'New', NOW() - INTERVAL ? HOUR)
+            `, [item.text, item.sentiment, item.aspect, item.priority, hoursAgo]);
+        }
+
+        res.json({ success: true, message: 'Automated test spam purged. Balanced benchmark feedback successfully seeded.' });
+    } catch (err) {
+        next(err);
+    }
+});
+
 module.exports = router;

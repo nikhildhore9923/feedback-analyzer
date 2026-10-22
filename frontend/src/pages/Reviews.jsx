@@ -508,16 +508,16 @@ export default function Reviews() {
                         {(() => {
                           const formatted = formatFeedback(r.review_text);
                           return (
-                            <div className={`p-3 rounded-xl border text-[12.5px] leading-relaxed transition-all ${
+                            <div className={`pl-3 py-1 text-[13px] border-l-2 leading-relaxed transition-all ${
                               isPos
-                                ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200/60 dark:border-emerald-800/40 text-slate-800 dark:text-slate-200'
+                                ? 'border-l-emerald-500 text-slate-800 dark:text-slate-200'
                                 : isNeg
-                                ? 'bg-rose-50/50 dark:bg-rose-950/20 border-rose-200/60 dark:border-rose-800/40 text-slate-800 dark:text-slate-200'
-                                : 'bg-slate-50/80 dark:bg-[#0E1017] border-slate-200/70 dark:border-slate-800/70 text-slate-700 dark:text-slate-300'
+                                ? 'border-l-rose-500 text-slate-800 dark:text-slate-200'
+                                : 'border-l-slate-300 dark:border-l-slate-700 text-slate-700 dark:text-slate-300'
                             }`}>
                               <div className="flex items-start gap-2">
                                 {formatted.isAutomated && (
-                                  <span className="shrink-0 text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-300/60 dark:border-slate-700/60 mt-0.5">
+                                  <span className="shrink-0 text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 mt-0.5">
                                     Test
                                   </span>
                                 )}
